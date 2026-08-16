@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import HeartImage from '../../components/heart/HeartImage';
+import Heart3D from '../../components/heart/Heart3D';
 import ECGMonitor from '../../components/heart/ECGMonitor';
 import { Aurora } from '../../reactbits';
 import { heartSound, ensureAudio, closeAudio } from '../../components/heart/heartSound';
@@ -121,7 +121,7 @@ export default function Corazon() {
         <div className="heart-stage-bg">
           <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.4} amplitude={0.7} speed={0.25} />
         </div>
-        <HeartImage bpm={bpm} depth={depth} irregular={irregular} onLub={onLub} onDub={onDub} />
+        <Heart3D bpm={bpm} depth={depth} irregular={irregular} onLub={onLub} onDub={onDub} />
       </div>
 
       {/* Monitor ECG */}
