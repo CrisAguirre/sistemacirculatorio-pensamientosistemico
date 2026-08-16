@@ -3,7 +3,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 import bodyUrl from '../../assets/models/circulatory_system.glb?url';
-import heartUrl from '../../assets/models/heart.glb?url';
 import lungsUrl from '../../assets/models/lungs.glb?url';
 import brainUrl from '../../assets/models/brain.glb?url';
 import './ModelViewer.css';
@@ -28,19 +27,17 @@ function OrganModel({ obj, box, targetHeight, position, innerRef }) {
   );
 }
 
-function CompositionScene({ bpm, resp, depth }) {
+function CompositionScene({ bpm, resp }) {
   const body = useGLTF(bodyUrl);
-  const heart = useGLTF(heartUrl);
   const lungs = useGLTF(lungsUrl);
   const brain = useGLTF(brainUrl);
 
   const bodyGroup = useRef();
   const { actions, mixer } = useAnimations(body.animations, bodyGroup);
 
-  const heartRef = useRef();
   const lungsRef = useRef();
   const brainRef = useRef();
-  const paramsRef = useRef({ bpm, resp, depth });
+  const paramsRef = useRef({ bpm, resp });
 
   useEffect(() => {
     const names = Object.keys(actions);
@@ -52,23 +49,14 @@ function CompositionScene({ bpm, resp, depth }) {
   }, [bpm, mixer]);
 
   useEffect(() => {
-    paramsRef.current = { bpm, resp, depth };
-  }, [bpm, resp, depth]);
+    paramsRef.current = { bpm, resp };
+  }, [bpm, resp]);
 
   useFrame((state) => {
     const p = paramsRef.current;
     const t = state.clock.elapsedTime;
     const beatMs = 60000 / p.bpm;
     const cyc = (t * 1000) / beatMs % 1;
-    const d = Math.min(Math.max(p.depth || 0.06, 0.04), 0.25);
-
-    let hs = 1;
-    if (cyc >= 0.12 && cyc <= 0.45) {
-      hs = 1 - d * Math.sin(((cyc - 0.12) / 0.33) * Math.PI);
-    } else if (cyc > 0.45 && cyc <= 0.62) {
-      hs = 1 + d * 0.4 * Math.sin(((cyc - 0.45) / 0.17) * Math.PI);
-    }
-    if (heartRef.current) heartRef.current.scale.setScalar(hs);
 
     const cycleSec = 60 / (p.resp || 14);
     const phase = (t % cycleSec) / cycleSec;
@@ -79,7 +67,6 @@ function CompositionScene({ bpm, resp, depth }) {
   });
 
   const bodyBox = useMemo(() => boxInfo(body.scene), [body]);
-  const heartBox = useMemo(() => boxInfo(heart.scene), [heart]);
   const lungsBox = useMemo(() => boxInfo(lungs.scene), [lungs]);
   const brainBox = useMemo(() => boxInfo(brain.scene), [brain]);
 
@@ -88,8 +75,7 @@ function CompositionScene({ bpm, resp, depth }) {
   const bc = bodyBox.center;
 
   // Posiciones anatómicas (cuerpo normalizado a 6 unidades, pies -3 → cabeza +3)
-  const heartPos = [0.05, 0.9, 0.35];
-  const lungsPos = [0, 1.3, 0.25];
+  const lungsPos = [0, 1.8, 0.25];
   const brainPos = [0, 2.4, 0.15];
 
   return (
@@ -102,14 +88,13 @@ function CompositionScene({ bpm, resp, depth }) {
         <primitive object={body.scene} />
       </group>
 
-      <OrganModel obj={heart.scene} box={heartBox} targetHeight={0.9} position={heartPos} innerRef={heartRef} />
       <OrganModel obj={lungs.scene} box={lungsBox} targetHeight={1.7} position={lungsPos} innerRef={lungsRef} />
-      <OrganModel obj={brain.scene} box={brainBox} targetHeight={1.4} position={brainPos} innerRef={brainRef} />
+      <OrganModel obj={brain.scene} box={brainBox} targetHeight={0.91} position={brainPos} innerRef={brainRef} />
     </>
   );
 }
 
-export default function BodyComposition({ bpm, resp, depth, height = 600 }) {
+export default function BodyComposition({ bpm, resp, height = 600 }) {
   return (
     <div className="model3d-canvas" style={{ height }}>
       <Canvas
@@ -122,7 +107,7 @@ export default function BodyComposition({ bpm, resp, depth, height = 600 }) {
         <directionalLight position={[-5, -3, -4]} intensity={0.5} />
         <pointLight position={[0, 2, 4]} intensity={0.5} color="#ffd9d9" />
         <Suspense fallback={null}>
-          <CompositionScene bpm={bpm} resp={resp} depth={depth} />
+          <CompositionScene bpm={bpm} resp={resp} />
         </Suspense>
         <OrbitControls
           enablePan={false}

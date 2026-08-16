@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Html, Line } from '@react-three/drei';
+import { OrbitControls, useGLTF, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import heartUrl from '../../assets/models/heart.glb?url';
 import './heart.css';
@@ -106,16 +106,6 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   });
 
   const h = norm.half;
-  const labels = [
-    { key: 'aorta', text: 'Aorta', pos: [-0.2, h.y * 1.15, 0.3], cls: 'red' },
-    { key: 'pulmonar', text: 'Tronco pulmonar', pos: [0.5, h.y * 1.0, 0.15], cls: 'blue' },
-    { key: 'venacava', text: 'Vena cava', pos: [0.8, h.y * 0.85, 0.35], cls: 'blue' },
-    { key: 'ad', text: 'AD', pos: [h.x * 0.5, h.y * 0.3, 0.25], cls: 'blue' },
-    { key: 'ai', text: 'AI', pos: [-h.x * 0.5, h.y * 0.3, 0.25], cls: 'red' },
-    { key: 'vd', text: 'VD', pos: [h.x * 0.45, -h.y * 0.25, 0.3], cls: 'blue' },
-    { key: 'vi', text: 'VI', pos: [-h.x * 0.45, -h.y * 0.35, 0.3], cls: 'red' },
-  ];
-
   const streams = [
     {
       id: 'aorta',
@@ -160,12 +150,6 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
           <primitive object={scene} />
         </group>
       </group>
-
-      {labels.map((l) => (
-        <Html key={l.key} position={l.pos} center distanceFactor={7} zIndexRange={[10, 0]}>
-          <div className={`heart3d-label ${l.cls}`}>{l.text}</div>
-        </Html>
-      ))}
 
       {streams.map((s) => (
         <FlowStream key={s.id} points={s.points} color={s.color} />

@@ -7,10 +7,6 @@ import './simulations.css';
 
 const BodyComposition = lazy(() => import('../../components/three/BodyComposition'));
 
-function clamp(v, min, max) {
-  return Math.max(min, Math.min(max, v));
-}
-
 export default function SistemaCirculatorioCompleto() {
   const [actividad, setActividad] = useState(0);
   const [bpm, setBpm] = useState(60);
@@ -31,7 +27,6 @@ export default function SistemaCirculatorioCompleto() {
   const svO2 = Math.max(20, Math.round(75 - 0.45 * actividad)); // saturación venosa O2
   const cbf = (0.75 + 0.25 * (actividad / 100)).toFixed(2); // flujo cerebral (L/min)
   const ve = (resp * (0.5 + 2.0 * (actividad / 100))).toFixed(1); // ventilación (L/min)
-  const depth = clamp(0.06 + ((sv - 70) / 40) * 0.14, 0.06, 0.2); // fuerza de contracción
 
   const metrics = [
     { label: 'Gasto cardíaco', value: `${co}`, unit: 'L/min' },
@@ -89,7 +84,7 @@ export default function SistemaCirculatorioCompleto() {
           <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.35} amplitude={0.7} speed={0.25} />
         </div>
         <Suspense fallback={<div className="model3d-loading" style={{ height: 600 }}>Cargando modelos 3D…</div>}>
-          <BodyComposition bpm={bpm} resp={resp} depth={depth} />
+          <BodyComposition bpm={bpm} resp={resp} />
         </Suspense>
       </div>
 
