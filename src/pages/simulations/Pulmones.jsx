@@ -1,48 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
-import lungImg from '../../assets/lung.webp';
+import lungsUrl from '../../assets/models/lungs.glb?url';
 import '../pages.css';
 import './simulations.css';
 
-function LungsImage({ respRate }) {
-  const imgRef = useRef(null);
-  const paramsRef = useRef({ respRate });
-
-  useEffect(() => {
-    paramsRef.current = { respRate };
-  }, [respRate]);
-
-  useEffect(() => {
-    let raf;
-    const start = performance.now();
-
-    function tick(now) {
-      const p = paramsRef.current;
-      const elapsed = (now - start) / 1000;
-      const cycleSec = 60 / p.respRate;
-      const phase = (elapsed % cycleSec) / cycleSec;
-      // Inhalación (0-0.4): expansión. Exhalación (0.4-1): contracción.
-      const scale = phase < 0.4 ? 1 + 0.05 * (phase / 0.4) : 1 + 0.05 * (1 - (phase - 0.4) / 0.6);
-
-      if (imgRef.current) {
-        imgRef.current.style.transform = `scale(${scale})`;
-      }
-      raf = requestAnimationFrame(tick);
-    }
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  return (
-    <div className="organ-image-wrap">
-      <div className="organ-glow organ-glow-pink" />
-      <img ref={imgRef} src={lungImg} className="organ-image" alt="Pulmones humanos" />
-    </div>
-  );
-}
+const ModelViewer = lazy(() => import('../../components/three/ModelViewer'));
 
 export default function Pulmones() {
   const [respRate, setRespRate] = useState(14);
@@ -55,13 +19,15 @@ export default function Pulmones() {
       title="Los Pulmones"
       description="Descubre el intercambio gaseoso y la oxigenación de la sangre."
       icon="🫁"
-      info="Los pulmones realizan el intercambio gaseoso en los alvéolos: incorporan oxígeno (O₂) a la sangre y eliminan dióxido de carbono (CO₂) con cada respiración."
+      info="Los pulmones realizan el intercambio gaseoso en los alvéolos: incorporan oxígeno (O₂) a la sangre y eliminan dióxido de carbono (CO₂) con cada respiración. Gira el modelo y ajusta la frecuencia respiratoria para ver el ritmo de la respiración."
     >
       <div className="sim-canvas">
         <div className="sim-canvas-bg">
           <Aurora colorStops={['#be185d', '#1d4ed8', '#0e7490']} blend={0.35} amplitude={0.6} speed={0.25} />
         </div>
-        <LungsImage respRate={respRate} />
+        <Suspense fallback={<div className="model3d-loading">Cargando modelo 3D…</div>}>
+          <ModelViewer src={lungsUrl} mode="breathe" rate={respRate} />
+        </Suspense>
       </div>
 
       <div className="sim-sliders">

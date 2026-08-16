@@ -2,7 +2,7 @@ import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html, Line } from '@react-three/drei';
 import * as THREE from 'three';
-import heartUrl from '../../assets/realistic_human_heart.glb?url';
+import heartUrl from '../../assets/models/heart.glb?url';
 import './heart.css';
 
 const VENTRICULAR_START = 0.12;

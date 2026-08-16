@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
+import circulatoryUrl from '../../assets/models/circulatory_system.glb?url';
 import '../pages.css';
 import './simulations.css';
+
+const ModelViewer = lazy(() => import('../../components/three/ModelViewer'));
 
 export default function SistemaCirculatorioCompleto() {
   const [bpm, setBpm] = useState(75);
@@ -19,29 +22,16 @@ export default function SistemaCirculatorioCompleto() {
       title="Sistema Circulatorio Completo"
       description="Integra corazón, sangre, pulmones y cerebro en una visión de sistema completo."
       icon="🔄"
-      info="Explora el modelo 3D del sistema circulatorio humano. Gira, acerca y observa cómo el corazón, los vasos y los órganos se conectan en un solo sistema."
+      info="Explora el modelo 3D del sistema circulatorio humano. Gira y acerca para observar cómo el corazón, los vasos y los órganos se conectan en un solo sistema."
     >
-      <div className="sim-canvas sketchfab-canvas">
+      <div className="sim-canvas">
         <div className="sim-canvas-bg">
           <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.35} amplitude={0.7} speed={0.25} />
         </div>
-        <iframe
-          className="sketchfab-iframe"
-          title="Sistema circulatorio humano (3D)"
-          frameBorder="0"
-          allowFullScreen
-          allow="autoplay; fullscreen; xr-spatial-tracking; xr"
-          src="https://sketchfab.com/models/c1ba7fe29e7f44b28186e56a07502463/embed?autostart=1"
-        />
+        <Suspense fallback={<div className="model3d-loading">Cargando modelo 3D…</div>}>
+          <ModelViewer src={circulatoryUrl} mode="none" autoRotate height={560} />
+        </Suspense>
       </div>
-
-      <p className="sketchfab-credit">
-        Modelo 3D:{' '}
-        <a href="https://sketchfab.com/3d-models/circulatory-system-c1ba7fe29e7f44b28186e56a07502463" target="_blank" rel="nofollow noopener noreferrer">
-          Circulatory-system
-        </a>{' '}
-        por <a href="https://sketchfab.com/Dien" target="_blank" rel="nofollow noopener noreferrer">Dien</a> en Sketchfab
-      </p>
 
       <div className="sim-sliders">
         <div className="sim-slider-field">
