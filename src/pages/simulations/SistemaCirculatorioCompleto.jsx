@@ -2,21 +2,13 @@ import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
-import circulatoryUrl from '../../assets/models/circulatory_system.glb?url';
-import lungsUrl from '../../assets/models/lungs.glb?url';
-import brainUrl from '../../assets/models/brain.glb?url';
 import '../pages.css';
 import './simulations.css';
 
-const ModelViewer = lazy(() => import('../../components/three/ModelViewer'));
-const Heart3D = lazy(() => import('../../components/heart/Heart3D'));
+const BodyComposition = lazy(() => import('../../components/three/BodyComposition'));
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
-}
-
-function Loading() {
-  return <div className="model3d-loading" style={{ height: 240 }}>Cargando…</div>;
 }
 
 export default function SistemaCirculatorioCompleto() {
@@ -91,40 +83,14 @@ export default function SistemaCirculatorioCompleto() {
         </div>
       </div>
 
-      {/* Composición de los 4 subsistemas */}
-      <div className="sys-composition">
-        <div className="sys-panel sys-main">
-          <span className="sys-panel-label">🩸 Sangre · Sistema circulatorio</span>
-          <div className="sim-canvas" style={{ marginBottom: 0 }}>
-            <div className="sim-canvas-bg">
-              <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.35} amplitude={0.7} speed={0.25} />
-            </div>
-            <Suspense fallback={<Loading />}>
-              <ModelViewer src={circulatoryUrl} mode="animation" rate={bpm} height={430} />
-            </Suspense>
-          </div>
+      {/* Composición de los 4 subsistemas dentro del cuerpo */}
+      <div className="sim-canvas">
+        <div className="sim-canvas-bg">
+          <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.35} amplitude={0.7} speed={0.25} />
         </div>
-
-        <div className="sys-details">
-          <div className="sys-detail">
-            <span className="sys-panel-label">🫀 Corazón</span>
-            <Suspense fallback={<Loading />}>
-              <Heart3D bpm={bpm} depth={depth} height={240} />
-            </Suspense>
-          </div>
-          <div className="sys-detail">
-            <span className="sys-panel-label">🫁 Pulmones</span>
-            <Suspense fallback={<Loading />}>
-              <ModelViewer src={lungsUrl} mode="breathe" rate={resp} height={240} autoRotate={false} />
-            </Suspense>
-          </div>
-          <div className="sys-detail">
-            <span className="sys-panel-label">🧠 Cerebro</span>
-            <Suspense fallback={<Loading />}>
-              <ModelViewer src={brainUrl} mode="pulse" rate={bpm} height={240} autoRotate={false} />
-            </Suspense>
-          </div>
-        </div>
+        <Suspense fallback={<div className="model3d-loading" style={{ height: 600 }}>Cargando modelos 3D…</div>}>
+          <BodyComposition bpm={bpm} resp={resp} depth={depth} />
+        </Suspense>
       </div>
 
       {/* Métricas acopladas */}

@@ -104,6 +104,7 @@ export default function ModelViewer({
         </Suspense>
         <OrbitControls
           enablePan={false}
+          enableZoom={false}
           autoRotate={autoRotate}
           autoRotateSpeed={0.6}
           minDistance={3}

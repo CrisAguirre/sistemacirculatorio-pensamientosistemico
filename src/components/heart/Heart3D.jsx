@@ -191,6 +191,7 @@ export default function Heart3D({ bpm, depth, irregular, onLub, onDub, height = 
         </Suspense>
         <OrbitControls
           enablePan={false}
+          enableZoom={false}
           autoRotate
           autoRotateSpeed={0.6}
           minDistance={4}
