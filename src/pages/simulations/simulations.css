@@ -46,6 +46,38 @@
   margin-bottom: var(--space-xl);
 }
 
+.sketchfab-canvas {
+  min-height: 480px;
+}
+
+.sketchfab-iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 600px;
+  border: 0;
+}
+
+.sketchfab-credit {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: -1rem;
+  margin-bottom: var(--space-xl);
+}
+
+.sketchfab-credit a {
+  color: var(--color-primary-400);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .sketchfab-iframe {
+    height: 420px;
+  }
+}
+
 .sim-canvas-bg {
   position: absolute;
   inset: 0;
