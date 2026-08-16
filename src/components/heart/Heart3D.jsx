@@ -174,9 +174,9 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   );
 }
 
-export default function Heart3D({ bpm, depth, irregular, onLub, onDub }) {
+export default function Heart3D({ bpm, depth, irregular, onLub, onDub, height = 520 }) {
   return (
-    <div className="heart3d-canvas">
+    <div className="heart3d-canvas" style={{ height }}>
       <Canvas
         camera={{ position: [0, 0, 7], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
