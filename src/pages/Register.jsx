@@ -5,7 +5,15 @@ import { useAuth } from '../context/AuthContext';
 import './pages.css';
 
 export default function Register() {
-  const [form, setForm] = useState({ full_name: '', username: '', email: '', password: '' });
+  const [form, setForm] = useState({
+    documento: '',
+    full_name: '',
+    edad: '',
+    grado: '',
+    telefono: '',
+    password: '',
+    accessCode: '',
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +29,15 @@ export default function Register() {
     setError('');
     setLoading(true);
     try {
-      const data = await authApi.register(form);
+      const data = await authApi.register({
+        documento: form.documento,
+        full_name: form.full_name,
+        edad: form.edad ? Number(form.edad) : undefined,
+        grado: form.grado || undefined,
+        telefono: form.telefono || undefined,
+        password: form.password,
+        accessCode: form.accessCode,
+      });
       login(data.user, data.token);
       navigate('/landing', { replace: true });
     } catch (err) {
@@ -44,16 +60,28 @@ export default function Register() {
             <input id="full_name" name="full_name" type="text" value={form.full_name} onChange={handleChange} required />
           </div>
           <div className="auth-field">
-            <label htmlFor="username">Usuario</label>
-            <input id="username" name="username" type="text" value={form.username} onChange={handleChange} required />
+            <label htmlFor="documento">Documento (tarjeta de identidad)</label>
+            <input id="documento" name="documento" type="text" value={form.documento} onChange={handleChange} required />
           </div>
           <div className="auth-field">
-            <label htmlFor="email">Correo</label>
-            <input id="email" name="email" type="email" value={form.email} onChange={handleChange} required />
+            <label htmlFor="edad">Edad</label>
+            <input id="edad" name="edad" type="number" min="8" max="20" value={form.edad} onChange={handleChange} />
+          </div>
+          <div className="auth-field">
+            <label htmlFor="grado">Grado</label>
+            <input id="grado" name="grado" type="text" value={form.grado} onChange={handleChange} placeholder="8°" />
+          </div>
+          <div className="auth-field">
+            <label htmlFor="telefono">Teléfono (opcional)</label>
+            <input id="telefono" name="telefono" type="text" value={form.telefono} onChange={handleChange} />
           </div>
           <div className="auth-field">
             <label htmlFor="password">Contraseña</label>
             <input id="password" name="password" type="password" value={form.password} onChange={handleChange} required />
+          </div>
+          <div className="auth-field">
+            <label htmlFor="accessCode">Código de acceso</label>
+            <input id="accessCode" name="accessCode" type="text" value={form.accessCode} onChange={handleChange} placeholder="Lo entrega tu docente" required />
           </div>
 
           {error && <div className="auth-error">{error}</div>}

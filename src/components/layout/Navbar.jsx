@@ -20,7 +20,9 @@ export default function Navbar() {
 
         <ul className="app-nav-links">
           <li><NavLink to="/landing" end>Inicio</NavLink></li>
+          <li><NavLink to="/sesiones">Sesiones</NavLink></li>
           <li><NavLink to="/laboratorio">Laboratorio</NavLink></li>
+          <li><NavLink to="/evidencias">Evidencias</NavLink></li>
           <li><NavLink to="/resultados">Resultados</NavLink></li>
           <li><NavLink to="/recursos">Recursos</NavLink></li>
           {isAdmin && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
@@ -28,7 +30,7 @@ export default function Navbar() {
         </ul>
 
         <div className="app-nav-user">
-          <span className="app-nav-name">{user?.full_name || user?.username}</span>
+          <span className="app-nav-name">{user?.full_name}</span>
           <button className="app-nav-logout" onClick={handleLogout}>Salir</button>
         </div>
       </div>

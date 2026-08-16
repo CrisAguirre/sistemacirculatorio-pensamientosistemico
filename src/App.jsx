@@ -10,6 +10,9 @@ import Results from './pages/Results';
 import LaboratorioHub from './pages/LaboratorioHub';
 import Recursos from './pages/Recursos';
 import Exam from './pages/Exam';
+import Sesiones from './pages/Sesiones';
+import Foro from './pages/Foro';
+import Evidencias from './pages/Evidencias';
 import Corazon from './pages/simulations/Corazon';
 import Sangre from './pages/simulations/Sangre';
 import Pulmones from './pages/simulations/Pulmones';
@@ -25,6 +28,9 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
           <Route path="/landing" element={<Landing />} />
+          <Route path="/sesiones" element={<Sesiones />} />
+          <Route path="/foro/:session" element={<Foro />} />
+          <Route path="/evidencias" element={<Evidencias />} />
           <Route path="/resultados" element={<Results />} />
           <Route path="/laboratorio" element={<LaboratorioHub />} />
           <Route path="/laboratorio/corazon" element={<Corazon />} />
@@ -33,6 +39,8 @@ export default function App() {
           <Route path="/laboratorio/cerebro" element={<Cerebro />} />
           <Route path="/laboratorio/sistema-circulatorio" element={<SistemaCirculatorioCompleto />} />
           <Route path="/laboratorio/:id/evaluacion" element={<Exam />} />
+          <Route path="/pretest" element={<Exam examId="pretest" />} />
+          <Route path="/postest" element={<Exam examId="postest" />} />
           <Route path="/recursos" element={<Recursos />} />
 
           <Route element={<ProtectedRoute adminOnly />}>

@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import './pages.css';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const [documento, setDocumento] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ export default function Login() {
     setError('');
     setLoading(true);
     try {
-      const data = await authApi.login({ username, password });
+      const data = await authApi.login({ documento, password });
       login(data.user, data.token);
       const to = location.state?.from?.pathname || '/landing';
       navigate(to, { replace: true });
@@ -39,13 +39,13 @@ export default function Login() {
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
-            <label htmlFor="username">Usuario o correo</label>
+            <label htmlFor="documento">Documento (tarjeta de identidad)</label>
             <input
-              id="username"
+              id="documento"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="admin"
+              value={documento}
+              onChange={(e) => setDocumento(e.target.value)}
+              placeholder="Tu número de documento"
               autoComplete="username"
               required
             />
