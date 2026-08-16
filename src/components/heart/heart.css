@@ -50,6 +50,42 @@
   stroke-width: 2;
 }
 
+/* ===== Imagen del corazón (realista) ===== */
+.heart-image-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.heart-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 28px rgba(239, 68, 68, 0.45));
+  will-change: transform;
+  transform-origin: 50% 50%;
+}
+
+.heart-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.55), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity 120ms linear;
+}
+
 /* ===== Barra de herramientas (estados + sonido) ===== */
 .heart-toolbar {
   display: flex;

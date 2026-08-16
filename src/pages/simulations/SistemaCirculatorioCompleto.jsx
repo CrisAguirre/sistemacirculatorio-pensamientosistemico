@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
+import heartImg from '../../assets/heart.webp';
 import '../pages.css';
 import './simulations.css';
 
@@ -60,9 +61,9 @@ function CircuitDiagram({ bpm, demanda }) {
   return (
     <svg viewBox="0 0 760 560" className="sim-svg" role="img" aria-label="Circuito completo del sistema circulatorio">
       <defs>
-        <radialGradient id="scHeartGrad" cx="45%" cy="35%" r="70%">
-          <stop offset="0%" stopColor="#fda4af" />
-          <stop offset="100%" stopColor="#9f1239" />
+        <radialGradient id="scLungGrad" cx="50%" cy="40%" r="75%">
+          <stop offset="0%" stopColor="#f9a8d4" />
+          <stop offset="100%" stopColor="#db2777" />
         </radialGradient>
       </defs>
 
@@ -74,8 +75,8 @@ function CircuitDiagram({ bpm, demanda }) {
 
       {/* Pulmones (arriba) */}
       <g>
-        <ellipse cx="300" cy="110" rx="80" ry="38" fill="#db2777" opacity="0.8" />
-        <ellipse cx="460" cy="110" rx="80" ry="38" fill="#db2777" opacity="0.8" />
+        <ellipse cx="300" cy="110" rx="80" ry="38" fill="url(#scLungGrad)" opacity="0.8" />
+        <ellipse cx="460" cy="110" rx="80" ry="38" fill="url(#scLungGrad)" opacity="0.8" />
         <text x="380" y="105" className="organ-label">PULMONES (intercambio gaseoso)</text>
       </g>
 
@@ -85,10 +86,9 @@ function CircuitDiagram({ bpm, demanda }) {
         <text x="380" y="486" className="organ-label">CUERPO (tejidos)</text>
       </g>
 
-      {/* Corazón (centro) */}
+      {/* Corazón (centro, latiendo) */}
       <g ref={heartRef}>
-        <path d="M 380 250 C 350 250 330 265 322 288 C 316 308 320 330 380 348 C 440 330 444 308 438 288 C 430 265 410 250 380 250 Z" fill="url(#scHeartGrad)" stroke="#7f1d1d" strokeWidth="3" />
-        <text x="380" y="300" className="chamber-label" fontSize="11">CORAZÓN</text>
+        <image href={heartImg} x="290" y="195" width="180" height="180" preserveAspectRatio="xMidYMid meet" />
       </g>
 
       {/* Partículas */}

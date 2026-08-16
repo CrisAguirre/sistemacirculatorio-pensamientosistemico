@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import HeartDiagram from '../../components/heart/HeartDiagram';
+import HeartImage from '../../components/heart/HeartImage';
 import ECGMonitor from '../../components/heart/ECGMonitor';
 import { Aurora } from '../../reactbits';
 import { heartSound, ensureAudio, closeAudio } from '../../components/heart/heartSound';
@@ -54,7 +54,6 @@ export default function Corazon() {
   const diastolic = state ? state.diastolic : Math.round(sys * 0.62);
   const strength = state ? state.strength : clamp((sys - 70) / 100, 0.2, 1);
   const depth = state ? state.depth : 0.06 + strength * 0.14;
-  const flow = state ? state.flow : clamp(0.4 + ((fc - 40) / 160) * 1.6, 0.4, 2);
   const irregular = state ? state.irregular : false;
 
   const cardiacOutput = ((bpm * (50 + strength * 60)) / 1000).toFixed(1);
@@ -122,7 +121,7 @@ export default function Corazon() {
         <div className="heart-stage-bg">
           <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.4} amplitude={0.7} speed={0.25} />
         </div>
-        <HeartDiagram bpm={bpm} depth={depth} flow={flow} irregular={irregular} onLub={onLub} onDub={onDub} />
+        <HeartImage bpm={bpm} depth={depth} irregular={irregular} onLub={onLub} onDub={onDub} />
       </div>
 
       {/* Monitor ECG */}
