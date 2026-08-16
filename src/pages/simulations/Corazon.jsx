@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import Heart3D from '../../components/heart/Heart3D';
 import ECGMonitor from '../../components/heart/ECGMonitor';
 import { Aurora } from '../../reactbits';
 import { heartSound, ensureAudio, closeAudio } from '../../components/heart/heartSound';
 import { HEART_STATES, getState } from './heartStates';
+import '../../components/heart/heart.css';
 import '../pages.css';
+
+const Heart3D = lazy(() => import('../../components/heart/Heart3D'));
 
 function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
@@ -121,7 +123,9 @@ export default function Corazon() {
         <div className="heart-stage-bg">
           <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.4} amplitude={0.7} speed={0.25} />
         </div>
-        <Heart3D bpm={bpm} depth={depth} irregular={irregular} onLub={onLub} onDub={onDub} />
+        <Suspense fallback={<div className="heart3d-loading">Cargando corazón 3D…</div>}>
+          <Heart3D bpm={bpm} depth={depth} irregular={irregular} onLub={onLub} onDub={onDub} />
+        </Suspense>
       </div>
 
       {/* Monitor ECG */}
