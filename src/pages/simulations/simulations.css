@@ -1,0 +1,108 @@
+/* ===== Estilos genéricos para simulaciones (Sangre, Pulmones, Cerebro, Sistema) ===== */
+
+.sim-canvas {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--bg-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.sim-canvas-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sim-svg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.sim-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--transition-base);
+}
+
+.sim-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary-400);
+}
+
+.sim-btn.active {
+  border-color: var(--color-primary-400);
+  background: rgba(59, 130, 246, 0.12);
+  box-shadow: var(--shadow-glow);
+}
+
+.sim-btn-icon {
+  font-size: 1.5rem;
+}
+
+.sim-btn-label {
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.sim-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.sim-sliders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.sim-slider-field label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.sim-slider-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary-500);
+}
+
+.sim-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .sim-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

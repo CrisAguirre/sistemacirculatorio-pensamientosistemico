@@ -16,16 +16,16 @@ const FadeContent = ({
   const ref = useRef(null);
   const hasAnimated = useRef(false);
 
-  const directionMap = {
-    up: { y: distance },
-    down: { y: -distance },
-    left: { x: distance },
-    right: { x: -distance },
-  };
-
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
+
+    const directionMap = {
+      up: { y: distance },
+      down: { y: -distance },
+      left: { x: distance },
+      right: { x: -distance },
+    };
 
     gsap.set(element, {
       opacity: initialOpacity,

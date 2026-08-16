@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import HeartDiagram from '../../components/heart/HeartDiagram';
 import ECGMonitor from '../../components/heart/ECGMonitor';
@@ -194,6 +195,12 @@ export default function Corazon() {
           El corazón es un subsistema en retroalimentación constante: percibe la demanda del cuerpo y se adapta.
           Comprender estas conexiones (y no el órgano aislado) es la esencia del pensamiento sistémico.
         </p>
+      </div>
+
+      <div className="placeholder" style={{ marginTop: '1.5rem' }}>
+        <Link to="/laboratorio/corazon/evaluacion" className="btn btn-outline">
+          Ir a la evaluación
+        </Link>
       </div>
     </SimulationWrapper>
   );
