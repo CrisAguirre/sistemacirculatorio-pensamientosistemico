@@ -20,6 +20,45 @@ function beatScale(cycle, depth) {
   return 1;
 }
 
+// Y original (coordenadas del modelo) donde empiezan los grandes vasos esculpidos
+// (aorta, tronco pulmonar, venas cavas). Se eliminan los triángulos por encima.
+const VESSEL_NECK_Y = 1.40;
+
+function removeGreatVessels(geometry) {
+  const pos = geometry.attributes.position;
+  const index = geometry.index;
+  const normal = geometry.attributes.normal;
+  const uv = geometry.attributes.uv;
+
+  const newPos = [];
+  const newNormal = [];
+  const newUv = [];
+  const newIndex = [];
+
+  const triCount = index ? index.count / 3 : pos.count / 3;
+  for (let t = 0; t < triCount; t++) {
+    const a = index ? index.getX(t * 3) : t * 3;
+    const b = index ? index.getX(t * 3 + 1) : t * 3 + 1;
+    const c = index ? index.getX(t * 3 + 2) : t * 3 + 2;
+    const cy = (pos.getY(a) + pos.getY(b) + pos.getY(c)) / 3;
+    if (cy > VESSEL_NECK_Y) continue;
+    const base = newPos.length / 3;
+    for (const vi of [a, b, c]) {
+      newPos.push(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
+      if (normal) newNormal.push(normal.getX(vi), normal.getY(vi), normal.getZ(vi));
+      if (uv) newUv.push(uv.getX(vi), uv.getY(vi));
+    }
+    newIndex.push(base, base + 1, base + 2);
+  }
+
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(newPos, 3));
+  if (normal) g.setAttribute('normal', new THREE.Float32BufferAttribute(newNormal, 3));
+  if (uv) g.setAttribute('uv', new THREE.Float32BufferAttribute(newUv, 2));
+  g.setIndex(newIndex);
+  return g;
+}
+
 // Vaso sanguíneo: partículas que fluyen (sin tubo) + flecha de dirección.
 // El avance se mide en "latidos" (no en segundos): las partículas avanzan una
 // fracción de vaso por cada latido, con un pico durante la sístole (flujo pulsátil).
@@ -74,6 +113,18 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, p
 
 function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   const { scene } = useGLTF(heartUrl);
+
+  // Elimina los grandes vasos esculpidos del modelo (deja solo el corazón).
+  const cleaned = useMemo(() => {
+    scene.traverse((o) => {
+      if (o.isMesh && o.geometry && o.geometry.attributes && o.geometry.attributes.position && !o.userData._vesselsRemoved) {
+        o.geometry = removeGreatVessels(o.geometry);
+        o.userData._vesselsRemoved = true;
+      }
+    });
+    return scene;
+  }, [scene]);
+
   const innerRef = useRef();
   const paramsRef = useRef({ bpm, depth, irregular });
   const callbacksRef = useRef({ onLub, onDub });
@@ -89,13 +140,13 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   }, [onLub, onDub]);
 
   const norm = useMemo(() => {
-    const bb = new THREE.Box3().setFromObject(scene);
+    const bb = new THREE.Box3().setFromObject(cleaned);
     const center = bb.getCenter(new THREE.Vector3());
     const size = bb.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
     const s = 4 / maxDim;
     return { center, s, half: size.clone().multiplyScalar(s / 2) };
-  }, [scene]);
+  }, [cleaned]);
 
   useFrame((state) => {
     const p = paramsRef.current;
@@ -241,7 +292,7 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
         scale={norm.s}
       >
         <group ref={innerRef}>
-          <primitive object={scene} />
+          <primitive object={cleaned} />
         </group>
       </group>
 
