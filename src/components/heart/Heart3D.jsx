@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { OrbitControls, useGLTF, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import heartUrl from '../../assets/models/heart.glb?url';
 import './heart.css';
@@ -52,6 +52,7 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, p
 
   return (
     <group>
+      <Line points={points} color={color} lineWidth={1.2} transparent opacity={0.55} />
       {Array.from({ length: count }).map((_, i) => (
         <mesh
           key={i}
