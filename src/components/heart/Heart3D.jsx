@@ -1,12 +1,15 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Line } from '@react-three/drei';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import heartUrl from '../../assets/models/heart.glb?url';
 import './heart.css';
 
 const VENTRICULAR_START = 0.12;
 const VENTRICULAR_END = 0.45;
+
+// Y original (coordenadas del modelo) donde empiezan los grandes vasos esculpidos.
+const VESSEL_NECK_Y = 1.35;
 
 function beatScale(cycle, depth) {
   if (cycle >= VENTRICULAR_START && cycle <= VENTRICULAR_END) {
@@ -20,49 +23,52 @@ function beatScale(cycle, depth) {
   return 1;
 }
 
-// Y original (coordenadas del modelo) donde empiezan los grandes vasos esculpidos
-// (aorta, tronco pulmonar, venas cavas). Se eliminan los triángulos por encima.
-const VESSEL_NECK_Y = 1.40;
-
+// Elimina los grandes vasos esculpidos del modelo, conservando todos los atributos.
 function removeGreatVessels(geometry) {
   const pos = geometry.attributes.position;
   const index = geometry.index;
-  const normal = geometry.attributes.normal;
-  const uv = geometry.attributes.uv;
-
-  const newPos = [];
-  const newNormal = [];
-  const newUv = [];
-  const newIndex = [];
+  const attrNames = Object.keys(geometry.attributes);
+  const itemSizes = {};
+  attrNames.forEach((n) => { itemSizes[n] = geometry.attributes[n].itemSize; });
 
   const triCount = index ? index.count / 3 : pos.count / 3;
+  const keptVerts = [];
   for (let t = 0; t < triCount; t++) {
     const a = index ? index.getX(t * 3) : t * 3;
     const b = index ? index.getX(t * 3 + 1) : t * 3 + 1;
     const c = index ? index.getX(t * 3 + 2) : t * 3 + 2;
     const cy = (pos.getY(a) + pos.getY(b) + pos.getY(c)) / 3;
     if (cy > VESSEL_NECK_Y) continue;
-    const base = newPos.length / 3;
-    for (const vi of [a, b, c]) {
-      newPos.push(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
-      if (normal) newNormal.push(normal.getX(vi), normal.getY(vi), normal.getZ(vi));
-      if (uv) newUv.push(uv.getX(vi), uv.getY(vi));
+    keptVerts.push(a, b, c);
+  }
+
+  const newAttrs = {};
+  attrNames.forEach((n) => { newAttrs[n] = []; });
+  for (const vi of keptVerts) {
+    for (const name of attrNames) {
+      const attr = geometry.attributes[name];
+      const arr = attr.array;
+      const base = vi * itemSizes[name];
+      for (let k = 0; k < itemSizes[name]; k++) {
+        newAttrs[name].push(arr[base + k]);
+      }
     }
-    newIndex.push(base, base + 1, base + 2);
   }
 
   const g = new THREE.BufferGeometry();
-  g.setAttribute('position', new THREE.Float32BufferAttribute(newPos, 3));
-  if (normal) g.setAttribute('normal', new THREE.Float32BufferAttribute(newNormal, 3));
-  if (uv) g.setAttribute('uv', new THREE.Float32BufferAttribute(newUv, 2));
+  for (const name of attrNames) {
+    const Ctor = geometry.attributes[name].array.constructor;
+    g.setAttribute(name, new THREE.BufferAttribute(new Ctor(newAttrs[name]), itemSizes[name]));
+  }
+
+  const newIndex = new Uint32Array(keptVerts.length);
+  for (let i = 0; i < keptVerts.length; i++) newIndex[i] = i;
   g.setIndex(newIndex);
   return g;
 }
 
-// Vaso sanguíneo: partículas que fluyen (sin tubo) + flecha de dirección.
-// El avance se mide en "latidos" (no en segundos): las partículas avanzan una
-// fracción de vaso por cada latido, con un pico durante la sístole (flujo pulsátil).
-function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, phaseRef }) {
+// Flujo sanguíneo: flecha de dirección + partículas pequeñas y planas (no tubos).
+function Flow({ points, color, count = 6, speed = 0.25, radius = 0.05, bpm, phaseRef }) {
   const meshes = useRef([]);
   const accum = useRef(0);
   const curve = useMemo(
@@ -91,7 +97,6 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, p
 
   return (
     <group>
-      <Line points={points} color={color} lineWidth={1.2} transparent opacity={0.55} />
       {Array.from({ length: count }).map((_, i) => (
         <mesh
           key={i}
@@ -99,13 +104,13 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, p
             meshes.current[i] = el;
           }}
         >
-          <sphereGeometry args={[radius * 1.4, 10, 10]} />
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.7} />
+          <sphereGeometry args={[radius, 8, 8]} />
+          <meshBasicMaterial color={color} />
         </mesh>
       ))}
       <mesh position={arrow.pos} quaternion={arrow.quat}>
-        <coneGeometry args={[radius * 2.8, radius * 5.5, 12]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.4} />
+        <coneGeometry args={[radius * 2.5, radius * 5, 8]} />
+        <meshBasicMaterial color={color} />
       </mesh>
     </group>
   );
@@ -114,7 +119,6 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, p
 function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   const { scene } = useGLTF(heartUrl);
 
-  // Elimina los grandes vasos esculpidos del modelo (deja solo el corazón).
   const cleaned = useMemo(() => {
     scene.traverse((o) => {
       if (o.isMesh && o.geometry && o.geometry.attributes && o.geometry.attributes.position && !o.userData._vesselsRemoved) {
@@ -164,7 +168,6 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       innerRef.current.scale.setScalar(beatScale(cycle, d));
     }
 
-    // Intensidad de la sístole para el flujo pulsátil (0 en diástole, pico en sístole).
     phaseRef.current =
       cycle >= VENTRICULAR_START && cycle <= VENTRICULAR_END
         ? Math.sin(((cycle - VENTRICULAR_START) / (VENTRICULAR_END - VENTRICULAR_START)) * Math.PI)
@@ -184,103 +187,65 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   const RED = '#ef4444';
   const BLUE = '#3b82f6';
 
-  // Vasos anclados a los centroides reales de los muñones del modelo (extraídos de la geometría):
-  // aorta (-0.49hx, 0.85hy, +0.09hz), tronco pulmonar (+0.15hx, 0.86hy, -0.15hz),
-  // vena cava superior (+0.50hx, 0.88hy, -0.55hz, posterior). `speed` = fracción de vaso por latido.
-  const vessels = [
-    // Aorta (oxigenada): sale del VI, asciende, forma el cayado y desciende.
+  const flows = [
     {
-      key: 'aorta',
-      color: RED,
-      radius: 0.16,
-      count: 16,
-      speed: 0.25,
+      key: 'aorta', color: RED, radius: 0.15, count: 14, speed: 0.25,
       points: [
-        [-0.49 * h.x, 0.85 * h.y, 0.09 * h.z],
-        [-0.44 * h.x, 1.03 * h.y, 0.02 * h.z],
-        [-0.55 * h.x, 1.09 * h.y, -0.12 * h.z],
+        [-0.42 * h.x, 0.95 * h.y, 0.08 * h.z],
+        [-0.40 * h.x, 1.05 * h.y, 0.02 * h.z],
+        [-0.55 * h.x, 1.10 * h.y, -0.12 * h.z],
         [-0.85 * h.x, 0.95 * h.y, -0.28 * h.z],
         [-1.05 * h.x, 0.55 * h.y, -0.40 * h.z],
         [-1.10 * h.x, -0.10 * h.y, -0.42 * h.z],
       ],
     },
-    // Tronco pulmonar → arteria pulmonar izquierda (desoxigenada)
     {
-      key: 'pulmonarIzq',
-      color: BLUE,
-      radius: 0.12,
-      count: 8,
-      speed: 0.28,
+      key: 'pulmIzq', color: BLUE, radius: 0.12, count: 8, speed: 0.28,
       points: [
-        [0.15 * h.x, 0.86 * h.y, -0.15 * h.z],
-        [0.12 * h.x, 1.0 * h.y, -0.20 * h.z],
-        [-0.05 * h.x, 1.08 * h.y, -0.30 * h.z],
-        [-0.28 * h.x, 1.10 * h.y, -0.40 * h.z],
+        [0.06 * h.x, 0.95 * h.y, -0.10 * h.z],
+        [0.05 * h.x, 1.05 * h.y, -0.15 * h.z],
+        [-0.10 * h.x, 1.10 * h.y, -0.28 * h.z],
+        [-0.30 * h.x, 1.12 * h.y, -0.40 * h.z],
       ],
     },
-    // Tronco pulmonar → arteria pulmonar derecha (desoxigenada)
     {
-      key: 'pulmonarDer',
-      color: BLUE,
-      radius: 0.12,
-      count: 8,
-      speed: 0.28,
+      key: 'pulmDer', color: BLUE, radius: 0.12, count: 8, speed: 0.28,
       points: [
-        [0.15 * h.x, 0.86 * h.y, -0.15 * h.z],
-        [0.12 * h.x, 1.0 * h.y, -0.20 * h.z],
-        [0.35 * h.x, 1.05 * h.y, -0.30 * h.z],
-        [0.55 * h.x, 1.08 * h.y, -0.35 * h.z],
+        [0.06 * h.x, 0.95 * h.y, -0.10 * h.z],
+        [0.05 * h.x, 1.05 * h.y, -0.15 * h.z],
+        [0.30 * h.x, 1.08 * h.y, -0.25 * h.z],
+        [0.55 * h.x, 1.10 * h.y, -0.35 * h.z],
       ],
     },
-    // Vena cava superior (desoxigenada): cabeza → AD (posterior)
     {
-      key: 'vcs',
-      color: BLUE,
-      radius: 0.13,
-      count: 9,
-      speed: 0.20,
+      key: 'vcs', color: BLUE, radius: 0.13, count: 9, speed: 0.2,
       points: [
-        [0.50 * h.x, 1.30 * h.y, -0.55 * h.z],
-        [0.49 * h.x, 1.08 * h.y, -0.55 * h.z],
-        [0.48 * h.x, 0.88 * h.y, -0.55 * h.z],
+        [0.32 * h.x, 1.25 * h.y, -0.35 * h.z],
+        [0.31 * h.x, 1.05 * h.y, -0.35 * h.z],
+        [0.30 * h.x, 0.90 * h.y, -0.33 * h.z],
       ],
     },
-    // Vena cava inferior (desoxigenada): parte inferior → AD (posterior)
     {
-      key: 'vci',
-      color: BLUE,
-      radius: 0.13,
-      count: 9,
-      speed: 0.20,
+      key: 'vci', color: BLUE, radius: 0.13, count: 9, speed: 0.2,
       points: [
-        [0.45 * h.x, -0.80 * h.y, -0.40 * h.z],
-        [0.47 * h.x, -0.20 * h.y, -0.45 * h.z],
-        [0.48 * h.x, 0.30 * h.y, -0.50 * h.z],
-        [0.48 * h.x, 0.60 * h.y, -0.52 * h.z],
+        [0.28 * h.x, -0.80 * h.y, -0.30 * h.z],
+        [0.30 * h.x, -0.20 * h.y, -0.33 * h.z],
+        [0.30 * h.x, 0.30 * h.y, -0.35 * h.z],
+        [0.30 * h.x, 0.70 * h.y, -0.33 * h.z],
       ],
     },
-    // Vena pulmonar izquierda (oxigenada): pulmón → AI
     {
-      key: 'vpi',
-      color: RED,
-      radius: 0.09,
-      count: 6,
-      speed: 0.24,
+      key: 'vpi', color: RED, radius: 0.09, count: 6, speed: 0.24,
       points: [
-        [-0.35 * h.x, 1.0 * h.y, -0.40 * h.z],
-        [-0.24 * h.x, 0.85 * h.y, -0.30 * h.z],
+        [-0.30 * h.x, 0.95 * h.y, -0.30 * h.z],
+        [-0.20 * h.x, 0.80 * h.y, -0.25 * h.z],
       ],
     },
-    // Vena pulmonar derecha (oxigenada): pulmón → AI
     {
-      key: 'vpd',
-      color: RED,
-      radius: 0.09,
-      count: 6,
-      speed: 0.24,
+      key: 'vpd', color: RED, radius: 0.09, count: 6, speed: 0.24,
       points: [
-        [0.35 * h.x, 1.0 * h.y, -0.40 * h.z],
-        [0.24 * h.x, 0.85 * h.y, -0.30 * h.z],
+        [0.30 * h.x, 0.95 * h.y, -0.30 * h.z],
+        [0.20 * h.x, 0.80 * h.y, -0.25 * h.z],
       ],
     },
   ];
@@ -296,14 +261,14 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
         </group>
       </group>
 
-      {vessels.map((v) => (
-        <Vessel
-          key={v.key}
-          points={v.points}
-          color={v.color}
-          count={v.count}
-          speed={v.speed}
-          radius={v.radius}
+      {flows.map((f) => (
+        <Flow
+          key={f.key}
+          points={f.points}
+          color={f.color}
+          count={f.count}
+          speed={f.speed}
+          radius={f.radius}
           bpm={bpm}
           phaseRef={phaseRef}
         />
