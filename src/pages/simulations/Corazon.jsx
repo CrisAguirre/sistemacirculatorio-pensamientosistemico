@@ -83,7 +83,7 @@ export default function Corazon() {
       title="El Corazón"
       description="Simula el corazón como una bomba dentro de un sistema: cambia su estado y observa cómo responde."
       icon="🫀"
-      info="El corazón no trabaja solo: es un subsistema que responde a la demanda de oxígeno y a las señales del sistema nervioso. Observa el ECG, escucha los latidos y cambia el estado para ver la respuesta del sistema."
+      info="El corazón bombea la sangre a través de sus grandes vasos: la aorta (roja) lleva sangre oxigenada del ventrículo izquierdo al cuerpo; el tronco pulmonar (azul) lleva sangre desoxigenada del ventrículo derecho a los pulmones; las venas cavas retornan la sangre del cuerpo a la aurícula derecha; y las venas pulmonares traen la sangre oxigenada de los pulmones a la aurícula izquierda. Observa el ECG, escucha los latidos y cambia el estado para ver la respuesta del sistema."
     >
       {/* Selector de estados + sonido */}
       <div className="heart-toolbar">
@@ -136,6 +136,12 @@ export default function Corazon() {
         <span><span className="legend-dot legend-red" /> Sangre oxigenada</span>
         <span><span className="legend-dot legend-blue" /> Sangre desoxigenada</span>
         <span><span className="legend-dot legend-ecg" /> Electrocardiograma (ECG)</span>
+      </div>
+      <div className="heart-legend">
+        <span>🔴 Aorta → cuerpo</span>
+        <span>🔵 Tronco pulmonar → pulmones</span>
+        <span>🔵 Venas cavas → aurícula derecha</span>
+        <span>🔴 Venas pulmonares → aurícula izquierda</span>
       </div>
 
       {/* Métricas */}

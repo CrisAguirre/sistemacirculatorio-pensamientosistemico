@@ -75,8 +75,8 @@ function CompositionScene({ bpm, resp }) {
   const bc = bodyBox.center;
 
   // Posiciones anatómicas (cuerpo normalizado a 6 unidades, pies -3 → cabeza +3)
-  const lungsPos = [0, 1.8, 0.25];
-  const brainPos = [0, 2.4, 0.15];
+  const lungsPos = [0, 1.8, -0.2];
+  const brainPos = [0, 2.68, -0.1];
 
   return (
     <>
@@ -88,8 +88,8 @@ function CompositionScene({ bpm, resp }) {
         <primitive object={body.scene} />
       </group>
 
-      <OrganModel obj={lungs.scene} box={lungsBox} targetHeight={1.7} position={lungsPos} innerRef={lungsRef} />
-      <OrganModel obj={brain.scene} box={brainBox} targetHeight={0.91} position={brainPos} innerRef={brainRef} />
+      <OrganModel obj={lungs.scene} box={lungsBox} targetHeight={1.53} position={lungsPos} innerRef={lungsRef} />
+      <OrganModel obj={brain.scene} box={brainBox} targetHeight={0.64} position={brainPos} innerRef={brainRef} />
     </>
   );
 }
