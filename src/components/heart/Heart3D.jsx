@@ -2,14 +2,11 @@ import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import heartUrl from '../../assets/models/heart.glb?url';
+import heartUrl from '../../assets/models/heart_core.glb?url';
 import './heart.css';
 
 const VENTRICULAR_START = 0.12;
 const VENTRICULAR_END = 0.45;
-
-// Y original (coordenadas del modelo) donde empiezan los grandes vasos esculpidos.
-const VESSEL_NECK_Y = 1.35;
 
 function beatScale(cycle, depth) {
   if (cycle >= VENTRICULAR_START && cycle <= VENTRICULAR_END) {
@@ -23,50 +20,6 @@ function beatScale(cycle, depth) {
   return 1;
 }
 
-// Elimina los grandes vasos esculpidos del modelo, conservando todos los atributos.
-function removeGreatVessels(geometry) {
-  const pos = geometry.attributes.position;
-  const index = geometry.index;
-  const attrNames = Object.keys(geometry.attributes);
-  const itemSizes = {};
-  attrNames.forEach((n) => { itemSizes[n] = geometry.attributes[n].itemSize; });
-
-  const triCount = index ? index.count / 3 : pos.count / 3;
-  const keptVerts = [];
-  for (let t = 0; t < triCount; t++) {
-    const a = index ? index.getX(t * 3) : t * 3;
-    const b = index ? index.getX(t * 3 + 1) : t * 3 + 1;
-    const c = index ? index.getX(t * 3 + 2) : t * 3 + 2;
-    const cy = (pos.getY(a) + pos.getY(b) + pos.getY(c)) / 3;
-    if (cy > VESSEL_NECK_Y) continue;
-    keptVerts.push(a, b, c);
-  }
-
-  const newAttrs = {};
-  attrNames.forEach((n) => { newAttrs[n] = []; });
-  for (const vi of keptVerts) {
-    for (const name of attrNames) {
-      const attr = geometry.attributes[name];
-      const arr = attr.array;
-      const base = vi * itemSizes[name];
-      for (let k = 0; k < itemSizes[name]; k++) {
-        newAttrs[name].push(arr[base + k]);
-      }
-    }
-  }
-
-  const g = new THREE.BufferGeometry();
-  for (const name of attrNames) {
-    const Ctor = geometry.attributes[name].array.constructor;
-    g.setAttribute(name, new THREE.BufferAttribute(new Ctor(newAttrs[name]), itemSizes[name]));
-  }
-
-  const newIndex = new Uint32Array(keptVerts.length);
-  for (let i = 0; i < keptVerts.length; i++) newIndex[i] = i;
-  g.setIndex(newIndex);
-  return g;
-}
-
 // Flujo sanguíneo: flecha de dirección + partículas pequeñas y planas (no tubos).
 function Flow({ points, color, count = 6, speed = 0.25, radius = 0.05, bpm, phaseRef }) {
   const meshes = useRef([]);
@@ -78,8 +31,11 @@ function Flow({ points, color, count = 6, speed = 0.25, radius = 0.05, bpm, phas
 
   const arrow = useMemo(() => {
     const pos = curve.getPointAt(0.03);
-    const tan = curve.getTangentAt(0.03).normalize();
-    const quat = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan);
+    const tan = curve.getTangentAt(0.03);
+    const quat = new THREE.Quaternion();
+    if (tan.lengthSq() > 0) {
+      quat.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan.normalize());
+    }
     return { pos, quat };
   }, [curve]);
 
@@ -91,7 +47,8 @@ function Flow({ points, color, count = 6, speed = 0.25, radius = 0.05, bpm, phas
     meshes.current.forEach((m, i) => {
       if (!m) return;
       const u = (t + i / count) % 1;
-      m.position.copy(curve.getPointAt(u));
+      const v = curve.getPointAt(u);
+      if (Number.isFinite(v.x)) m.position.copy(v);
     });
   });
 
@@ -119,16 +76,6 @@ function Flow({ points, color, count = 6, speed = 0.25, radius = 0.05, bpm, phas
 function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   const { scene } = useGLTF(heartUrl);
 
-  const cleaned = useMemo(() => {
-    scene.traverse((o) => {
-      if (o.isMesh && o.geometry && o.geometry.attributes && o.geometry.attributes.position && !o.userData._vesselsRemoved) {
-        o.geometry = removeGreatVessels(o.geometry);
-        o.userData._vesselsRemoved = true;
-      }
-    });
-    return scene;
-  }, [scene]);
-
   const innerRef = useRef();
   const paramsRef = useRef({ bpm, depth, irregular });
   const callbacksRef = useRef({ onLub, onDub });
@@ -144,13 +91,13 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   }, [onLub, onDub]);
 
   const norm = useMemo(() => {
-    const bb = new THREE.Box3().setFromObject(cleaned);
+    const bb = new THREE.Box3().setFromObject(scene);
     const center = bb.getCenter(new THREE.Vector3());
     const size = bb.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
     const s = 4 / maxDim;
     return { center, s, half: size.clone().multiplyScalar(s / 2) };
-  }, [cleaned]);
+  }, [scene]);
 
   useFrame((state) => {
     const p = paramsRef.current;
@@ -257,7 +204,7 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
         scale={norm.s}
       >
         <group ref={innerRef}>
-          <primitive object={cleaned} />
+          <primitive object={scene} />
         </group>
       </group>
 
