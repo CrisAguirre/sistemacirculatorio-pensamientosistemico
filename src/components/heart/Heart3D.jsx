@@ -21,8 +21,9 @@ function beatScale(cycle, depth) {
 }
 
 // Vaso sanguíneo: tubo + partículas que fluyen + flecha de dirección.
-// La velocidad de las partículas se modula con la sístole (flujo pulsátil).
-function Vessel({ points, color, count = 10, speed = 0.4, radius = 0.12, opacity = 0.32, phaseRef }) {
+// El avance se mide en "latidos" (no en segundos): las partículas avanzan una
+// fracción de vaso por cada latido, con un pico durante la sístole (flujo pulsátil).
+function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, opacity = 0.32, bpm, phaseRef }) {
   const meshes = useRef([]);
   const accum = useRef(0);
   const curve = useMemo(
@@ -39,8 +40,9 @@ function Vessel({ points, color, count = 10, speed = 0.4, radius = 0.12, opacity
   }, [curve]);
 
   useFrame((state, delta) => {
-    const surge = 1 + 0.7 * (phaseRef?.current || 0);
-    accum.current += delta * speed * surge;
+    const beatMs = 60000 / (bpm || 75);
+    const surge = 1 + 1.2 * (phaseRef?.current || 0);
+    accum.current += (delta / beatMs) * speed * surge;
     const t = accum.current % 1;
     meshes.current.forEach((m, i) => {
       if (!m) return;
@@ -134,8 +136,9 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   const RED = '#ef4444';
   const BLUE = '#3b82f6';
 
-  // Vasos anclados a la geometría real del modelo (aorta a la izquierda -X,
-  // tronco pulmonar centro-derecha, venas cavas a la derecha). Coordenadas en múltiplos de h.
+  // Vasos anclados a los centroides reales de los muñones del modelo (extraídos de la geometría):
+  // aorta (-0.49hx, 0.85hy, +0.09hz), tronco pulmonar (+0.15hx, 0.86hy, -0.15hz),
+  // vena cava superior (+0.50hx, 0.88hy, -0.55hz, posterior). `speed` = fracción de vaso por latido.
   const vessels = [
     // Aorta (oxigenada): sale del VI, asciende, forma el cayado y desciende.
     {
@@ -143,14 +146,14 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       color: RED,
       radius: 0.16,
       count: 16,
-      speed: 0.5,
+      speed: 0.25,
       points: [
-        [-0.54 * h.x, 0.92 * h.y, -0.17 * h.z],
-        [-0.45 * h.x, 1.05 * h.y, -0.10 * h.z],
-        [-0.60 * h.x, 1.08 * h.y, -0.25 * h.z],
-        [-0.90 * h.x, 0.90 * h.y, -0.35 * h.z],
+        [-0.49 * h.x, 0.85 * h.y, 0.09 * h.z],
+        [-0.44 * h.x, 1.03 * h.y, 0.02 * h.z],
+        [-0.55 * h.x, 1.09 * h.y, -0.12 * h.z],
+        [-0.85 * h.x, 0.95 * h.y, -0.28 * h.z],
         [-1.05 * h.x, 0.55 * h.y, -0.40 * h.z],
-        [-1.10 * h.x, -0.10 * h.y, -0.38 * h.z],
+        [-1.10 * h.x, -0.10 * h.y, -0.42 * h.z],
       ],
     },
     // Tronco pulmonar → arteria pulmonar izquierda (desoxigenada)
@@ -159,12 +162,12 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       color: BLUE,
       radius: 0.12,
       count: 8,
-      speed: 0.42,
+      speed: 0.28,
       points: [
-        [0.21 * h.x, 0.86 * h.y, 0],
-        [0.18 * h.x, 1.0 * h.y, -0.05 * h.z],
-        [0, 1.08 * h.y, -0.20 * h.z],
-        [-0.25 * h.x, 1.10 * h.y, -0.30 * h.z],
+        [0.15 * h.x, 0.86 * h.y, -0.15 * h.z],
+        [0.12 * h.x, 1.0 * h.y, -0.20 * h.z],
+        [-0.05 * h.x, 1.08 * h.y, -0.30 * h.z],
+        [-0.28 * h.x, 1.10 * h.y, -0.40 * h.z],
       ],
     },
     // Tronco pulmonar → arteria pulmonar derecha (desoxigenada)
@@ -173,63 +176,63 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       color: BLUE,
       radius: 0.12,
       count: 8,
-      speed: 0.42,
+      speed: 0.28,
       points: [
-        [0.21 * h.x, 0.86 * h.y, 0],
-        [0.18 * h.x, 1.0 * h.y, -0.05 * h.z],
-        [0.42 * h.x, 1.05 * h.y, -0.20 * h.z],
-        [0.65 * h.x, 1.08 * h.y, -0.25 * h.z],
+        [0.15 * h.x, 0.86 * h.y, -0.15 * h.z],
+        [0.12 * h.x, 1.0 * h.y, -0.20 * h.z],
+        [0.35 * h.x, 1.05 * h.y, -0.30 * h.z],
+        [0.55 * h.x, 1.08 * h.y, -0.35 * h.z],
       ],
     },
-    // Vena cava superior (desoxigenada) → AD
+    // Vena cava superior (desoxigenada): cabeza → AD (posterior)
     {
       key: 'vcs',
       color: BLUE,
       radius: 0.13,
       count: 9,
-      speed: 0.38,
+      speed: 0.20,
       points: [
-        [0.46 * h.x, 1.15 * h.y, 0.30 * h.z],
-        [0.40 * h.x, 0.95 * h.y, 0.22 * h.z],
-        [0.36 * h.x, 0.78 * h.y, 0.16 * h.z],
+        [0.50 * h.x, 1.30 * h.y, -0.55 * h.z],
+        [0.49 * h.x, 1.08 * h.y, -0.55 * h.z],
+        [0.48 * h.x, 0.88 * h.y, -0.55 * h.z],
       ],
     },
-    // Vena cava inferior (desoxigenada) → AD
+    // Vena cava inferior (desoxigenada): parte inferior → AD (posterior)
     {
       key: 'vci',
       color: BLUE,
       radius: 0.13,
       count: 9,
-      speed: 0.36,
+      speed: 0.20,
       points: [
-        [0.40 * h.x, -0.80 * h.y, 0.28 * h.z],
-        [0.36 * h.x, -0.30 * h.y, 0.20 * h.z],
-        [0.33 * h.x, 0.20 * h.y, 0.16 * h.z],
-        [0.32 * h.x, 0.60 * h.y, 0.14 * h.z],
+        [0.45 * h.x, -0.80 * h.y, -0.40 * h.z],
+        [0.47 * h.x, -0.20 * h.y, -0.45 * h.z],
+        [0.48 * h.x, 0.30 * h.y, -0.50 * h.z],
+        [0.48 * h.x, 0.60 * h.y, -0.52 * h.z],
       ],
     },
-    // Vena pulmonar izquierda (oxigenada) → AI
+    // Vena pulmonar izquierda (oxigenada): pulmón → AI
     {
       key: 'vpi',
       color: RED,
       radius: 0.09,
       count: 6,
-      speed: 0.4,
+      speed: 0.24,
       points: [
-        [-0.38 * h.x, 0.85 * h.y, 0.15 * h.z],
-        [-0.22 * h.x, 0.75 * h.y, 0.10 * h.z],
+        [-0.35 * h.x, 1.0 * h.y, -0.40 * h.z],
+        [-0.24 * h.x, 0.85 * h.y, -0.30 * h.z],
       ],
     },
-    // Vena pulmonar derecha (oxigenada) → AI
+    // Vena pulmonar derecha (oxigenada): pulmón → AI
     {
       key: 'vpd',
       color: RED,
       radius: 0.09,
       count: 6,
-      speed: 0.4,
+      speed: 0.24,
       points: [
-        [0.30 * h.x, 0.82 * h.y, 0.15 * h.z],
-        [0.20 * h.x, 0.72 * h.y, 0.10 * h.z],
+        [0.35 * h.x, 1.0 * h.y, -0.40 * h.z],
+        [0.24 * h.x, 0.85 * h.y, -0.30 * h.z],
       ],
     },
   ];
@@ -253,6 +256,7 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
           count={v.count}
           speed={v.speed}
           radius={v.radius}
+          bpm={bpm}
           phaseRef={phaseRef}
         />
       ))}
