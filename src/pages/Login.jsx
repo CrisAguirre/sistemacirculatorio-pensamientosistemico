@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { authApi } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import './pages.css';
@@ -35,7 +35,7 @@ export default function Login() {
       <div className="auth-card">
         <div className="auth-logo">🫀</div>
         <h1 className="auth-title">Iniciar Sesión</h1>
-        <p className="auth-subtitle">Sistema Circulatorio · Pensamiento Sistémico</p>
+        <p className="auth-subtitle">Las credenciales son asignadas por la institución.</p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
@@ -69,10 +69,6 @@ export default function Login() {
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
-
-        <p className="auth-link">
-          ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
-        </p>
       </div>
     </div>
   );
