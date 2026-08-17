@@ -38,6 +38,12 @@ export default function Landing() {
             </span>
           </FadeContent>
 
+          <FadeContent delay={0.35} direction="up" distance={24}>
+            <div className="hero-banner">
+              Estrategia de Aprendizaje Fundamentada en el Pensamiento Sistémico y Mediada por Recursos Digitales para Desarrollar Habilidades de Pensamiento Sistémico Sobre el Sistema Circulatorio en Estudiantes de Grado Octavo de la Institución Educativa Rancho Grande
+            </div>
+          </FadeContent>
+
           <div className="hero-title">
             <SplitText
               text="Explora el Sistema"
