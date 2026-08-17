@@ -22,14 +22,14 @@ function beatScale(cycle, depth) {
 
 // Vaso sanguíneo: tubo + partículas que fluyen + flecha de dirección.
 // La velocidad de las partículas se modula con la sístole (flujo pulsátil).
-function Vessel({ points, color, count = 10, speed = 0.4, radius = 0.12, opacity = 0.38, phaseRef }) {
+function Vessel({ points, color, count = 10, speed = 0.4, radius = 0.12, opacity = 0.32, phaseRef }) {
   const meshes = useRef([]);
   const accum = useRef(0);
   const curve = useMemo(
     () => new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p))),
     [points]
   );
-  const tubeGeo = useMemo(() => new THREE.TubeGeometry(curve, 64, radius, 12, false), [curve, radius]);
+  const tubeGeo = useMemo(() => new THREE.TubeGeometry(curve, 64, radius, 16, false), [curve, radius]);
 
   const arrow = useMemo(() => {
     const pos = curve.getPointAt(0.03);
@@ -52,7 +52,7 @@ function Vessel({ points, color, count = 10, speed = 0.4, radius = 0.12, opacity
   return (
     <group>
       <mesh geometry={tubeGeo}>
-        <meshBasicMaterial color={color} transparent opacity={opacity} depthWrite={false} />
+        <meshStandardMaterial color={color} transparent opacity={opacity} roughness={0.4} metalness={0.1} depthWrite={false} />
       </mesh>
       {Array.from({ length: count }).map((_, i) => (
         <mesh
@@ -61,13 +61,13 @@ function Vessel({ points, color, count = 10, speed = 0.4, radius = 0.12, opacity
             meshes.current[i] = el;
           }}
         >
-          <sphereGeometry args={[radius * 1.25, 8, 8]} />
-          <meshBasicMaterial color={color} />
+          <sphereGeometry args={[radius * 1.3, 10, 10]} />
+          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.6} />
         </mesh>
       ))}
       <mesh position={arrow.pos} quaternion={arrow.quat}>
         <coneGeometry args={[radius * 2.6, radius * 5, 12]} />
-        <meshBasicMaterial color={color} />
+        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.3} />
       </mesh>
     </group>
   );
@@ -134,25 +134,26 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
   const RED = '#ef4444';
   const BLUE = '#3b82f6';
 
-  // Vasos en dirección real del flujo sanguíneo.
+  // Vasos anclados a la geometría real del modelo (aorta a la izquierda -X,
+  // tronco pulmonar centro-derecha, venas cavas a la derecha). Coordenadas en múltiplos de h.
   const vessels = [
-    // Aorta (sangre oxigenada): VI → ascendente → cayado → descendente → cuerpo
+    // Aorta (oxigenada): sale del VI, asciende, forma el cayado y desciende.
     {
       key: 'aorta',
       color: RED,
-      radius: 0.15,
-      count: 14,
+      radius: 0.16,
+      count: 16,
       speed: 0.5,
       points: [
-        [0, h.y * 0.55, 0.1],
-        [0, h.y * 1.15, 0.1],
-        [-0.55, h.y * 1.28, -0.1],
-        [-1.0, h.y * 0.6, -0.3],
-        [-1.1, -h.y * 0.15, -0.3],
-        [-1.05, -h.y * 0.9, -0.25],
+        [-0.54 * h.x, 0.92 * h.y, -0.17 * h.z],
+        [-0.45 * h.x, 1.05 * h.y, -0.10 * h.z],
+        [-0.60 * h.x, 1.08 * h.y, -0.25 * h.z],
+        [-0.90 * h.x, 0.90 * h.y, -0.35 * h.z],
+        [-1.05 * h.x, 0.55 * h.y, -0.40 * h.z],
+        [-1.10 * h.x, -0.10 * h.y, -0.38 * h.z],
       ],
     },
-    // Tronco pulmonar → rama izquierda (desoxigenada): VD → pulmón izquierdo
+    // Tronco pulmonar → arteria pulmonar izquierda (desoxigenada)
     {
       key: 'pulmonarIzq',
       color: BLUE,
@@ -160,13 +161,13 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       count: 8,
       speed: 0.42,
       points: [
-        [0.15, h.y * 0.55, 0.15],
-        [0.25, h.y * 0.9, 0.1],
-        [-0.1, h.y * 1.15, -0.15],
-        [-0.5, h.y * 1.2, -0.25],
+        [0.21 * h.x, 0.86 * h.y, 0],
+        [0.18 * h.x, 1.0 * h.y, -0.05 * h.z],
+        [0, 1.08 * h.y, -0.20 * h.z],
+        [-0.25 * h.x, 1.10 * h.y, -0.30 * h.z],
       ],
     },
-    // Tronco pulmonar → rama derecha (desoxigenada): VD → pulmón derecho
+    // Tronco pulmonar → arteria pulmonar derecha (desoxigenada)
     {
       key: 'pulmonarDer',
       color: BLUE,
@@ -174,13 +175,13 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       count: 8,
       speed: 0.42,
       points: [
-        [0.15, h.y * 0.55, 0.15],
-        [0.25, h.y * 0.9, 0.1],
-        [0.6, h.y * 1.15, -0.15],
-        [0.85, h.y * 1.2, -0.25],
+        [0.21 * h.x, 0.86 * h.y, 0],
+        [0.18 * h.x, 1.0 * h.y, -0.05 * h.z],
+        [0.42 * h.x, 1.05 * h.y, -0.20 * h.z],
+        [0.65 * h.x, 1.08 * h.y, -0.25 * h.z],
       ],
     },
-    // Vena cava superior (desoxigenada): cabeza/brazos → AD
+    // Vena cava superior (desoxigenada) → AD
     {
       key: 'vcs',
       color: BLUE,
@@ -188,12 +189,12 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       count: 9,
       speed: 0.38,
       points: [
-        [0.55, h.y * 1.45, 0.35],
-        [0.45, h.y * 1.05, 0.25],
-        [0.38, h.y * 0.7, 0.18],
+        [0.46 * h.x, 1.15 * h.y, 0.30 * h.z],
+        [0.40 * h.x, 0.95 * h.y, 0.22 * h.z],
+        [0.36 * h.x, 0.78 * h.y, 0.16 * h.z],
       ],
     },
-    // Vena cava inferior (desoxigenada): parte inferior del cuerpo → AD
+    // Vena cava inferior (desoxigenada) → AD
     {
       key: 'vci',
       color: BLUE,
@@ -201,12 +202,13 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       count: 9,
       speed: 0.36,
       points: [
-        [0.5, -h.y * 1.3, 0.3],
-        [0.45, -h.y * 0.4, 0.22],
-        [0.38, h.y * 0.5, 0.18],
+        [0.40 * h.x, -0.80 * h.y, 0.28 * h.z],
+        [0.36 * h.x, -0.30 * h.y, 0.20 * h.z],
+        [0.33 * h.x, 0.20 * h.y, 0.16 * h.z],
+        [0.32 * h.x, 0.60 * h.y, 0.14 * h.z],
       ],
     },
-    // Vena pulmonar izquierda (oxigenada): pulmón → AI
+    // Vena pulmonar izquierda (oxigenada) → AI
     {
       key: 'vpi',
       color: RED,
@@ -214,11 +216,11 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       count: 6,
       speed: 0.4,
       points: [
-        [-0.45, h.y * 1.05, 0.25],
-        [-0.25, h.y * 0.75, 0.15],
+        [-0.38 * h.x, 0.85 * h.y, 0.15 * h.z],
+        [-0.22 * h.x, 0.75 * h.y, 0.10 * h.z],
       ],
     },
-    // Vena pulmonar derecha (oxigenada): pulmón → AI
+    // Vena pulmonar derecha (oxigenada) → AI
     {
       key: 'vpd',
       color: RED,
@@ -226,8 +228,8 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       count: 6,
       speed: 0.4,
       points: [
-        [0.45, h.y * 1.05, 0.25],
-        [0.28, h.y * 0.75, 0.15],
+        [0.30 * h.x, 0.82 * h.y, 0.15 * h.z],
+        [0.20 * h.x, 0.72 * h.y, 0.10 * h.z],
       ],
     },
   ];
