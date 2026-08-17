@@ -41,7 +41,7 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, opacit
 
   useFrame((state, delta) => {
     const beatMs = 60000 / (bpm || 75);
-    const surge = 1 + 1.2 * (phaseRef?.current || 0);
+    const surge = 1 + 1.5 * (phaseRef?.current || 0);
     accum.current += (delta / beatMs) * speed * surge;
     const t = accum.current % 1;
     meshes.current.forEach((m, i) => {
@@ -111,7 +111,7 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       cycle = (cycle + jitter + 1) % 1;
     }
 
-    const d = Math.min(Math.max(p.depth, 0.04), 0.25);
+    const d = Math.min(Math.max(p.depth, 0.04), 0.25) * 0.5;
     if (innerRef.current) {
       innerRef.current.scale.setScalar(beatScale(cycle, d));
     }
