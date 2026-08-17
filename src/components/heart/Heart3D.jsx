@@ -20,17 +20,16 @@ function beatScale(cycle, depth) {
   return 1;
 }
 
-// Vaso sanguíneo: tubo + partículas que fluyen + flecha de dirección.
+// Vaso sanguíneo: partículas que fluyen (sin tubo) + flecha de dirección.
 // El avance se mide en "latidos" (no en segundos): las partículas avanzan una
 // fracción de vaso por cada latido, con un pico durante la sístole (flujo pulsátil).
-function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, opacity = 0.32, bpm, phaseRef }) {
+function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, bpm, phaseRef }) {
   const meshes = useRef([]);
   const accum = useRef(0);
   const curve = useMemo(
     () => new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p))),
     [points]
   );
-  const tubeGeo = useMemo(() => new THREE.TubeGeometry(curve, 64, radius, 16, false), [curve, radius]);
 
   const arrow = useMemo(() => {
     const pos = curve.getPointAt(0.03);
@@ -53,9 +52,6 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, opacit
 
   return (
     <group>
-      <mesh geometry={tubeGeo}>
-        <meshStandardMaterial color={color} transparent opacity={opacity} roughness={0.4} metalness={0.1} depthWrite={false} />
-      </mesh>
       {Array.from({ length: count }).map((_, i) => (
         <mesh
           key={i}
@@ -63,13 +59,13 @@ function Vessel({ points, color, count = 10, speed = 0.25, radius = 0.12, opacit
             meshes.current[i] = el;
           }}
         >
-          <sphereGeometry args={[radius * 1.3, 10, 10]} />
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.6} />
+          <sphereGeometry args={[radius * 1.4, 10, 10]} />
+          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.7} />
         </mesh>
       ))}
       <mesh position={arrow.pos} quaternion={arrow.quat}>
-        <coneGeometry args={[radius * 2.6, radius * 5, 12]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.3} />
+        <coneGeometry args={[radius * 2.8, radius * 5.5, 12]} />
+        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.4} />
       </mesh>
     </group>
   );
@@ -111,7 +107,7 @@ function HeartScene({ bpm, depth, irregular, onLub, onDub }) {
       cycle = (cycle + jitter + 1) % 1;
     }
 
-    const d = Math.min(Math.max(p.depth, 0.04), 0.25) * 0.5;
+    const d = Math.min(Math.max(p.depth, 0.04), 0.25) * 0.25;
     if (innerRef.current) {
       innerRef.current.scale.setScalar(beatScale(cycle, d));
     }
