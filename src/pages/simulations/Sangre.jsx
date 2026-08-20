@@ -41,6 +41,46 @@ export default function Sangre() {
 
   const gasto = ((bpm * 70) / 1000).toFixed(1);
 
+  const Apropiacion = (
+    <>
+      <h2>Componentes de la Sangre</h2>
+      <p>La sangre es el medio de transporte del sistema circulatorio. Está compuesta por cuatro elementos principales que trabajan en conjunto para mantener la vida: glóbulos rojos, glóbulos blancos, plaquetas y plasma.</p>
+      <div className="video-container">
+        <iframe src="https://www.youtube.com/embed/QdVUgZ62D4Y" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </div>
+      <p>Al estudiar la sangre desde el pensamiento sistémico, no la vemos solo como un fluido, sino como el medio físico a través del cual todos los órganos del cuerpo logran interactuar, compartir nutrientes y coordinar defensas.</p>
+    </>
+  );
+
+  const Actividad = (
+    <>
+      <h2>Exploración guiada</h2>
+      <div className="activity-steps">
+        <div className="activity-step">
+          <div className="step-number">1</div>
+          <div className="step-content">
+            <h4>Conoce los componentes</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Selecciona cada uno de los 4 modos (Transporte O₂, Defensa, Coagulación, Nutrientes). Lee la descripción que aparece debajo de los botones para entender su rol en el sistema.</p>
+          </div>
+        </div>
+        <div className="activity-step">
+          <div className="step-number">2</div>
+          <div className="step-content">
+            <h4>Observa la velocidad del flujo</h4>
+            <p>Usa el control de Frecuencia Cardíaca y auméntala al máximo (180 lpm). Observa cómo se acelera el flujo sanguíneo y cómo esto impacta el Gasto Cardíaco.</p>
+          </div>
+        </div>
+        <div className="activity-step">
+          <div className="step-number">3</div>
+          <div className="step-content">
+            <h4>Niveles de oxígeno</h4>
+            <p>Reduce la Saturación de Oxígeno al 70%. En un sistema real, esto enviaría una señal de alerta inmediata al cerebro. Presta atención al indicador de estado (color naranja o rojo).</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <SimulationWrapper
       simNumber={2}
@@ -48,6 +88,9 @@ export default function Sangre() {
       description="La sangre circula por todo el sistema: observa el corazón latir y ajusta su ritmo."
       icon="🩸"
       info="La sangre es el medio de transporte del sistema circulatorio: lleva oxígeno, nutrientes y células de defensa a todo el cuerpo. Observa cómo el corazón impulsa la sangre a través de la red de vasos."
+      apropiacion={Apropiacion}
+      actividad={Actividad}
+      evaluacionPath="/laboratorio/sangre/evaluacion"
     >
       <div className="sim-controls">
         {MODES.map((m) => (
@@ -117,12 +160,6 @@ export default function Sangre() {
           implica ver la sangre no como un líquido aislado, sino como la red de transporte que conecta
           los subsistemas del cuerpo.
         </p>
-      </div>
-
-      <div className="placeholder" style={{ marginTop: '1.5rem' }}>
-        <Link to="/laboratorio/sangre/evaluacion" className="btn btn-outline">
-          Ir a la evaluación
-        </Link>
       </div>
     </SimulationWrapper>
   );

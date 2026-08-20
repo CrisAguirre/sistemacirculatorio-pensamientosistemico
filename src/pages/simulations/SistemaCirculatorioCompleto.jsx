@@ -38,6 +38,46 @@ export default function SistemaCirculatorioCompleto() {
     { label: 'Ventilación', value: `${ve}`, unit: 'L/min' },
   ];
 
+  const Apropiacion = (
+    <>
+      <h2>Homeostasis y Visión de Totalidad</h2>
+      <p>El sistema circulatorio no es solo una colección de órganos; es un sistema integrado cuyo objetivo principal es mantener la homeostasis (equilibrio interno) frente a cualquier cambio o perturbación en el entorno.</p>
+      <div className="video-container">
+        <iframe src="https://www.youtube.com/embed/NUYtHLBV6S0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </div>
+      <p>Para entender este sistema desde el pensamiento sistémico, aplicamos dos principios: la **ley de la conservación de la materia** (la sangre que se bombea es la misma que retorna, en un circuito cerrado) y la **resiliencia cardiovascular** (la capacidad del sistema de adaptarse y recuperar su estabilidad después de un estrés físico o una crisis).</p>
+    </>
+  );
+
+  const Actividad = (
+    <>
+      <h2>Exploración guiada</h2>
+      <div className="activity-steps">
+        <div className="activity-step">
+          <div className="step-number">1</div>
+          <div className="step-content">
+            <h4>Observa el cuerpo en reposo</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. En estado de reposo (Actividad metabólica = 0%), observa las métricas base: Gasto Cardíaco (~4.2 L/min), Presión (110/70 mmHg) y Ventilación (~6 L/min).</p>
+          </div>
+        </div>
+        <div className="activity-step">
+          <div className="step-number">2</div>
+          <div className="step-content">
+            <h4>Simula un escenario de ejercicio extremo</h4>
+            <p>Sube la actividad metabólica al 100%. Observa cómo todas las variables se ajustan en cascada: la FC y la FR suben, el gasto cardíaco se dispara, y la saturación venosa cae porque los músculos están consumiendo mucho más oxígeno. Esto demuestra la interconexión sistémica.</p>
+          </div>
+        </div>
+        <div className="activity-step">
+          <div className="step-number">3</div>
+          <div className="step-content">
+            <h4>Simula una crisis (hemorragia o hipoxia)</h4>
+            <p>Baja manualmente la saturación arterial de oxígeno a un 75%. El sistema entra en un estado crítico y tratará de compensar la falta de oxígeno elevando la frecuencia respiratoria y cardíaca para mantener el aporte de O₂ a los tejidos vitales, especialmente al cerebro.</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <SimulationWrapper
       simNumber={5}
@@ -45,6 +85,9 @@ export default function SistemaCirculatorioCompleto() {
       description="El cuerpo como un sistema integrado: corazón, sangre, pulmones y cerebro acoplados."
       icon="🔄"
       info="Mueve la actividad metabólica y observa cómo todo el sistema responde en conjunto: el corazón late más rápido, los pulmones respiran más, la presión sube y la sangre entrega más oxígeno. Es la esencia del pensamiento sistémico."
+      apropiacion={Apropiacion}
+      actividad={Actividad}
+      evaluacionPath="/laboratorio/sistema-circulatorio/evaluacion"
     >
       {/* Controles fisiológicos */}
       <div className="sim-sliders">
@@ -123,12 +166,6 @@ export default function SistemaCirculatorioCompleto() {
           en los tejidos (baja la saturación venosa). Todo ocurre de forma sincronizada: una sola señal,
           una respuesta integrada.
         </p>
-      </div>
-
-      <div className="placeholder" style={{ marginTop: '1.5rem' }}>
-        <Link to="/laboratorio/sistema-circulatorio/evaluacion" className="btn btn-outline">
-          Ir a la evaluación
-        </Link>
       </div>
     </SimulationWrapper>
   );

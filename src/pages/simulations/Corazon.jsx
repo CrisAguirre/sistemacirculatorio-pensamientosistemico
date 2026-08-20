@@ -77,6 +77,46 @@ export default function Corazon() {
     setSys(Number(e.target.value));
   }
 
+  const Apropiacion = (
+    <>
+      <h2>Anatomía y función del corazón</h2>
+      <p>El corazón es el motor del sistema circulatorio, responsable de bombear la sangre a través del cuerpo. Funciona de manera rítmica e incansable para mantener el flujo constante de oxígeno y nutrientes.</p>
+      <div className="video-container">
+        <iframe src="https://www.youtube.com/embed/Po4n27SS9DU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </div>
+      <p>A diferencia de una simple máquina, el corazón no trabaja solo: está interconectado con los pulmones para obtener oxígeno y con el cerebro, que regula su velocidad según las necesidades del momento.</p>
+    </>
+  );
+
+  const Actividad = (
+    <>
+      <h2>Exploración guiada</h2>
+      <div className="activity-steps">
+        <div className="activity-step">
+          <div className="step-number">1</div>
+          <div className="step-content">
+            <h4>Observa el latido normal</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Asegúrate de tener seleccionado el estado "Latido Normal". Observa la Frecuencia Cardíaca (FC) y escucha el sonido "lub-dub".</p>
+          </div>
+        </div>
+        <div className="activity-step">
+          <div className="step-number">2</div>
+          <div className="step-content">
+            <h4>Simula ejercicio físico</h4>
+            <p>Cambia el estado a "Ejercicio". ¿Qué ocurre con la frecuencia y la fuerza de contracción? Registra el cambio en el gasto cardíaco.</p>
+          </div>
+        </div>
+        <div className="activity-step">
+          <div className="step-number">3</div>
+          <div className="step-content">
+            <h4>Manipulación manual</h4>
+            <p>Utiliza los deslizadores (sliders) para ajustar libremente la frecuencia y la presión. Analiza cómo estos cambios afectan las métricas generales del sistema.</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <SimulationWrapper
       simNumber={1}
@@ -84,6 +124,9 @@ export default function Corazon() {
       description="Simula el corazón como una bomba dentro de un sistema: cambia su estado y observa cómo responde."
       icon="🫀"
       info="El corazón bombea la sangre a través de sus grandes vasos: la aorta (roja) lleva sangre oxigenada del ventrículo izquierdo al cuerpo; el tronco pulmonar (azul) lleva sangre desoxigenada del ventrículo derecho a los pulmones; las venas cavas retornan la sangre del cuerpo a la aurícula derecha; y las venas pulmonares traen la sangre oxigenada de los pulmones a la aurícula izquierda. Observa el ECG, escucha los latidos y cambia el estado para ver la respuesta del sistema."
+      apropiacion={Apropiacion}
+      actividad={Actividad}
+      evaluacionPath="/laboratorio/corazon/evaluacion"
     >
       {/* Selector de estados + sonido */}
       <div className="heart-toolbar">
@@ -204,12 +247,6 @@ export default function Corazon() {
           El corazón es un subsistema en retroalimentación constante: percibe la demanda del cuerpo y se adapta.
           Comprender estas conexiones (y no el órgano aislado) es la esencia del pensamiento sistémico.
         </p>
-      </div>
-
-      <div className="placeholder" style={{ marginTop: '1.5rem' }}>
-        <Link to="/laboratorio/corazon/evaluacion" className="btn btn-outline">
-          Ir a la evaluación
-        </Link>
       </div>
     </SimulationWrapper>
   );

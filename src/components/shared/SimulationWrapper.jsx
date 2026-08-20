@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function SimulationWrapper({ simNumber, title, description, icon, info, children }) {
+export default function SimulationWrapper({ simNumber, title, description, icon, info, children, apropiacion, actividad, evaluacionPath }) {
+  const [activeTab, setActiveTab] = useState(apropiacion ? 'apropiacion' : 'simulador');
+  const navigate = useNavigate();
+
   return (
     <div className="page sim-page">
       <div className="page-header">
@@ -19,7 +23,50 @@ export default function SimulationWrapper({ simNumber, title, description, icon,
         </div>
       )}
 
-      <div className="sim-content">{children}</div>
+      <div className="sim-tabs">
+        {apropiacion && (
+          <button 
+            className={`sim-tab ${activeTab === 'apropiacion' ? 'active' : ''}`}
+            onClick={() => setActiveTab('apropiacion')}
+          >
+            🛠️ Apropiación
+          </button>
+        )}
+        {actividad && (
+          <button 
+            className={`sim-tab ${activeTab === 'actividad' ? 'active' : ''}`}
+            onClick={() => setActiveTab('actividad')}
+          >
+            📋 Actividad
+          </button>
+        )}
+        <button 
+          className={`sim-tab ${activeTab === 'simulador' ? 'active' : ''}`}
+          onClick={() => setActiveTab('simulador')}
+        >
+          🔬 Simulador
+        </button>
+        {evaluacionPath && (
+          <button 
+            className="sim-tab sim-tab-eval"
+            onClick={() => navigate(evaluacionPath)}
+          >
+            📝 Evaluación
+          </button>
+        )}
+      </div>
+
+      <div className="sim-content">
+        {activeTab === 'apropiacion' && apropiacion && (
+          <div className="apropiacion-content">{apropiacion}</div>
+        )}
+        {activeTab === 'actividad' && actividad && (
+          <div className="actividad-content">{actividad}</div>
+        )}
+        <div style={{ display: activeTab === 'simulador' ? 'block' : 'none' }}>
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
