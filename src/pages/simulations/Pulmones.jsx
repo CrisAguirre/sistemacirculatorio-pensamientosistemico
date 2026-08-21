@@ -15,38 +15,38 @@ export default function Pulmones() {
 
   const Apropiacion = (
     <>
-      <h2>Intercambio Gaseoso</h2>
-      <p>Los pulmones son los órganos responsables de oxigenar la sangre y eliminar el dióxido de carbono, un proceso vital conocido como intercambio gaseoso que ocurre en los millones de alvéolos pulmonares.</p>
+      <h2>Representar el objeto de estudio: Los Pulmones</h2>
+      <p>Los pulmones son los órganos responsables del intercambio gaseoso. Representarlos como objeto de estudio nos permite visualizar cómo están estructurados internamente: millones de alvéolos conectados a una red de capilares donde la sangre intercambia oxígeno por dióxido de carbono.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/uUpdItCbr24" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>Desde una perspectiva sistémica, los pulmones representan la interfaz entre el medio externo y el medio interno del cuerpo, permitiendo la entrada del "combustible" (oxígeno) y la salida del "humo" (dióxido de carbono) para mantener el equilibrio celular.</p>
+      <p>En la representación 3D puedes observar el movimiento rítmico de inhalación y exhalación. Los pulmones son la interfaz entre el medio externo (aire) y el medio interno (sangre), permitiendo la entrada del oxígeno y la salida del dióxido de carbono para mantener el equilibrio del sistema.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Exploración guiada</h2>
+      <h2>Actividad: Escalas, proporciones y cantidades respiratorias</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Ritmo respiratorio</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Observa el movimiento de los pulmones. Ajusta la Frecuencia Respiratoria a un ritmo rápido (ej. 30 resp/min) simulando un estado de agitación y observa el modelo 3D.</p>
+            <h4>Mide el ritmo respiratorio</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Registra la Frecuencia Respiratoria en reposo (14 resp/min). Ahora auméntala a 30 resp/min. Calcula: ¿en qué proporción aumentó? ¿Cuántas respiraciones más por minuto se realizan?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Saturación de oxígeno</h4>
-            <p>Desciende la saturación de O₂ a niveles bajos (menor a 90%). Nota cómo la métrica indica un estado de advertencia, lo que en el sistema completo obligaría al corazón a bombear más rápido.</p>
+            <h4>Escalas de saturación de O₂</h4>
+            <p>Desciende la saturación de O₂ a niveles bajos (menor a 90%). Registra el valor exacto y calcula el porcentaje de disminución respecto al 98% normal. ¿A partir de qué cantidad porcentual el indicador cambia de estado?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Acumulación de CO₂</h4>
-            <p>Aumenta el nivel de CO₂ al máximo (10%). Una acumulación de dióxido de carbono altera el pH de la sangre, lo que activa el centro respiratorio del cerebro para forzar una mayor ventilación.</p>
+            <h4>Proporciones de CO₂</h4>
+            <p>Aumenta el nivel de CO₂ al máximo (10%). Registra las 3 métricas (FR, O₂, CO₂) simultáneamente. Analiza la relación proporcional: cuando el CO₂ sube, ¿qué le debería ocurrir a la frecuencia respiratoria para compensar?</p>
           </div>
         </div>
       </div>

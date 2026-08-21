@@ -40,38 +40,38 @@ export default function SistemaCirculatorioCompleto() {
 
   const Apropiacion = (
     <>
-      <h2>Homeostasis y Visión de Totalidad</h2>
-      <p>El sistema circulatorio no es solo una colección de órganos; es un sistema integrado cuyo objetivo principal es mantener la homeostasis (equilibrio interno) frente a cualquier cambio o perturbación en el entorno.</p>
+      <h2>Representar el objeto de estudio: El Sistema Circulatorio Completo</h2>
+      <p>El sistema circulatorio es más que la suma de sus partes. Representarlo como sistema completo nos permite visualizar cómo los 4 subsistemas (corazón, sangre, pulmones y cerebro) operan de forma integrada, formando un circuito cerrado que mantiene la vida.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/JmC9nEvw4T8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>Para entender este sistema desde el pensamiento sistémico, aplicamos dos principios: la **ley de la conservación de la materia** (la sangre que se bombea es la misma que retorna, en un circuito cerrado) y la **resiliencia cardiovascular** (la capacidad del sistema de adaptarse y recuperar su estabilidad después de un estrés físico o una crisis).</p>
+      <p>En la representación 3D se observan los 4 modelos posicionados anatómicamente dentro del cuerpo humano. Esta vista integrada permite comprender la homeostasis: el equilibrio dinámico que el sistema busca mantener ante cualquier perturbación externa como el ejercicio o una crisis de salud.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Exploración guiada</h2>
+      <h2>Actividad: Escalas, proporciones y cantidades del sistema integrado</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Observa el cuerpo en reposo</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. En estado de reposo (Actividad metabólica = 0%), observa las métricas base: Gasto Cardíaco (~4.2 L/min), Presión (110/70 mmHg) y Ventilación (~6 L/min).</p>
+            <h4>Registra las cantidades base</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. En reposo (Actividad metabólica = 0%), registra todas las métricas: Gasto Cardíaco (L/min), Presión arterial (mmHg), Volumen sistólico (ml), Saturación arterial y venosa de O₂ (%), Flujo cerebral (L/min) y Ventilación (L/min).</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Simula un escenario de ejercicio extremo</h4>
-            <p>Sube la actividad metabólica al 100%. Observa cómo todas las variables se ajustan en cascada: la FC y la FR suben, el gasto cardíaco se dispara, y la saturación venosa cae porque los músculos están consumiendo mucho más oxígeno. Esto demuestra la interconexión sistémica.</p>
+            <h4>Compara escalas en ejercicio extremo</h4>
+            <p>Sube la actividad metabólica al 100%. Registra las mismas métricas y calcula la proporción de cambio de cada una respecto al reposo. ¿Cuál variable cambió en mayor proporción? ¿Cuál cambió menos? ¿Por qué?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Simula una crisis (hemorragia o hipoxia)</h4>
-            <p>Baja manualmente la saturación arterial de oxígeno a un 75%. El sistema entra en un estado crítico y tratará de compensar la falta de oxígeno elevando la frecuencia respiratoria y cardíaca para mantener el aporte de O₂ a los tejidos vitales, especialmente al cerebro.</p>
+            <h4>Relaciones cuantitativas cruzadas</h4>
+            <p>Baja manualmente la saturación arterial de O₂ a 75%. Observa las métricas derivadas y analiza: ¿en qué cantidad debería aumentar la FC o la FR para compensar esa caída? Elabora una tabla comparativa de los 3 estados (reposo, ejercicio, crisis).</p>
           </div>
         </div>
       </div>

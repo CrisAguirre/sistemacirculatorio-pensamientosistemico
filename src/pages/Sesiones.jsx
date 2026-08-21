@@ -32,8 +32,16 @@ export default function Sesiones() {
       navigate('/laboratorio/introduccion');
     } else if (sessionNumber === 2) {
       navigate('/laboratorio/apropiacion');
-    } else {
-      // For session 3 onwards, fallback or do nothing for now as per user instruction
+    } else if (sessionNumber === 3) {
+      navigate('/laboratorio/corazon');
+    } else if (sessionNumber === 4) {
+      navigate('/laboratorio/sangre');
+    } else if (sessionNumber === 5) {
+      navigate('/laboratorio/pulmones');
+    } else if (sessionNumber === 6) {
+      navigate('/laboratorio/cerebro');
+    } else if (sessionNumber === 7) {
+      navigate('/laboratorio/sistema-circulatorio');
     }
   };
 

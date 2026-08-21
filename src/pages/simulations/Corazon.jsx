@@ -79,38 +79,38 @@ export default function Corazon() {
 
   const Apropiacion = (
     <>
-      <h2>Anatomía y función del corazón</h2>
-      <p>El corazón es el motor del sistema circulatorio, responsable de bombear la sangre a través del cuerpo. Funciona de manera rítmica e incansable para mantener el flujo constante de oxígeno y nutrientes.</p>
+      <h2>Aplicación del Lineamiento 3: Representar el objeto de estudio</h2>
+      <p>El corazón es el motor del sistema circulatorio. Para comprender su funcionamiento desde el pensamiento sistémico, es fundamental representarlo gráficamente y simular sus estados, reconociendo que no es una simple máquina aislada, sino un subsistema rítmico que responde a estímulos externos.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/zl-ae3xthVE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>A diferencia de una simple máquina, el corazón no trabaja solo: está interconectado con los pulmones para obtener oxígeno y con el cerebro, que regula su velocidad según las necesidades del momento.</p>
+      <p>La representación de este órgano nos permite visualizar su anatomía interconectada: los ventrículos y aurículas que reciben y expulsan sangre interactuando con los pulmones y el cerebro para regular el flujo según las necesidades del cuerpo.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Exploración guiada</h2>
+      <h2>Actividad: Escalas, proporciones y cantidades del corazón</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Observa el latido normal</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Asegúrate de tener seleccionado el estado "Latido Normal". Observa la Frecuencia Cardíaca (FC) y escucha el sonido "lub-dub".</p>
+            <h4>Cuantifica el latido en reposo</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Selecciona el estado "Latido Normal". Registra la Frecuencia Cardíaca (FC en lpm), la presión arterial (mmHg) y el Gasto Cardíaco (L/min). Estos son los valores de referencia a escala basal.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Simula ejercicio físico</h4>
-            <p>Cambia el estado a "Ejercicio". ¿Qué ocurre con la frecuencia y la fuerza de contracción? Registra el cambio en el gasto cardíaco.</p>
+            <h4>Compara proporciones en ejercicio</h4>
+            <p>Cambia al estado "Ejercicio". Compara las nuevas cantidades con las del paso 1: ¿en qué proporción aumentó la FC? ¿Cuánto cambió el gasto cardíaco? Calcula la razón de cambio (valor ejercicio / valor reposo).</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Manipulación manual</h4>
-            <p>Utiliza los deslizadores (sliders) para ajustar libremente la frecuencia y la presión. Analiza cómo estos cambios afectan las métricas generales del sistema.</p>
+            <h4>Manipula escalas con los sliders</h4>
+            <p>Usa los deslizadores para ajustar manualmente la frecuencia y la presión. Observa cómo al duplicar la FC, el gasto cardíaco crece proporcionalmente. Registra al menos 3 combinaciones de valores y analiza las relaciones cuantitativas entre ellos.</p>
           </div>
         </div>
       </div>

@@ -19,38 +19,38 @@ export default function Cerebro() {
 
   const Apropiacion = (
     <>
-      <h2>El Cerebro como Centro de Control</h2>
-      <p>El cerebro no solo es un órgano que demanda gran cantidad de energía y flujo sanguíneo, sino que también actúa como el centro de control principal del sistema cardiovascular a través del Sistema Nervioso Autónomo.</p>
+      <h2>Representar el objeto de estudio: El Cerebro</h2>
+      <p>El cerebro es el centro de control del sistema circulatorio. Representarlo como objeto de estudio nos permite visualizar cómo este órgano, aunque pesa apenas un 2% del peso corporal, demanda el 15-20% del flujo sanguíneo total por su constante necesidad de oxígeno y glucosa.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>Desde una visión sistémica, el cerebro procesa la información de la demanda metabólica de todo el cuerpo y envía señales al corazón para acelerarlo (vía simpática) o frenarlo (vía parasimpática), garantizando el equilibrio dinámico u homeostasis.</p>
+      <p>En la representación 3D se observa la estructura cerebral y cerebelosa. El cerebro actúa como regulador del sistema cardiovascular a través del Sistema Nervioso Autónomo (SNA), enviando señales simpáticas (acelerar) o parasimpáticas (frenar) al corazón según la demanda del cuerpo.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Exploración guiada</h2>
+      <h2>Actividad: Escalas, proporciones y cantidades cerebrales</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Observa el equilibrio</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Con una demanda del 50%, observa el dominio del Sistema Nervioso Autónomo (SNA). Debería estar en "Equilibrio".</p>
+            <h4>Cuantifica la demanda en equilibrio</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Con la demanda al 50%, registra los valores de FC (lpm) y Flujo Sanguíneo Cerebral (%). Estos son las cantidades de referencia del estado de equilibrio.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Activa el sistema simpático</h4>
-            <p>Aumenta la demanda al 80-100%. Observa cómo el dominio cambia a "Simpático", indicando un estado de alerta que acelerará la frecuencia cardíaca.</p>
+            <h4>Proporciones en alta demanda</h4>
+            <p>Aumenta la demanda al 100%. Registra las nuevas cantidades y calcula: ¿en qué proporción aumentó la FC respecto al paso 1? ¿Cuánto creció el flujo cerebral en porcentaje? ¿Cuál es la escala de cambio entre estado simpático y equilibrio?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Activa el sistema parasimpático</h4>
-            <p>Baja la demanda al 20%. Observa el cambio a "Parasimpático". Este es el estado de reposo y digestión, que frena el ritmo cardíaco para ahorrar energía.</p>
+            <h4>Escala mínima de funcionamiento</h4>
+            <p>Baja la demanda al 0%. Registra los valores mínimos del sistema. Compara los 3 estados (0%, 50%, 100%) y elabora una tabla con las cantidades, identificando las proporciones de cambio entre cada escala.</p>
           </div>
         </div>
       </div>
