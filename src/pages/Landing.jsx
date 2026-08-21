@@ -28,6 +28,21 @@ export default function Landing() {
             staticity={40}
             ease={60}
           />
+          
+          {/* Floating Symbols for immersion */}
+          <div className="floating-symbols">
+            <div className="float-symbol heart-symbol">🫀</div>
+            <div className="float-symbol lungs-symbol">🫁</div>
+            <div className="float-symbol brain-symbol">🧠</div>
+            <div className="float-symbol dna-symbol">🧬</div>
+          </div>
+
+          {/* ECG Line Animation */}
+          <div className="ecg-line-container">
+            <svg className="ecg-line" viewBox="0 0 1000 100" preserveAspectRatio="none">
+              <path d="M0,50 L200,50 L210,30 L220,50 L240,50 L260,10 L280,90 L300,50 L340,50 L350,40 L360,50 L500,50 L700,50 L710,30 L720,50 L740,50 L760,10 L780,90 L800,50 L840,50 L850,40 L860,50 L1000,50" />
+            </svg>
+          </div>
         </div>
 
         <div className="hero-content">

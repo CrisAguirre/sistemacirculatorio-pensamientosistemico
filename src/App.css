@@ -93,6 +93,63 @@
   overflow: hidden;
 }
 
+/* Floating Symbols */
+.floating-symbols {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.float-symbol {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.15;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+  animation: float-anim 10s ease-in-out infinite alternate;
+}
+
+.heart-symbol { top: 15%; left: 10%; font-size: 4rem; animation-delay: 0s; }
+.lungs-symbol { bottom: 20%; left: 20%; animation-delay: 2s; }
+.brain-symbol { top: 25%; right: 12%; font-size: 3.5rem; animation-delay: 4s; }
+.dna-symbol { bottom: 25%; right: 10%; font-size: 4.5rem; animation-delay: 1s; }
+
+@keyframes float-anim {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+  100% { transform: translateY(-30px) rotate(15deg); opacity: 0.25; }
+}
+
+/* ECG Line Animation */
+.ecg-line-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25vh;
+  min-height: 120px;
+  opacity: 0.25;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ecg-line {
+  width: 200%;
+  height: 100%;
+  fill: none;
+  stroke: #3b82f6;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px #3b82f6);
+  animation: ecg-scroll 8s linear infinite;
+}
+
+@keyframes ecg-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 .hero-content {
   position: relative;
   z-index: 10;
