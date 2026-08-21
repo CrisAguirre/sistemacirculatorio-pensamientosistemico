@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { sessionApi } from '../api/session';
 import './pages.css';
 
@@ -13,23 +13,11 @@ const LINEAMIENTOS = {
   7: 'Estabilidad',
 };
 
-const ACTIVITIES = {
-  foro: { label: 'Foro', to: (s) => `/foro/${s.number}` },
-  video: { label: 'Video', to: () => '/recursos' },
-  cuestionario: { label: 'Cuestionario', to: (s) => (s.sims[0] ? `/laboratorio/${s.sims[0]}/evaluacion` : null) },
-  simulacion: { label: 'Simulación', to: () => '/laboratorio' },
-  diagrama: { label: 'Diagrama', to: () => '/evidencias' },
-  informe: { label: 'Informe', to: () => '/evidencias' },
-  analisis: { label: 'Análisis', to: () => '/evidencias' },
-  sintesis: { label: 'Síntesis', to: () => '/evidencias' },
-  postest: { label: 'Postest', to: () => '/postest' },
-  calculo: { label: 'Cálculo', to: () => '/laboratorio' },
-};
-
 export default function Sesiones() {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     sessionApi
@@ -38,6 +26,16 @@ export default function Sesiones() {
       .catch((e) => setError(e.message || 'Error al cargar sesiones'))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleCardClick = (sessionNumber) => {
+    if (sessionNumber === 1) {
+      navigate('/laboratorio/introduccion');
+    } else if (sessionNumber === 2) {
+      navigate('/laboratorio/apropiacion');
+    } else {
+      // For session 3 onwards, fallback or do nothing for now as per user instruction
+    }
+  };
 
   return (
     <div className="page">
@@ -53,7 +51,12 @@ export default function Sesiones() {
 
       <div className="resources-grid">
         {sessions.map((s) => (
-          <div className="glass-card" key={s.number} style={{ position: 'relative' }}>
+          <div 
+            className="glass-card" 
+            key={s.number} 
+            style={{ position: 'relative', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}
+            onClick={() => handleCardClick(s.number)}
+          >
             {s.completed && (
               <span style={{ position: 'absolute', top: '1rem', right: '1rem', fontSize: '1.4rem' }}>✅</span>
             )}
@@ -69,30 +72,10 @@ export default function Sesiones() {
                 </span>
               ))}
             </div>
-            {s.sims.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.75rem' }}>
-                {s.sims.map((slug) => (
-                  <Link key={slug} to={`/laboratorio/${slug}`} className="btn btn-outline" style={{ padding: '0.3rem 0.7rem', fontSize: '0.75rem' }}>
-                    {slug.replace('-', ' ')}
-                  </Link>
-                ))}
-              </div>
-            )}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-              {s.activities.map((a) => {
-                const act = ACTIVITIES[a];
-                const to = act?.to(s);
-                if (!act) return null;
-                return to ? (
-                  <Link key={a} to={to} className="btn btn-primary" style={{ padding: '0.3rem 0.7rem', fontSize: '0.75rem' }}>
-                    {act.label}
-                  </Link>
-                ) : null;
-              })}
-            </div>
           </div>
         ))}
       </div>
     </div>
   );
 }
+

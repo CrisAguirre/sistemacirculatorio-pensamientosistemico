@@ -18,7 +18,7 @@ export default function Pulmones() {
       <h2>Intercambio Gaseoso</h2>
       <p>Los pulmones son los órganos responsables de oxigenar la sangre y eliminar el dióxido de carbono, un proceso vital conocido como intercambio gaseoso que ocurre en los millones de alvéolos pulmonares.</p>
       <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/Wq_bPoRTn7I" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <iframe src="https://www.youtube.com/embed/uUpdItCbr24" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
       <p>Desde una perspectiva sistémica, los pulmones representan la interfaz entre el medio externo y el medio interno del cuerpo, permitiendo la entrada del "combustible" (oxígeno) y la salida del "humo" (dióxido de carbono) para mantener el equilibrio celular.</p>
     </>

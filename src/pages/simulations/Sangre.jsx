@@ -46,7 +46,7 @@ export default function Sangre() {
       <h2>Componentes de la Sangre</h2>
       <p>La sangre es el medio de transporte del sistema circulatorio. Está compuesta por cuatro elementos principales que trabajan en conjunto para mantener la vida: glóbulos rojos, glóbulos blancos, plaquetas y plasma.</p>
       <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/QdVUgZ62D4Y" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
       <p>Al estudiar la sangre desde el pensamiento sistémico, no la vemos solo como un fluido, sino como el medio físico a través del cual todos los órganos del cuerpo logran interactuar, compartir nutrientes y coordinar defensas.</p>
     </>

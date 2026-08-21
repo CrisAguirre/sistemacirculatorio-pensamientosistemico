@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Canvas } from '@react-three/fiber';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
 import '../pages.css';
@@ -43,7 +43,7 @@ export default function SistemaCirculatorioCompleto() {
       <h2>Homeostasis y Visión de Totalidad</h2>
       <p>El sistema circulatorio no es solo una colección de órganos; es un sistema integrado cuyo objetivo principal es mantener la homeostasis (equilibrio interno) frente a cualquier cambio o perturbación en el entorno.</p>
       <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/NUYtHLBV6S0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <iframe src="https://www.youtube.com/embed/JmC9nEvw4T8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
       <p>Para entender este sistema desde el pensamiento sistémico, aplicamos dos principios: la **ley de la conservación de la materia** (la sangre que se bombea es la misma que retorna, en un circuito cerrado) y la **resiliencia cardiovascular** (la capacidad del sistema de adaptarse y recuperar su estabilidad después de un estrés físico o una crisis).</p>
     </>

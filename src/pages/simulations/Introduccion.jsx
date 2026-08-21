@@ -10,6 +10,7 @@ export default function Introduccion() {
   const [isLluviaIdeasSaved, setIsLluviaIdeasSaved] = useState(false);
   const [isConclusionSaved, setIsConclusionSaved] = useState(false);
   
+  const [isSubmittingConclusion, setIsSubmittingConclusion] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -219,14 +220,8 @@ export default function Introduccion() {
               Ahora, observa este video para comprender cómo el pensamiento sistémico
               se aplica al estudio del Sistema Circulatorio humano.
             </p>
-            <div className="video-wrapper">
-              <iframe 
-                src={videoUrl} 
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Video Sistema Circulatorio"
-              ></iframe>
+            <div className="video-container" style={{ marginBottom: '20px' }}>
+              <iframe src="https://www.youtube.com/embed/JmC9nEvw4T8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
             </div>
             
             <div className="inspiring-text glass-panel mt-4 mb-5">

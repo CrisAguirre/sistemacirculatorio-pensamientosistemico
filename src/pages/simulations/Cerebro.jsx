@@ -22,7 +22,7 @@ export default function Cerebro() {
       <h2>El Cerebro como Centro de Control</h2>
       <p>El cerebro no solo es un órgano que demanda gran cantidad de energía y flujo sanguíneo, sino que también actúa como el centro de control principal del sistema cardiovascular a través del Sistema Nervioso Autónomo.</p>
       <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/X4rsSlMcjXY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
       <p>Desde una visión sistémica, el cerebro procesa la información de la demanda metabólica de todo el cuerpo y envía señales al corazón para acelerarlo (vía simpática) o frenarlo (vía parasimpática), garantizando el equilibrio dinámico u homeostasis.</p>
     </>
