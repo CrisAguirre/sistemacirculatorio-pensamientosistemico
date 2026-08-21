@@ -1,7 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
-import CustomVideoPlayer from '../../components/shared/CustomVideoPlayer';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import ECGMonitor from '../../components/heart/ECGMonitor';

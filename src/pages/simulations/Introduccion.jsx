@@ -13,7 +13,6 @@ export default function Introduccion() {
   const [isLluviaIdeasSaved, setIsLluviaIdeasSaved] = useState(false);
   const [isConclusionSaved, setIsConclusionSaved] = useState(false);
   
-  const [isSubmittingConclusion, setIsSubmittingConclusion] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 

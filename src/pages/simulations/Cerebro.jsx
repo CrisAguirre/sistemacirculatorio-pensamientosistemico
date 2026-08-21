@@ -1,9 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
-import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import SequenceCarousel from '../../components/shared/SequenceCarousel';
-import { Aurora, FadeContent } from '../../reactbits';
+import { Aurora } from '../../reactbits';
 import brainUrl from '../../assets/models/brain.glb?url';
 import '../pages.css';
 import './simulations.css';

@@ -1,5 +1,4 @@
 import { lazy, Suspense, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';

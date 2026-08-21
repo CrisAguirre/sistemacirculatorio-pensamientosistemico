@@ -1,9 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
-import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import SequenceCarousel from '../../components/shared/SequenceCarousel';
-import { Aurora, FadeContent } from '../../reactbits';
+import { Aurora } from '../../reactbits';
 import circulatoryUrl from '../../assets/models/circulatory_system.glb?url';
 import '../pages.css';
 import './simulations.css';
@@ -40,8 +38,6 @@ export default function Sangre() {
   const [mode, setMode] = useState('transporte');
   const [bpm, setBpm] = useState(75);
   const [saturacion, setSaturacion] = useState(98);
-
-  const gasto = ((bpm * 70) / 1000).toFixed(1);
 
   const Actividad = (
     <div className="actividad-immersive-container">

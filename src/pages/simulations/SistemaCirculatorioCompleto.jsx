@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import { Aurora } from '../../reactbits';
