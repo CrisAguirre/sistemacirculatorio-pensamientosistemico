@@ -40,38 +40,40 @@ export default function SistemaCirculatorioCompleto() {
 
   const Apropiacion = (
     <>
-      <h2>Representar el objeto de estudio: El Sistema Circulatorio Completo</h2>
-      <p>El sistema circulatorio es más que la suma de sus partes. Representarlo como sistema completo nos permite visualizar cómo los 4 subsistemas (corazón, sangre, pulmones y cerebro) operan de forma integrada, formando un circuito cerrado que mantiene la vida.</p>
+      <h2>Aplicación de Lineamientos: Visión de Totalidad</h2>
+      <p>El sistema circulatorio es más que la suma de sus partes. En este laboratorio final aplicamos simultáneamente los <b>Lineamientos 5, 6 y 7</b>, consolidando la visión de totalidad del pensamiento sistémico.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/JmC9nEvw4T8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>En la representación 3D se observan los 4 modelos posicionados anatómicamente dentro del cuerpo humano. Esta vista integrada permite comprender la homeostasis: el equilibrio dinámico que el sistema busca mantener ante cualquier perturbación externa como el ejercicio o una crisis de salud.</p>
+      <p><b>(L5 Conservación):</b> La sangre oxigenada fluye a los tejidos y regresa desoxigenada en un ciclo cerrado donde la materia no se pierde, solo se transforma y transporta.<br/>
+      <b>(L6 Propósito):</b> La estructura de los cuatro subsistemas (corazón, cerebro, pulmones, sangre) existe con un propósito superior: nutrir las células y eliminar sus desechos.<br/>
+      <b>(L7 Estabilidad y Cambio):</b> La representación 3D integrada permite comprender la <i>homeostasis</i>: el equilibrio dinámico que el sistema busca mantener (estabilidad) frente a cualquier alteración o crisis externa (cambio).</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Escalas, proporciones y cantidades del sistema integrado</h2>
+      <h2>Actividad: El Sistema en Constante Adaptación</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Registra las cantidades base</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. En reposo (Actividad metabólica = 0%), registra todas las métricas: Gasto Cardíaco (L/min), Presión arterial (mmHg), Volumen sistólico (ml), Saturación arterial y venosa de O₂ (%), Flujo cerebral (L/min) y Ventilación (L/min).</p>
+            <h4>Balance y Conservación (L5)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. En reposo (Actividad = 0%), revisa cómo el Gasto Cardíaco, la Ventilación y las saturaciones de oxígeno se balancean perfectamente. Registra estos valores base donde la materia se conserva en flujo constante.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Compara escalas en ejercicio extremo</h4>
-            <p>Sube la actividad metabólica al 100%. Registra las mismas métricas y calcula la proporción de cambio de cada una respecto al reposo. ¿Cuál variable cambió en mayor proporción? ¿Cuál cambió menos? ¿Por qué?</p>
+            <h4>El Propósito en Acción (L6)</h4>
+            <p>Sube la "Actividad metabólica" al 100%. El <i>propósito</i> del sistema es asegurar que los tejidos no mueran por falta de oxígeno. ¿Cómo actúan coordinadamente el corazón, los pulmones y el cerebro para cumplir este propósito bajo alta demanda?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Relaciones cuantitativas cruzadas</h4>
-            <p>Baja manualmente la saturación arterial de O₂ a 75%. Observa las métricas derivadas y analiza: ¿en qué cantidad debería aumentar la FC o la FR para compensar esa caída? Elabora una tabla comparativa de los 3 estados (reposo, ejercicio, crisis).</p>
+            <h4>Homeostasis: Estabilidad ante el Cambio (L7)</h4>
+            <p>Baja manualmente la "Saturación arterial de O₂" a 75%, simulando un cambio crítico (ej: ambiente sin oxígeno o fallo pulmonar). Observa cómo reacciona el resto del sistema (FC, Ventilación) para intentar recuperar la estabilidad (homeostasis).</p>
           </div>
         </div>
       </div>
@@ -80,7 +82,7 @@ export default function SistemaCirculatorioCompleto() {
 
   return (
     <SimulationWrapper
-      simNumber={5}
+      simNumber={6}
       title="Sistema Circulatorio Completo"
       description="El cuerpo como un sistema integrado: corazón, sangre, pulmones y cerebro acoplados."
       icon="🔄"

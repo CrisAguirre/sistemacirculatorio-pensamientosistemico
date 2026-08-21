@@ -43,38 +43,39 @@ export default function Sangre() {
 
   const Apropiacion = (
     <>
-      <h2>Representar el objeto de estudio: La Sangre</h2>
-      <p>La sangre es el medio de transporte del sistema circulatorio. Para representarla como objeto de estudio, debemos visualizar sus componentes y cómo circulan: los glóbulos rojos que llevan oxígeno, los glóbulos blancos de defensa, las plaquetas de coagulación y el plasma que los transporta.</p>
+      <h2>Aplicación de Lineamientos: Componentes y Causalidad</h2>
+      <p>La sangre es un claro ejemplo para aplicar los <b>Lineamientos 1 y 2</b> del pensamiento sistémico: identificar los componentes del objeto de estudio y establecer mecanismos de causa y efecto.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>La representación gráfica del sistema circulatorio completo (modelo 3D) nos permite observar cómo la sangre recorre los vasos, identificar las rutas de ida y vuelta, y comprender por qué no es un fluido aislado sino el conector que integra todos los subsistemas del cuerpo.</p>
+      <p><b>(Lineamiento 1)</b> La sangre está formada por distintos componentes celulares y fluidos: glóbulos rojos (transporte de O₂), glóbulos blancos (defensa), plaquetas (coagulación) y plasma (transporte de nutrientes).<br/><br/>
+      <b>(Lineamiento 2)</b> A su vez, estos componentes tienen una clara causalidad: si se produce una herida, las plaquetas acuden para coagular (causa-efecto). Si hay una infección, los glóbulos blancos aumentan su actividad.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Escalas, proporciones y cantidades de la sangre</h2>
+      <h2>Actividad: Componentes en Acción y sus Efectos</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Proporciones del flujo sanguíneo</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Selecciona los distintos modos (Transporte O₂, Defensa, Coagulación, Nutrientes). Identifica la proporción relativa de cada componente: ¿cuál ocupa mayor volumen en la sangre?</p>
+            <h4>Identifica los componentes (L1)</h4>
+            <p>Ve a la pestaña <b>Simulador</b> y explora los 4 modos: Transporte, Defensa, Coagulación y Nutrientes. Identifica el componente sanguíneo responsable de cada función.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Cuantifica el gasto cardíaco</h4>
-            <p>Usa el control de Frecuencia Cardíaca y auméntala al máximo (180 lpm). Observa el valor del Gasto Cardíaco (L/min) y calcula: si el volumen sistólico es ~70 ml, ¿cuántos litros de sangre bombea el corazón en 1 minuto? Compara con el valor mostrado.</p>
+            <h4>Analiza la causalidad (L2)</h4>
+            <p>Usando el control de "Frecuencia Cardíaca", súbelo a 150 lpm. Esto simula la causa (ejercicio). ¿Cuál es el efecto directo en el Gasto Cardíaco? Anota cómo la alteración de la bomba cardíaca afecta inmediatamente el volumen de sangre que fluye.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Escalas de saturación</h4>
-            <p>Reduce la Saturación de Oxígeno al 70%. Observa el cambio de escala del indicador (verde → naranja → rojo). Registra los valores y analiza: ¿a partir de qué porcentaje el sistema considera que hay alerta? ¿Qué proporción de oxígeno se perdió respecto al valor normal (98%)?</p>
+            <h4>Causalidad en la oxigenación</h4>
+            <p>Disminuye la "Saturación de oxígeno" al 65% (causa). Observa el cambio de color en la interfaz y las alertas (efecto). Explica en tu informe qué componente de la sangre está fallando en su función cuando esto ocurre.</p>
           </div>
         </div>
       </div>

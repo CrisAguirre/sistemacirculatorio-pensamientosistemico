@@ -31,16 +31,14 @@ export default function Sesiones() {
     if (sessionNumber === 1) {
       navigate('/laboratorio/introduccion');
     } else if (sessionNumber === 2) {
-      navigate('/laboratorio/apropiacion');
-    } else if (sessionNumber === 3) {
-      navigate('/laboratorio/corazon');
-    } else if (sessionNumber === 4) {
       navigate('/laboratorio/sangre');
+    } else if (sessionNumber === 3) {
+      navigate('/laboratorio/cerebro');
+    } else if (sessionNumber === 4) {
+      navigate('/laboratorio/corazon');
     } else if (sessionNumber === 5) {
       navigate('/laboratorio/pulmones');
     } else if (sessionNumber === 6) {
-      navigate('/laboratorio/cerebro');
-    } else if (sessionNumber === 7) {
       navigate('/laboratorio/sistema-circulatorio');
     }
   };
@@ -50,7 +48,7 @@ export default function Sesiones() {
       <div className="page-header">
         <h1 className="page-title">Mis Sesiones</h1>
         <p className="page-subtitle">
-          Recorrido de 7 sesiones para fortalecer tu pensamiento sistémico sobre el sistema circulatorio.
+          Recorrido de 6 sesiones para fortalecer tu pensamiento sistémico sobre el sistema circulatorio.
         </p>
       </div>
 

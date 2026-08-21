@@ -18,8 +18,6 @@ import Pulmones from './pages/simulations/Pulmones';
 import Cerebro from './pages/simulations/Cerebro';
 import SistemaCirculatorioCompleto from './pages/simulations/SistemaCirculatorioCompleto';
 import Introduccion from './pages/simulations/Introduccion';
-import Apropiacion from './pages/simulations/Apropiacion';
-
 export default function App() {
   return (
     <Routes>
@@ -34,7 +32,6 @@ export default function App() {
           <Route path="/resultados" element={<Results />} />
           <Route path="/laboratorio" element={<LaboratorioHub />} />
           <Route path="/laboratorio/introduccion" element={<Introduccion />} />
-          <Route path="/laboratorio/apropiacion" element={<Apropiacion />} />
           <Route path="/laboratorio/corazon" element={<Corazon />} />
           <Route path="/laboratorio/sangre" element={<Sangre />} />
           <Route path="/laboratorio/pulmones" element={<Pulmones />} />

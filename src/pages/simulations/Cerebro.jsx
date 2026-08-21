@@ -19,38 +19,39 @@ export default function Cerebro() {
 
   const Apropiacion = (
     <>
-      <h2>Representar el objeto de estudio: El Cerebro</h2>
-      <p>El cerebro es el centro de control del sistema circulatorio. Representarlo como objeto de estudio nos permite visualizar cómo este órgano, aunque pesa apenas un 2% del peso corporal, demanda el 15-20% del flujo sanguíneo total por su constante necesidad de oxígeno y glucosa.</p>
+      <h2>Aplicación de Lineamientos: Componentes y Causalidad</h2>
+      <p>El cerebro es el órgano ideal para aplicar los <b>Lineamientos 1 y 2</b> del pensamiento sistémico: identificar los componentes de control y establecer mecanismos de causa y efecto.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>En la representación 3D se observa la estructura cerebral y cerebelosa. El cerebro actúa como regulador del sistema cardiovascular a través del Sistema Nervioso Autónomo (SNA), enviando señales simpáticas (acelerar) o parasimpáticas (frenar) al corazón según la demanda del cuerpo.</p>
+      <p><b>(Lineamiento 1)</b> El componente principal de control del sistema cardiovascular es el Sistema Nervioso Autónomo (SNA), subdividido en ramas simpática y parasimpática.<br/><br/>
+      <b>(Lineamiento 2)</b> La causalidad es directa: una alta demanda de energía (causa) hace que el cerebro envíe señales simpáticas que aceleran el corazón (efecto). Una baja demanda (causa) activa señales parasimpáticas que lo frenan (efecto).</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Escalas, proporciones y cantidades cerebrales</h2>
+      <h2>Actividad: Componentes del SNA y su Efecto Causal</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Cuantifica la demanda en equilibrio</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Con la demanda al 50%, registra los valores de FC (lpm) y Flujo Sanguíneo Cerebral (%). Estos son las cantidades de referencia del estado de equilibrio.</p>
+            <h4>Componente en Equilibrio (L1)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Con la demanda al 50%, observa el componente activo en "Dominio del SNA". En este estado base, anota cuál es el flujo sanguíneo cerebral y la frecuencia cardíaca.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Proporciones en alta demanda</h4>
-            <p>Aumenta la demanda al 100%. Registra las nuevas cantidades y calcula: ¿en qué proporción aumentó la FC respecto al paso 1? ¿Cuánto creció el flujo cerebral en porcentaje? ¿Cuál es la escala de cambio entre estado simpático y equilibrio?</p>
+            <h4>Causalidad Simpática (L2)</h4>
+            <p>Aumenta la demanda al 100% (causa). ¿Qué componente del SNA toma el control? Registra el efecto inmediato en la frecuencia cardíaca y en el flujo sanguíneo que el cerebro se auto-asigna para soportar la carga.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Escala mínima de funcionamiento</h4>
-            <p>Baja la demanda al 0%. Registra los valores mínimos del sistema. Compara los 3 estados (0%, 50%, 100%) y elabora una tabla con las cantidades, identificando las proporciones de cambio entre cada escala.</p>
+            <h4>Causalidad Parasimpática (L2)</h4>
+            <p>Baja la demanda al 0% (causa). ¿Qué componente entra a dominar? Analiza el efecto de "frenado" en el corazón y deduce por qué este mecanismo causal es vital para evitar el desgaste del órgano.</p>
           </div>
         </div>
       </div>
@@ -59,7 +60,7 @@ export default function Cerebro() {
 
   return (
     <SimulationWrapper
-      simNumber={4}
+      simNumber={3}
       title="El Cerebro"
       description="Conoce la regulación de la circulación y la alta demanda de flujo sanguíneo del cerebro."
       icon="🧠"

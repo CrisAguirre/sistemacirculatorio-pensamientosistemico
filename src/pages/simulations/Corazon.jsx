@@ -79,38 +79,39 @@ export default function Corazon() {
 
   const Apropiacion = (
     <>
-      <h2>Aplicación del Lineamiento 3: Representar el objeto de estudio</h2>
-      <p>El corazón es el motor del sistema circulatorio. Para comprender su funcionamiento desde el pensamiento sistémico, es fundamental representarlo gráficamente y simular sus estados, reconociendo que no es una simple máquina aislada, sino un subsistema rítmico que responde a estímulos externos.</p>
+      <h2>Aplicación de Lineamientos: Representación y Escalas</h2>
+      <p>El corazón es el motor del sistema circulatorio, ideal para aplicar los <b>Lineamientos 3 y 4</b> del pensamiento sistémico: representar el objeto de estudio y establecer sus escalas, proporciones y cantidades.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/zl-ae3xthVE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>La representación de este órgano nos permite visualizar su anatomía interconectada: los ventrículos y aurículas que reciben y expulsan sangre interactuando con los pulmones y el cerebro para regular el flujo según las necesidades del cuerpo.</p>
+      <p><b>(Lineamiento 3)</b> La representación gráfica del corazón latiendo y su electrocardiograma (ECG) nos permite visualizar su anatomía interconectada (aurículas, ventrículos, vasos mayores) y comprender que no es una máquina aislada, sino un subsistema vivo.<br/><br/>
+      <b>(Lineamiento 4)</b> El ritmo de esta representación visual define las cantidades del sistema: a partir del volumen que expulsa en cada latido y la frecuencia, podemos establecer las proporciones del flujo sanguíneo necesario para mantener la vida.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Escalas, proporciones y cantidades del corazón</h2>
+      <h2>Actividad: Cuantificando la Representación Cardíaca</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Cuantifica el latido en reposo</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Selecciona el estado "Latido Normal". Registra la Frecuencia Cardíaca (FC en lpm), la presión arterial (mmHg) y el Gasto Cardíaco (L/min). Estos son los valores de referencia a escala basal.</p>
+            <h4>Representación basal (L3)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Selecciona el estado "Latido Normal". Observa la representación visual del latido (el modelo 3D y el ECG). Registra las cantidades iniciales: Frecuencia (lpm) y Presión arterial.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Compara proporciones en ejercicio</h4>
-            <p>Cambia al estado "Ejercicio". Compara las nuevas cantidades con las del paso 1: ¿en qué proporción aumentó la FC? ¿Cuánto cambió el gasto cardíaco? Calcula la razón de cambio (valor ejercicio / valor reposo).</p>
+            <h4>Escalas y proporciones (L4)</h4>
+            <p>Cambia al estado "Ejercicio". Compara las nuevas cantidades con las del paso 1: ¿En qué proporción aumentó la FC? Usa el valor del "Gasto Cardíaco" (L/min) para calcular la razón de cambio (Gasto Ejercicio / Gasto Reposo).</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Manipula escalas con los sliders</h4>
-            <p>Usa los deslizadores para ajustar manualmente la frecuencia y la presión. Observa cómo al duplicar la FC, el gasto cardíaco crece proporcionalmente. Registra al menos 3 combinaciones de valores y analiza las relaciones cuantitativas entre ellos.</p>
+            <h4>Manipulando las cantidades (L4)</h4>
+            <p>Usa los deslizadores manuales de la parte inferior para establecer una FC extrema (180 lpm). Observa la representación (L3) del corazón latiendo a esa velocidad y anota los valores resultantes. Elabora una tabla con 3 escalas de intensidad (reposo, media, máxima).</p>
           </div>
         </div>
       </div>
@@ -119,7 +120,7 @@ export default function Corazon() {
 
   return (
     <SimulationWrapper
-      simNumber={1}
+      simNumber={4}
       title="El Corazón"
       description="Simula el corazón como una bomba dentro de un sistema: cambia su estado y observa cómo responde."
       icon="🫀"

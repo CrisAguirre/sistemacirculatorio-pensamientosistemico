@@ -7,7 +7,7 @@ export default function LaboratorioHub() {
       <div className="page-header">
         <h1 className="page-title">Laboratorio de Simulaciones</h1>
         <p className="page-subtitle">
-          Explora las 5 simulaciones interactivas del sistema circulatorio desde el pensamiento sistémico.
+          Explora las 6 fases interactivas del sistema circulatorio desde el pensamiento sistémico.
         </p>
       </div>
 
@@ -16,24 +16,17 @@ export default function LaboratorioHub() {
           <span className="block-icon">📚</span>
           <div>
             <h2 className="block-title">Módulo Introductorio</h2>
-            <p className="block-desc">Simulaciones introductorias — 0</p>
+            <p className="block-desc">Fase 1</p>
           </div>
         </div>
 
         <div className="sim-grid">
           <SimCard
-            simNumber={0}
+            simNumber={1}
             title="Laboratorio de Introducción"
-            description="Presentación de la secuencia didáctica y pensamiento sistémico."
+            description="Presentación de la secuencia didáctica y concepto de sistema."
             icon="🎬"
             routePath="/laboratorio/introduccion"
-          />
-          <SimCard
-            simNumber={0.5}
-            title="Apropiación"
-            description="Espacio de construcción y reflexión grupal."
-            icon="🛠️"
-            routePath="/laboratorio/apropiacion"
           />
         </div>
       </section>
@@ -42,37 +35,23 @@ export default function LaboratorioHub() {
         <div className="block-header">
           <span className="block-icon">🧩</span>
           <div>
-            <h2 className="block-title">Componentes del Sistema</h2>
-            <p className="block-desc">Simulaciones segmentadas — 1 a 4</p>
+            <h2 className="block-title">Componentes y Causalidad</h2>
+            <p className="block-desc">Fases 2 y 3</p>
           </div>
         </div>
 
         <div className="sim-grid">
           <SimCard
-            simNumber={1}
-            title="El Corazón"
-            description="Bomba central: cámaras, válvulas y ciclo cardíaco."
-            icon="🫀"
-            routePath="/laboratorio/corazon"
-          />
-          <SimCard
             simNumber={2}
             title="La Sangre"
-            description="Componentes y función de transporte de la sangre."
+            description="Componentes celulares y su relación causa-efecto."
             icon="🩸"
             routePath="/laboratorio/sangre"
           />
           <SimCard
             simNumber={3}
-            title="Los Pulmones"
-            description="Intercambio gaseoso y oxigenación de la sangre."
-            icon="🫁"
-            routePath="/laboratorio/pulmones"
-          />
-          <SimCard
-            simNumber={4}
             title="El Cerebro"
-            description="Regulación de la circulación y demanda de flujo."
+            description="Centro de control y la causalidad autonómica."
             icon="🧠"
             routePath="/laboratorio/cerebro"
           />
@@ -81,18 +60,45 @@ export default function LaboratorioHub() {
 
       <section className="sim-block">
         <div className="block-header">
-          <span className="block-icon">🌐</span>
+          <span className="block-icon">🔍</span>
           <div>
-            <h2 className="block-title">Integración Sistémica</h2>
-            <p className="block-desc">Simulación general — 5</p>
+            <h2 className="block-title">Representación y Escalas</h2>
+            <p className="block-desc">Fases 4 y 5</p>
           </div>
         </div>
 
         <div className="sim-grid">
           <SimCard
+            simNumber={4}
+            title="El Corazón"
+            description="Representación de la bomba central y sus volúmenes."
+            icon="🫀"
+            routePath="/laboratorio/corazon"
+          />
+          <SimCard
             simNumber={5}
+            title="Los Pulmones"
+            description="Escalas e intercambio gaseoso (O2/CO2)."
+            icon="🫁"
+            routePath="/laboratorio/pulmones"
+          />
+        </div>
+      </section>
+
+      <section className="sim-block">
+        <div className="block-header">
+          <span className="block-icon">🌐</span>
+          <div>
+            <h2 className="block-title">Visión de Totalidad</h2>
+            <p className="block-desc">Fase 6</p>
+          </div>
+        </div>
+
+        <div className="sim-grid">
+          <SimCard
+            simNumber={6}
             title="Sistema Circulatorio Completo"
-            description="Integra corazón, sangre, pulmones y cerebro en una visión de sistema completo."
+            description="Visión general: Conservación, propósito y estabilidad."
             icon="🔄"
             routePath="/laboratorio/sistema-circulatorio"
           />

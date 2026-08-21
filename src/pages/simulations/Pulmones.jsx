@@ -15,38 +15,39 @@ export default function Pulmones() {
 
   const Apropiacion = (
     <>
-      <h2>Representar el objeto de estudio: Los Pulmones</h2>
-      <p>Los pulmones son los órganos responsables del intercambio gaseoso. Representarlos como objeto de estudio nos permite visualizar cómo están estructurados internamente: millones de alvéolos conectados a una red de capilares donde la sangre intercambia oxígeno por dióxido de carbono.</p>
+      <h2>Aplicación de Lineamientos: Representación y Escalas</h2>
+      <p>Los pulmones son fundamentales para el intercambio gaseoso. En este componente aplicamos los <b>Lineamientos 3 y 4</b>: representar el objeto de estudio y cuantificar sus escalas, proporciones y cantidades.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/uUpdItCbr24" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p>En la representación 3D puedes observar el movimiento rítmico de inhalación y exhalación. Los pulmones son la interfaz entre el medio externo (aire) y el medio interno (sangre), permitiendo la entrada del oxígeno y la salida del dióxido de carbono para mantener el equilibrio del sistema.</p>
+      <p><b>(Lineamiento 3)</b> La representación 3D del movimiento rítmico (inhalación y exhalación) nos muestra los pulmones no solo anatómica sino funcionalmente: como la interfaz estructural entre el aire externo y la sangre interna.<br/><br/>
+      <b>(Lineamiento 4)</b> Para comprenderlos, debemos establecer las cantidades en este intercambio: medir la frecuencia respiratoria, los porcentajes (proporciones) de oxígeno que ingresan al sistema, y el CO₂ que se desecha, determinando las escalas de normalidad y peligro.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Escalas, proporciones y cantidades respiratorias</h2>
+      <h2>Actividad: Cuantificando la Representación Respiratoria</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Mide el ritmo respiratorio</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Registra la Frecuencia Respiratoria en reposo (14 resp/min). Ahora auméntala a 30 resp/min. Calcula: ¿en qué proporción aumentó? ¿Cuántas respiraciones más por minuto se realizan?</p>
+            <h4>Representación y Escala Basal (L3, L4)</h4>
+            <p>Ve a la pestaña <b>Simulador</b> y observa la representación del ritmo respiratorio. Registra las cantidades iniciales: Frecuencia Respiratoria en reposo (resp/min), Saturación de O₂ (%) y CO₂ en sangre (%).</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Escalas de saturación de O₂</h4>
-            <p>Desciende la saturación de O₂ a niveles bajos (menor a 90%). Registra el valor exacto y calcula el porcentaje de disminución respecto al 98% normal. ¿A partir de qué cantidad porcentual el indicador cambia de estado?</p>
+            <h4>Escalas de saturación (L4)</h4>
+            <p>Desciende la saturación de O₂ a niveles bajos (menor a 90%). Registra el valor exacto y calcula la proporción: ¿qué porcentaje de oxigenación se ha perdido respecto al 98% ideal? ¿A partir de qué cantidad la alerta pasa de verde a rojo?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Proporciones de CO₂</h4>
-            <p>Aumenta el nivel de CO₂ al máximo (10%). Registra las 3 métricas (FR, O₂, CO₂) simultáneamente. Analiza la relación proporcional: cuando el CO₂ sube, ¿qué le debería ocurrir a la frecuencia respiratoria para compensar?</p>
+            <h4>Proporciones de compensación (L4)</h4>
+            <p>Aumenta el nivel de CO₂ al máximo (10%). Registra simultáneamente las 3 métricas. Analiza la relación matemática: si la cantidad de CO₂ aumenta drásticamente en la sangre, ¿en qué proporción debe subir el ritmo respiratorio para compensarlo?</p>
           </div>
         </div>
       </div>
@@ -55,7 +56,7 @@ export default function Pulmones() {
 
   return (
     <SimulationWrapper
-      simNumber={3}
+      simNumber={5}
       title="Los Pulmones"
       description="Descubre el intercambio gaseoso y la oxigenación de la sangre."
       icon="🫁"
