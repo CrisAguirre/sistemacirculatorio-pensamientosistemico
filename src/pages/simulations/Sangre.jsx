@@ -1,7 +1,8 @@
 import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import { Aurora } from '../../reactbits';
+import { Aurora, FadeContent } from '../../reactbits';
 import circulatoryUrl from '../../assets/models/circulatory_system.glb?url';
 import '../pages.css';
 import './simulations.css';
@@ -42,53 +43,146 @@ export default function Sangre() {
   const gasto = ((bpm * 70) / 1000).toFixed(1);
 
   const Apropiacion = (
-    <>
-      <h2>Lineamientos 1 y 2: Componentes y Causalidad en la Sangre</h2>
-      <p>Desde el <b>pensamiento sistémico</b>, entender un sistema requiere primero <b>identificar sus componentes</b> (Lineamiento 1) y luego <b>establecer las relaciones de causa y efecto</b> entre ellos (Lineamiento 2). La sangre es el vehículo perfecto para explorar ambos lineamientos, ya que conecta todos los subsistemas del cuerpo.</p>
-      <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-      </div>
-      <h3>🔬 Lineamiento 1 — Componentes del sistema</h3>
-      <p>La sangre tiene <b>4 componentes funcionales</b>, cada uno con un rol específico dentro del sistema circulatorio:</p>
-      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
-        <li><b>Glóbulos rojos (eritrocitos):</b> transportan el oxígeno (O₂) desde los pulmones hacia los tejidos gracias a la hemoglobina.</li>
-        <li><b>Glóbulos blancos (leucocitos):</b> defienden el cuerpo detectando y atacando agentes invasores.</li>
-        <li><b>Plaquetas:</b> sellan las heridas formando tapones que detienen el sangrado.</li>
-        <li><b>Plasma:</b> el medio líquido que transporta nutrientes, hormonas y desechos.</li>
-      </ul>
-      <h3>⚡ Lineamiento 2 — Causalidad durante el ejercicio</h3>
-      <p>Cuando haces <b>ejercicio físico</b> (la <i>causa</i>), los músculos demandan más oxígeno. Esto desencadena una <b>cadena causal</b> en el sistema: el cerebro detecta la demanda → envía señales simpáticas al corazón → el corazón late más rápido → la sangre circula a mayor velocidad → los glóbulos rojos entregan más O₂ a los músculos → los músculos producen más CO₂ → la sangre lo recoge y lo lleva a los pulmones para eliminarlo.</p>
-      <p>Esta cadena demuestra que <b>ningún componente actúa solo</b>: el efecto de una causa se propaga por todo el sistema.</p>
-    </>
+    <div style={{ padding: '1rem 0' }}>
+      <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+        <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', background: 'linear-gradient(to right, #60a5fa, #c084fc)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
+          Lineamientos 1 y 2: Componentes y Causalidad en la Sangre
+        </h2>
+        <p style={{ fontSize: '1.1rem', color: '#cbd5e1', lineHeight: '1.8', marginBottom: '2rem' }}>
+          Desde el <strong>pensamiento sistémico</strong>, entender un sistema requiere primero <strong>identificar sus componentes</strong> (Lineamiento 1) y luego <strong>establecer las relaciones de causa y efecto</strong> entre ellos (Lineamiento 2). La sangre es el vehículo perfecto para explorar ambos lineamientos, ya que conecta todos los subsistemas del cuerpo.
+        </p>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1200} easing="ease-out" initialOpacity={0}>
+        <div className="video-container" style={{ borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        </div>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1400} easing="ease-out" initialOpacity={0}>
+        <div className="deco-container" style={{ margin: '3rem 0', background: 'linear-gradient(135deg, rgba(30,41,59,0.5), rgba(15,23,42,0.8))' }}>
+          <div className="deco-icon deco-float">🩸</div>
+          <div className="deco-connector"></div>
+          <div className="deco-icon deco-float-delay">🛡️</div>
+          <div className="deco-connector"></div>
+          <div className="deco-icon deco-float">🩹</div>
+        </div>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1600} easing="ease-out" initialOpacity={0}>
+        <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '3.5rem', borderLeft: '4px solid #3b82f6' }}>
+          <h3 style={{ color: '#60a5fa', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(96,165,250,0.6))' }}>🔬</span> 
+            Lineamiento 1 — Componentes del sistema
+          </h3>
+          <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#e2e8f0', marginBottom: '1rem' }}>
+            La sangre tiene <strong>4 componentes funcionales</strong>, cada uno con un rol específico dentro del sistema circulatorio:
+          </p>
+          <ul style={{ paddingLeft: '1.5rem', lineHeight: '2', color: '#cbd5e1', fontSize: '1.05rem' }}>
+            <li><strong style={{ color: '#f87171' }}>Glóbulos rojos (eritrocitos):</strong> transportan el oxígeno (O₂) desde los pulmones hacia los tejidos gracias a la hemoglobina.</li>
+            <li><strong style={{ color: '#f8fafc' }}>Glóbulos blancos (leucocitos):</strong> defienden el cuerpo detectando y atacando agentes invasores.</li>
+            <li><strong style={{ color: '#fbbf24' }}>Plaquetas:</strong> sellan las heridas formando tapones que detienen el sangrado.</li>
+            <li><strong style={{ color: '#93c5fd' }}>Plasma:</strong> el medio líquido que transporta nutrientes, hormonas y desechos.</li>
+          </ul>
+        </div>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1800} easing="ease-out" initialOpacity={0}>
+        <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2rem', borderLeft: '4px solid #f59e0b' }}>
+          <h3 style={{ color: '#fbbf24', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.6))' }}>⚡</span> 
+            Lineamiento 2 — Causalidad durante el ejercicio
+          </h3>
+          <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#e2e8f0', marginBottom: '1rem' }}>
+            Cuando haces <strong>ejercicio físico</strong> (la <em>causa</em>), los músculos demandan más oxígeno. Esto desencadena una <strong>cadena causal</strong> en el sistema:
+          </p>
+          
+          <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', margin: '1.5rem 0', border: '1px solid rgba(255,255,255,0.05)', color: '#94a3b8' }}>
+            <p style={{ margin: 0, lineHeight: '1.8', textAlign: 'center', fontSize: '1.1rem' }}>
+              El cerebro detecta la demanda <br/>
+              <span style={{ color: '#f59e0b' }}>↓</span><br/>
+              envía señales simpáticas al corazón <br/>
+              <span style={{ color: '#f59e0b' }}>↓</span><br/>
+              el corazón late más rápido <br/>
+              <span style={{ color: '#f59e0b' }}>↓</span><br/>
+              la sangre circula a mayor velocidad <br/>
+              <span style={{ color: '#f59e0b' }}>↓</span><br/>
+              los glóbulos rojos entregan más O₂ a los músculos <br/>
+              <span style={{ color: '#f59e0b' }}>↓</span><br/>
+              los músculos producen más CO₂ <br/>
+              <span style={{ color: '#f59e0b' }}>↓</span><br/>
+              la sangre lo recoge y lo lleva a los pulmones para eliminarlo.
+            </p>
+          </div>
+
+          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#f8fafc', margin: 0, textAlign: 'center', fontWeight: '500' }}>
+            Esta cadena demuestra que <strong>ningún componente actúa solo</strong>: el efecto de una causa se propaga por todo el sistema.
+          </p>
+        </div>
+      </FadeContent>
+    </div>
   );
 
   const Actividad = (
-    <>
-      <h2>Actividad: Cadena Causal del Ejercicio en la Sangre</h2>
-      <div className="activity-steps">
-        <div className="activity-step">
-          <div className="step-number">1</div>
-          <div className="step-content">
-            <h4>Identifica los componentes en reposo (L1)</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Explora los 4 modos (Transporte O₂, Defensa, Coagulación, Nutrientes) y anota <b>qué componente de la sangre</b> cumple cada función. Con la FC en 75 lpm, registra el Gasto Cardíaco y la Saturación de O₂. Este es el <b>estado basal</b> del sistema.</p>
+    <div className="actividad-immersive-container">
+      <h2 className="text-neon-blue mb-3">Actividad Práctica: La Sangre en Acción</h2>
+      <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+        A continuación, interactúa con el simulador y responde a cada uno de los 3 retos planteados. 
+        <strong style={{ color: '#60a5fa' }}> Por favor, agregue descripciones escritas, datos cuantitativos o palabras clave relacionadas con la temática de cada pregunta en su respectivo cajón de texto.</strong>
+      </p>
+
+      <div className="activity-steps-immersive" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+        
+        {/* RETO 1 */}
+        <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(239,68,68,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="step-number" style={{ background: '#ef4444', boxShadow: '0 0 15px rgba(239,68,68,0.5)' }}>1</div>
+            <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#f87171' }}>Identifica los componentes en reposo (L1)</h4>
           </div>
+          <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+            Ve a la pestaña <strong>Simulador</strong>. Explora los 4 modos (Transporte O₂, Defensa, Coagulación, Nutrientes) y anota <strong>qué componente celular de la sangre</strong> cumple cada función. Luego, con la Frecuencia Cardíaca en 75 lpm (estado basal), registra el Gasto Cardíaco y la Saturación de O₂.
+          </p>
+          <EvidenciaTextarea 
+            titulo="Sangre - Actividad 1: Estado Basal" 
+            placeholder="Agregue aquí sus descripciones (Ej: El componente de defensa es... El gasto cardíaco inicial es...)"
+          />
         </div>
-        <div className="activity-step">
-          <div className="step-number">2</div>
-          <div className="step-content">
-            <h4>Simula el ejercicio: causa → efecto (L2)</h4>
-            <p>Sube la Frecuencia Cardíaca a <b>150 lpm</b> (esto simula que estás corriendo). Observa el <b>efecto causal</b>: ¿cuánto aumentó el Gasto Cardíaco (L/min) respecto al paso 1? Explica por qué los <b>glóbulos rojos</b> (componente) deben circular más rápido cuando hay ejercicio (causa).</p>
+
+        {/* RETO 2 */}
+        <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="step-number" style={{ background: '#f59e0b', boxShadow: '0 0 15px rgba(245,158,11,0.5)' }}>2</div>
+            <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#fbbf24' }}>Simula el ejercicio: causa → efecto (L2)</h4>
           </div>
+          <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+            Sube la Frecuencia Cardíaca a <strong>150 lpm</strong> simulando que estás corriendo. Observa el efecto causal: ¿Cuánto aumentó el Gasto Cardíaco (L/min) respecto al paso 1? Explica con tus propias palabras por qué los <strong>glóbulos rojos</strong> deben circular más rápido cuando hay ejercicio físico.
+          </p>
+          <EvidenciaTextarea 
+            titulo="Sangre - Actividad 2: Causalidad del Ejercicio" 
+            placeholder="Escriba aquí los valores registrados y su explicación causal..."
+          />
         </div>
-        <div className="activity-step">
-          <div className="step-number">3</div>
-          <div className="step-content">
-            <h4>Causalidad inversa: fallo de un componente (L2)</h4>
-            <p>Baja la Saturación de O₂ al <b>65%</b> (esto simula anemia severa: los glóbulos rojos no pueden transportar suficiente O₂). ¿Qué <b>efecto</b> tiene este fallo en el sistema? ¿Por qué el corazón debería <b>aumentar aún más su frecuencia</b> para compensar? Registra cómo el fallo de un solo componente desencadena una cadena de efectos en todo el sistema.</p>
+
+        {/* RETO 3 */}
+        <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="step-number" style={{ background: '#3b82f6', boxShadow: '0 0 15px rgba(59,130,246,0.5)' }}>3</div>
+            <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#60a5fa' }}>Fallo sistémico: Causalidad inversa (L2)</h4>
           </div>
+          <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+            Baja la Saturación de O₂ al <strong>65%</strong> (simulando una anemia severa o falta de oxígeno). ¿Qué efecto tiene este fallo en el sistema? ¿Por qué el corazón necesitaría bombear más rápido (aumentar la frecuencia) para intentar compensar esta deficiencia?
+          </p>
+          <EvidenciaTextarea 
+            titulo="Sangre - Actividad 3: Fallo de Componentes" 
+            placeholder="Describa los efectos observados y reflexione sobre la interdependencia sistémica..."
+          />
         </div>
+
       </div>
-    </>
+    </div>
   );
 
   return (

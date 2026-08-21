@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
 import brainUrl from '../../assets/models/brain.glb?url';
@@ -23,6 +24,13 @@ export default function Cerebro() {
       <p>En el laboratorio anterior viste los componentes de la sangre y cómo el ejercicio desencadena una cadena causal. Ahora profundizamos: <b>¿quién da la orden de iniciar esa cadena?</b> El cerebro es el <b>componente director</b> (L1) que interpreta las señales y dispara los efectos causales (L2) en todo el sistema circulatorio.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </div>
+      <div className="deco-container">
+        <div className="deco-icon deco-pulse">🧠</div>
+        <div className="deco-connector"></div>
+        <div className="deco-icon deco-float">⚡</div>
+        <div className="deco-connector"></div>
+        <div className="deco-icon deco-float-delay">💡</div>
       </div>
       <h3>🧠 Lineamiento 1 — Componentes de control</h3>
       <p>El cerebro controla el sistema circulatorio a través del <b>Sistema Nervioso Autónomo (SNA)</b>, que tiene dos ramas (componentes funcionales):</p>
@@ -66,6 +74,7 @@ export default function Cerebro() {
           </div>
         </div>
       </div>
+      <EvidenciaTextarea titulo="Evidencia: Laboratorio del Cerebro" />
     </>
   );
 

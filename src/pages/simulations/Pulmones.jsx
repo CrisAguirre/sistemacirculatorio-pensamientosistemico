@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
@@ -43,6 +44,13 @@ export default function Pulmones() {
       <p>Los pulmones son la interfaz entre el aire y la sangre. En este laboratorio aplicamos los <b>Lineamientos 3 y 4</b>: <b>representar</b> el intercambio gaseoso mediante gráficas y modelos, y cuantificar las <b>escalas</b> para evidenciar enfermedades pulmonares.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/uUpdItCbr24" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </div>
+      <div className="deco-container">
+        <div className="deco-icon deco-breathe">🫁</div>
+        <div className="deco-connector" style={{ background: 'linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent)' }}></div>
+        <div className="deco-icon deco-float">🫧</div>
+        <div className="deco-connector" style={{ background: 'linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent)' }}></div>
+        <div className="deco-icon deco-breathe">💨</div>
       </div>
       <h3>📊 Lineamiento 3 — Representación del intercambio gaseoso</h3>
       <p>En este laboratorio construyes <b>múltiples representaciones</b> del mismo fenómeno:</p>
@@ -89,6 +97,7 @@ export default function Pulmones() {
           </div>
         </div>
       </div>
+      <EvidenciaTextarea titulo="Evidencia: Laboratorio de Pulmones" />
     </>
   );
 

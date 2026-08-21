@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { evidenciaApi } from '../../api/evidencia';
 import DrawingCanvas from '../../components/shared/DrawingCanvas';
-import { Aurora, BlurText } from '../../reactbits';
+import { Aurora, BlurText, FadeContent } from '../../reactbits';
 import './introduccion.css';
 import './introduccion_animations.css';
 
@@ -121,9 +121,49 @@ export default function Introduccion() {
         {/* 1: EJEMPLOS DE SISTEMAS (Ahora incluye Lluvia de Ideas) */}
         {activeTab === 'ejemplos' && (
           <div className="video-section animate-fade">
+            
+            {/* NUEVA SECCIÓN: CONCEPTO DEL SISTEMA */}
+            <div className="concepto-sistema-section mb-5 glass-panel" style={{ position: 'relative', overflow: 'hidden', padding: '2.5rem' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.3, pointerEvents: 'none' }}>
+                <Aurora colorStops={["#1e293b", "#3b82f6", "#0f172a"]} blend={0.6} amplitude={1.2} speed={1.0} />
+              </div>
+              <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+                <BlurText 
+                  text="¿Qué es un Sistema?" 
+                  className="text-neon-blue mb-4"
+                  style={{ fontSize: '2.2rem', fontWeight: 'bold' }}
+                  delay={50} 
+                />
+                
+                <FadeContent delay={0.4} duration={0.8} direction="up">
+                  <div className="concepto-interactivo mx-auto" style={{ maxWidth: '800px' }}>
+                    <p style={{ fontSize: '1.2rem', lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+                      Imagina un montón de piezas de reloj esparcidas sobre una mesa. Por sí solas, no pueden dar la hora. 
+                      Pero cuando se <strong>interconectan</strong> de la manera correcta, surge una nueva capacidad: medir el tiempo.
+                    </p>
+                    <p style={{ fontSize: '1.1rem', color: '#cbd5e1', marginBottom: '2.5rem' }}>
+                      Un <strong>sistema</strong> es exactamente eso: un conjunto de elementos que interactúan entre sí para lograr 
+                      un <strong>propósito común</strong>. Lo importante no son solo las partes, sino <em>cómo se relacionan</em>.
+                    </p>
+                    
+                    <div className="anim-interconnection" style={{ margin: '0 auto', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+                      <div className="node node-1">Parte A</div>
+                      <div className="node node-2">Parte B</div>
+                      <div className="node node-3">Parte C</div>
+                      <div className="connection line-1"></div>
+                      <div className="connection line-2"></div>
+                      <div className="connection line-3"></div>
+                    </div>
+                  </div>
+                </FadeContent>
+              </div>
+            </div>
+
+            <hr className="separator mb-5" />
+
             <h3>🪐 Ejemplos de Sistemas</h3>
             <p className="section-desc">
-              Antes de ver el video introductorio, analicemos estos tres sistemas cotidianos para entender
+              Ahora que entiendes el concepto, analicemos estos tres sistemas cotidianos para comprender mejor
               las relaciones sistémicas:
             </p>
 

@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
+import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import { Aurora } from '../../reactbits';
 import '../pages.css';
 import './simulations.css';
@@ -45,6 +46,13 @@ export default function SistemaCirculatorioCompleto() {
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/JmC9nEvw4T8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
+      <div className="deco-container">
+        <div className="deco-icon deco-spin">⚙️</div>
+        <div className="deco-connector"></div>
+        <div className="deco-icon deco-float">🔄</div>
+        <div className="deco-connector"></div>
+        <div className="deco-icon deco-spin-reverse">⚙️</div>
+      </div>
       <h3>♻️ Lineamiento 5 — Conservación</h3>
       <p>En un sistema cerrado, la materia no se crea ni se destruye, solo se <b>transforma y transporta</b>. La sangre oxigenada sale del corazón → entrega O₂ a los tejidos → se convierte en sangre desoxigenada → vuelve al corazón → pasa por los pulmones → se re-oxigena. El <b>volumen se conserva</b>: lo que sale por las arterias, regresa por las venas.</p>
       <h3>🎯 Lineamiento 6 — Propósito</h3>
@@ -81,6 +89,7 @@ export default function SistemaCirculatorioCompleto() {
           </div>
         </div>
       </div>
+      <EvidenciaTextarea titulo="Evidencia: Sistema Circulatorio Completo" />
     </>
   );
 

@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import ECGMonitor from '../../components/heart/ECGMonitor';
@@ -108,6 +109,13 @@ export default function Corazon() {
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/zl-ae3xthVE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
+      <div className="deco-container">
+        <div className="deco-icon deco-pulse">🫀</div>
+        <div className="deco-connector" style={{ background: 'linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.5), transparent)' }}></div>
+        <div className="deco-icon deco-float">📈</div>
+        <div className="deco-connector" style={{ background: 'linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.5), transparent)' }}></div>
+        <div className="deco-icon deco-pulse">💓</div>
+      </div>
       <h3>📊 Lineamiento 3 — Representación del objeto de estudio</h3>
       <p>Representar no es solo ver un dibujo: es <b>construir un modelo visual</b> que permita analizar el comportamiento del sistema. En este laboratorio tienes:</p>
       <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
@@ -153,6 +161,7 @@ export default function Corazon() {
           </div>
         </div>
       </div>
+      <EvidenciaTextarea titulo="Evidencia: Laboratorio del Corazón" />
     </>
   );
 
