@@ -43,87 +43,6 @@ export default function Sangre() {
 
   const gasto = ((bpm * 70) / 1000).toFixed(1);
 
-  const Apropiacion = (
-    <div style={{ padding: '1rem 0' }}>
-      <FadeContent blur={true} duration={1} easing="ease-out" initialOpacity={0}>
-        <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', background: 'linear-gradient(to right, #60a5fa, #c084fc)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
-          Lineamientos 1 y 2: Componentes y Causalidad en la Sangre
-        </h2>
-        <p style={{ fontSize: '1.1rem', color: '#cbd5e1', lineHeight: '1.8', marginBottom: '2rem' }}>
-          Desde el <strong>pensamiento sistémico</strong>, entender un sistema requiere primero <strong>identificar sus componentes</strong> (Lineamiento 1) y luego <strong>establecer las relaciones de causa y efecto</strong> entre ellos (Lineamiento 2). La sangre es el vehículo perfecto para explorar ambos lineamientos, ya que conecta todos los subsistemas del cuerpo.
-        </p>
-      </FadeContent>
-
-      <FadeContent blur={true} duration={1.2} delay={0.2} easing="ease-out" initialOpacity={0}>
-        <div className="video-container" style={{ borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
-          <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-        </div>
-      </FadeContent>
-
-      <FadeContent blur={true} duration={1.2} delay={0.4} easing="ease-out" initialOpacity={0}>
-        <div className="deco-container" style={{ margin: '3rem 0', background: 'linear-gradient(135deg, rgba(30,41,59,0.5), rgba(15,23,42,0.8))' }}>
-          <div className="deco-icon deco-float">🩸</div>
-          <div className="deco-connector"></div>
-          <div className="deco-icon deco-float-delay">🛡️</div>
-          <div className="deco-connector"></div>
-          <div className="deco-icon deco-float">🩹</div>
-        </div>
-      </FadeContent>
-
-      <FadeContent blur={true} duration={1.2} delay={0.1} easing="ease-out" initialOpacity={0}>
-        <br /><br />
-        <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '3.5rem', borderLeft: '4px solid #3b82f6' }}>
-          <h3 style={{ color: '#60a5fa', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(96,165,250,0.6))' }}>🔬</span> 
-            Lineamiento 1 — Componentes del sistema
-          </h3>
-          <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#e2e8f0', marginBottom: '1rem' }}>
-            La sangre tiene <strong>4 componentes funcionales</strong>, cada uno con un rol específico dentro del sistema circulatorio:
-          </p>
-          <ul style={{ paddingLeft: '1.5rem', lineHeight: '2', color: '#cbd5e1', fontSize: '1.05rem' }}>
-            <li><strong style={{ color: '#f87171' }}>Glóbulos rojos (eritrocitos):</strong> transportan el oxígeno (O₂) desde los pulmones hacia los tejidos gracias a la hemoglobina.</li>
-            <li><strong style={{ color: '#f8fafc' }}>Glóbulos blancos (leucocitos):</strong> defienden el cuerpo detectando y atacando agentes invasores.</li>
-            <li><strong style={{ color: '#fbbf24' }}>Plaquetas:</strong> sellan las heridas formando tapones que detienen el sangrado.</li>
-            <li><strong style={{ color: '#93c5fd' }}>Plasma:</strong> el medio líquido que transporta nutrientes, hormonas y desechos.</li>
-          </ul>
-        </div>
-      </FadeContent>
-
-      <FadeContent blur={true} duration={1.2} delay={0.1} easing="ease-out" initialOpacity={0}>
-        <br /><br />
-        <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2rem', borderLeft: '4px solid #f59e0b' }}>
-          <h3 style={{ color: '#fbbf24', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.6))' }}>⚡</span> 
-            Lineamiento 2 — Causalidad durante el ejercicio
-          </h3>
-          <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#e2e8f0', marginBottom: '1rem' }}>
-            Cuando haces <strong>ejercicio físico</strong> (la <em>causa</em>), los músculos demandan más oxígeno. Esto desencadena una <strong>cadena causal</strong> en el sistema:
-          </p>
-          
-          <div style={{ margin: '1.5rem 0' }}>
-            <SequenceCarousel 
-              title="Cadena Causal del Ejercicio"
-              color="#f59e0b"
-              steps={[
-                { text: "1. El cerebro detecta la demanda de los músculos", icon: "🧠" },
-                { text: "2. Envía señales simpáticas al corazón", icon: "⚡" },
-                { text: "3. El corazón late más rápido", icon: "❤️" },
-                { text: "4. La sangre circula a mayor velocidad", icon: "🩸" },
-                { text: "5. Los glóbulos rojos entregan más O₂ a los músculos", icon: "💪" },
-                { text: "6. Los músculos producen más CO₂", icon: "💨" },
-                { text: "7. La sangre lo recoge y lo lleva a los pulmones", icon: "🫁" }
-              ]}
-            />
-          </div>
-
-          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#f8fafc', margin: 0, textAlign: 'center', fontWeight: '500' }}>
-            Esta cadena demuestra que <strong>ningún componente actúa solo</strong>: el efecto de una causa se propaga por todo el sistema.
-          </p>
-        </div>
-      </FadeContent>
-    </div>
-  );
-
   const Actividad = (
     <div className="actividad-immersive-container">
       <h2 className="text-neon-blue mb-3">Actividad Práctica: La Sangre en Acción</h2>
@@ -133,7 +52,7 @@ export default function Sangre() {
       </p>
 
       <div className="activity-steps-immersive" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-        
+
         {/* RETO 1 */}
         <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(239,68,68,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
@@ -142,7 +61,7 @@ export default function Sangre() {
             <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#f87171' }}>Identifica los componentes en reposo (L1)</h4>
           </div>
           <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
-            Ve a la pestaña <strong>Simulador</strong>. Explora los 4 modos (Transporte O₂, Defensa, Coagulación, Nutrientes) y anota <strong>qué componente celular de la sangre</strong> cumple cada función. Luego, con la Frecuencia Cardíaca en 75 lpm (estado basal), registra el Gasto Cardíaco y la Saturación de O₂.
+            Ve a la pestaña <strong>Desarrollo</strong>. Explora los 4 modos (Transporte O₂, Defensa, Coagulación, Nutrientes) y anota <strong>qué componente celular de la sangre</strong> cumple cada función. Luego, con la Frecuencia Cardíaca en 75 lpm (estado basal), registra el Gasto Cardíaco y la Saturación de O₂.
           </p>
           <EvidenciaTextarea 
             titulo="Sangre - Actividad 1: Estado Basal" 
@@ -186,6 +105,55 @@ export default function Sangre() {
     </div>
   );
 
+  const bpm = state ? state.bpm : fc;
+  const systolic = state ? state.systolic : sys;
+  const diastolic = state ? state.diastolic : Math.round(sys * 0.62);
+  const strength = state ? state.strength : clamp((sys - 70) / 100, 0.2, 1);
+  const depth = state ? state.depth : 0.06 + strength * 0.14;
+  const irregular = state ? state.irregular : false;
+
+  const cardiacOutput = ((bpm * (50 + strength * 60)) / 1000).toFixed(1);
+
+  // --- Historial para la gráfica de enfermedades cardíacas ---
+  const [chartData, setChartData] = useState([]);
+  const sampleRef = useRef(0);
+
+  function getDiagnosis(heartRate) {
+    if (heartRate < 50) return 'Bradicardia severa';
+    if (heartRate < 60) return 'Bradicardia';
+    if (heartRate <= 100) return 'Normal';
+    if (heartRate <= 150) return 'Taquicardia';
+    return 'Taquicardia severa';
+  }
+
+  function addSample() {
+    sampleRef.current += 1;
+    setChartData((prev) => {
+      const next = [...prev, { t: sampleRef.current, FC: bpm, PA: systolic }];
+      return next.length > 15 ? next.slice(-15) : next;
+    });
+  }
+
+  function selectState(id) {
+    const s = getState(id);
+    setSelected(id);
+    setFc(s.bpm);
+    setSys(s.systolic);
+  }
+
+  function onFcChange(e) {
+    setSelected(null);
+    setFc(Number(e.target.value));
+  }
+
+  function onSysChange(e) {
+    setSelected(null);
+    setSys(Number(e.target.value));
+  }
+
+  const currentDiag = getDiagnosis(bpm);
+  const diagColor = currentDiag === 'Normal' ? '#22c55e' : currentDiag.includes('severa') ? '#ef4444' : '#f59e0b';
+
   return (
     <SimulationWrapper
       simNumber={2}
@@ -193,10 +161,16 @@ export default function Sangre() {
       description="La sangre circula por todo el sistema: observa el corazón latir y ajusta su ritmo."
       icon="🩸"
       info="La sangre es el medio de transporte del sistema circulatorio: lleva oxígeno, nutrientes y células de defensa a todo el cuerpo. Observa cómo el corazón impulsa la sangre a través de la red de vasos."
-      apropiacion={Apropiacion}
       actividad={Actividad}
       evaluacionPath="/laboratorio/sangre/evaluacion"
     >
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 style={{ color: '#60a5fa', fontSize: '1.8rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10x' }}>
+          <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(96,165,250,0.6))' }}>🔬</span> 
+          Simulador de la Sangre
+        </h2>
+      </div>
+
       <div className="sim-controls">
         {MODES.map((m) => (
           <button
