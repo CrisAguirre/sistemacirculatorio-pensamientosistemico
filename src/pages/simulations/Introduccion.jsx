@@ -14,7 +14,7 @@ export default function Introduccion() {
   const [message, setMessage] = useState('');
 
   // Video URL: "El sistema circulatorio del cuerpo humano para niños" (Smile and Learn / Educational)
-  const videoUrl = 'https://www.youtube.com/embed/ndj0BqE2_qE?start=0';
+  const videoUrl = 'https://www.youtube.com/embed/NUYtHLBV6S0?start=0';
 
   useEffect(() => {
     checkPreviousSubmissions();
@@ -160,6 +160,10 @@ export default function Introduccion() {
               <div className="sim-item full-width">
                 <h4>Sistema Eléctrico Doméstico</h4>
                 <div className="sim-visual electric-visual">
+                  <picture>
+                    <source media="(min-width: 769px)" srcSet="/assets/images/isometric_house.png" />
+                    <img src="/assets/images/isometric_house_mobile.png" className="isometric-bg" alt="Casa Isométrica" />
+                  </picture>
                   <div className="isometric-overlay house-circuit-overlay">
                     <svg className="circuit-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <path className="wire-main" d="M 85 88 L 85 70 L 50 70 L 50 48 L 22 48 L 22 30" />
@@ -190,6 +194,10 @@ export default function Introduccion() {
               <div className="sim-item full-width">
                 <h4>Sistema de Transporte Urbano</h4>
                 <div className="sim-visual city-visual">
+                  <picture>
+                    <source media="(min-width: 769px)" srcSet="/assets/images/isometric_city.png" />
+                    <img src="/assets/images/isometric_city_mobile.png" className="isometric-bg" alt="Ciudad Isométrica" />
+                  </picture>
                   <div className="city-map isometric-overlay">
                     <div className="car-iso car-iso-1"></div>
                     <div className="car-iso car-iso-2"></div>

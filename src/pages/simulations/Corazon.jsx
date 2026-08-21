@@ -82,7 +82,7 @@ export default function Corazon() {
       <h2>Anatomía y función del corazón</h2>
       <p>El corazón es el motor del sistema circulatorio, responsable de bombear la sangre a través del cuerpo. Funciona de manera rítmica e incansable para mantener el flujo constante de oxígeno y nutrientes.</p>
       <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/Po4n27SS9DU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <iframe src="https://www.youtube.com/embed/ZzATGDMNKYw" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
       <p>A diferencia de una simple máquina, el corazón no trabaja solo: está interconectado con los pulmones para obtener oxígeno y con el cerebro, que regula su velocidad según las necesidades del momento.</p>
     </>
