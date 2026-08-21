@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ServerStatusIndicator from '../shared/ServerStatusIndicator';
 
 export default function Navbar() {
   const { user, isAdmin, logout } = useAuth();
@@ -30,6 +31,7 @@ export default function Navbar() {
         </ul>
 
         <div className="app-nav-user">
+          <ServerStatusIndicator compact />
           <span className="app-nav-name">{user?.full_name}</span>
           <button className="app-nav-logout" onClick={handleLogout}>Salir</button>
         </div>
