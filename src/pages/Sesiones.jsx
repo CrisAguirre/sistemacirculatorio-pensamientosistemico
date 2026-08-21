@@ -14,6 +14,16 @@ const LINEAMIENTOS = {
   7: 'Estabilidad',
 };
 
+/* Floating symbols per session to decorate each card */
+const SESSION_SYMBOLS = {
+  1: ['🎬', '🔬'],
+  2: ['🩸', '🧬'],
+  3: ['🧠', '🧬'],
+  4: ['🫀', '💓'],
+  5: ['🫁', '💨'],
+  6: ['🔄', '🫀', '🫁', '🧠'],
+};
+
 export default function Sesiones() {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,19 +39,7 @@ export default function Sesiones() {
   }, []);
 
   const handleCardClick = (sessionNumber) => {
-    if (sessionNumber === 1) {
-      navigate('/laboratorio/introduccion');
-    } else if (sessionNumber === 2) {
-      navigate('/laboratorio/sangre');
-    } else if (sessionNumber === 3) {
-      navigate('/laboratorio/cerebro');
-    } else if (sessionNumber === 4) {
-      navigate('/laboratorio/corazon');
-    } else if (sessionNumber === 5) {
-      navigate('/laboratorio/pulmones');
-    } else if (sessionNumber === 6) {
-      navigate('/laboratorio/sistema-circulatorio');
-    }
+    navigate(`/laboratorio?highlight=${sessionNumber}`);
   };
 
   return (
@@ -58,26 +56,47 @@ export default function Sesiones() {
 
       <div className="resources-grid">
         {sessions.map((s, index) => (
-          <FadeContent key={s.number} delay={index * 150} duration={600} direction="up">
+          <FadeContent key={s.number} delay={index * 0.15} duration={0.6} direction="up">
             <div 
-              className="glass-card" 
-              style={{ position: 'relative', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}
+              className="glass-card session-card-animated" 
               onClick={() => handleCardClick(s.number)}
             >
-              {s.completed && (
-                <span style={{ position: 'absolute', top: '1rem', right: '1rem', fontSize: '1.4rem' }}>✅</span>
-              )}
-              <div className="sim-card-number">Sesión {s.number}</div>
-              <h3 style={{ fontFamily: 'var(--font-primary)', margin: '0.5rem 0' }}>{s.title}</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>
-                {s.objective}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
-                {s.lineamientos.map((l) => (
-                  <span key={l} className="state-btn-label" style={{ fontSize: '0.68rem', padding: '0.2rem 0.5rem', background: 'rgba(59,130,246,0.12)', borderRadius: 'var(--radius-full)' }}>
-                    {LINEAMIENTOS[l]}
+              {/* Animated gradient background */}
+              <div className="session-card-bg" />
+
+              {/* Floating symbols */}
+              <div className="session-floating-symbols">
+                {(SESSION_SYMBOLS[s.number] || []).map((sym, i) => (
+                  <span 
+                    key={i}
+                    className="session-float-icon"
+                    style={{ 
+                      animationDelay: `${i * 1.5}s`,
+                      top: `${15 + i * 25}%`,
+                      right: `${8 + (i % 2) * 12}%`,
+                    }}
+                  >
+                    {sym}
                   </span>
                 ))}
+              </div>
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                {s.completed && (
+                  <span style={{ position: 'absolute', top: 0, right: 0, fontSize: '1.4rem' }}>✅</span>
+                )}
+                <div className="sim-card-number">Sesión {s.number}</div>
+                <h3 style={{ fontFamily: 'var(--font-primary)', margin: '0.5rem 0' }}>{s.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>
+                  {s.objective}
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
+                  {s.lineamientos.map((l) => (
+                    <span key={l} className="state-btn-label" style={{ fontSize: '0.68rem', padding: '0.2rem 0.5rem', background: 'rgba(59,130,246,0.12)', borderRadius: 'var(--radius-full)' }}>
+                      {LINEAMIENTOS[l]}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </FadeContent>

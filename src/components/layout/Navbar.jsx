@@ -23,7 +23,6 @@ export default function Navbar() {
           <li><NavLink to="/landing" end>Inicio</NavLink></li>
           <li><NavLink to="/sesiones">Sesiones</NavLink></li>
           <li><NavLink to="/laboratorio">Laboratorio</NavLink></li>
-          <li><NavLink to="/evidencias">Evidencias</NavLink></li>
           <li><NavLink to="/resultados">Resultados</NavLink></li>
           <li><NavLink to="/recursos">Recursos</NavLink></li>
           {isAdmin && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
