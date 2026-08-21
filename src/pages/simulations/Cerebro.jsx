@@ -19,39 +19,50 @@ export default function Cerebro() {
 
   const Apropiacion = (
     <>
-      <h2>Aplicación de Lineamientos: Componentes y Causalidad</h2>
-      <p>El cerebro es el órgano ideal para aplicar los <b>Lineamientos 1 y 2</b> del pensamiento sistémico: identificar los componentes de control y establecer mecanismos de causa y efecto.</p>
+      <h2>Lineamientos 1 y 2: Componentes y Causalidad en el Cerebro</h2>
+      <p>En el laboratorio anterior viste los componentes de la sangre y cómo el ejercicio desencadena una cadena causal. Ahora profundizamos: <b>¿quién da la orden de iniciar esa cadena?</b> El cerebro es el <b>componente director</b> (L1) que interpreta las señales y dispara los efectos causales (L2) en todo el sistema circulatorio.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p><b>(Lineamiento 1)</b> El componente principal de control del sistema cardiovascular es el Sistema Nervioso Autónomo (SNA), subdividido en ramas simpática y parasimpática.<br/><br/>
-      <b>(Lineamiento 2)</b> La causalidad es directa: una alta demanda de energía (causa) hace que el cerebro envíe señales simpáticas que aceleran el corazón (efecto). Una baja demanda (causa) activa señales parasimpáticas que lo frenan (efecto).</p>
+      <h3>🧠 Lineamiento 1 — Componentes de control</h3>
+      <p>El cerebro controla el sistema circulatorio a través del <b>Sistema Nervioso Autónomo (SNA)</b>, que tiene dos ramas (componentes funcionales):</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>Rama Simpática (↑):</b> se activa durante el <b>ejercicio</b> o el estrés. Envía señales que aceleran el corazón, aumentan la presión arterial y priorizan el flujo sanguíneo hacia los músculos.</li>
+        <li><b>Rama Parasimpática (↓):</b> se activa en <b>reposo</b>. Frena el corazón y reduce la presión, permitiendo la recuperación del sistema.</li>
+      </ul>
+      <h3>⚡ Lineamiento 2 — El cerebro como disparador causal</h3>
+      <p>La causalidad es directa y bidireccional:</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>Ejercicio (causa)</b> → Músculos demandan O₂ → <b>Cerebro detecta</b> la caída de O₂ → Activa simpático → <b>Corazón acelera</b> (efecto).</li>
+        <li><b>Reposo (causa)</b> → Demanda baja → <b>Cerebro detecta</b> equilibrio → Activa parasimpático → <b>Corazón frena</b> (efecto).</li>
+      </ul>
+      <p>El cerebro no solo recibe información: <b>es a la vez consumidor</b> (necesita el 15-20% del flujo sanguíneo total) <b>y regulador</b> del sistema. Esta doble función lo convierte en un nodo crítico de la red causal.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Componentes del SNA y su Efecto Causal</h2>
+      <h2>Actividad: El Cerebro como Centro de Control Causal</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Componente en Equilibrio (L1)</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Con la demanda al 50%, observa el componente activo en "Dominio del SNA". En este estado base, anota cuál es el flujo sanguíneo cerebral y la frecuencia cardíaca.</p>
+            <h4>Componentes en reposo (L1)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Con la demanda al <b>50%</b> (equilibrio), observa el componente activo del SNA en la métrica "Dominio del SNA". Registra la FC y el Flujo sanguíneo cerebral (%). Estos son los valores base donde <b>ningún componente</b> domina sobre otro.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Causalidad Simpática (L2)</h4>
-            <p>Aumenta la demanda al 100% (causa). ¿Qué componente del SNA toma el control? Registra el efecto inmediato en la frecuencia cardíaca y en el flujo sanguíneo que el cerebro se auto-asigna para soportar la carga.</p>
+            <h4>Simula el ejercicio: cadena causal simpática (L2)</h4>
+            <p>Sube la demanda al <b>100%</b> (simula ejercicio intenso). ¿Qué <b>componente del SNA</b> toma el control? Registra la nueva FC y el flujo cerebral. La <b>causa</b> (ejercicio) hizo que el cerebro ordene al corazón latir más rápido (efecto). Además, observa que el cerebro se auto-asigna más sangre, porque él también necesita más O₂ para procesar tanta información.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Causalidad Parasimpática (L2)</h4>
-            <p>Baja la demanda al 0% (causa). ¿Qué componente entra a dominar? Analiza el efecto de "frenado" en el corazón y deduce por qué este mecanismo causal es vital para evitar el desgaste del órgano.</p>
+            <h4>Causalidad parasimpática: el freno vital (L2)</h4>
+            <p>Baja la demanda al <b>0%</b> (reposo total). ¿Qué componente entra a dominar? Explica por qué este mecanismo causal de "frenado" es <b>vital para la supervivencia</b>: sin él, el corazón se desgastaría latiendo constantemente a máxima velocidad. Registra cómo el sistema busca recuperarse después del ejercicio.</p>
           </div>
         </div>
       </div>

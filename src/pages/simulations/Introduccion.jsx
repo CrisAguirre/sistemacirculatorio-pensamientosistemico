@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { evidenciaApi } from '../../api/evidencia';
+import DrawingCanvas from '../../components/shared/DrawingCanvas';
+import { Aurora, BlurText } from '../../reactbits';
 import './introduccion.css';
+import './introduccion_animations.css';
 
 export default function Introduccion() {
   const [activeTab, setActiveTab] = useState('ejemplos');
@@ -13,9 +16,6 @@ export default function Introduccion() {
   const [isSubmittingConclusion, setIsSubmittingConclusion] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
-  // Video URL: "El sistema circulatorio del cuerpo humano para niños" (Smile and Learn / Educational)
-  const videoUrl = 'https://www.youtube.com/embed/NUYtHLBV6S0?start=0';
 
   useEffect(() => {
     checkPreviousSubmissions();
@@ -104,10 +104,10 @@ export default function Introduccion() {
           <span className="tab-icon">🪐</span> Ejemplos de Sistemas
         </button>
         <button 
-          className={activeTab === 'lluvia' ? 'active' : ''} 
-          onClick={() => { setActiveTab('lluvia'); setMessage(''); }}
+          className={activeTab === 'actividad' ? 'active' : ''} 
+          onClick={() => { setActiveTab('actividad'); setMessage(''); }}
         >
-          <span className="tab-icon">💡</span> Lluvia de Ideas
+          <span className="tab-icon">🎨</span> Actividad
         </button>
         <button 
           className={activeTab === 'sintesis' ? 'active' : ''} 
@@ -118,7 +118,7 @@ export default function Introduccion() {
       </div>
 
       <div className="tab-content glass-panel">
-        {/* 1: EJEMPLOS DE SISTEMAS */}
+        {/* 1: EJEMPLOS DE SISTEMAS (Ahora incluye Lluvia de Ideas) */}
         {activeTab === 'ejemplos' && (
           <div className="video-section animate-fade">
             <h3>🪐 Ejemplos de Sistemas</h3>
@@ -209,12 +209,41 @@ export default function Introduccion() {
                 <p className="sim-caption">Una ciudad es una red de flujos continuos. Sus vías interconectadas, señales, vehículos y pasajeros forman el sistema de transporte. Desde una óptica sistémica, un embotellamiento en una pequeña intersección (cuello de botella) puede generar retrasos en cascada, paralizando zonas distantes de la urbe.</p>
               </div>
             </div>
+
+            <hr className="separator mt-5" />
+
+            <h3>💡 Lluvia de Ideas: Analizando los Ejemplos</h3>
+            <p className="section-desc">
+              Con base en los ejemplos observados arriba, realiza una lluvia de ideas. Anota por lo menos 3 interconexiones o elementos clave para que <strong>estos sistemas (Solar, Eléctrico, Transporte) funcionen correctamente</strong>. <em>(Por ahora no pienses en el sistema circulatorio, enfócate solo en los 3 ejemplos mostrados)</em>.
+            </p>
+
+            <div className="input-group">
+              <textarea 
+                value={lluviaIdeas}
+                onChange={(e) => setLluviaIdeas(e.target.value)}
+                disabled={isLluviaIdeasSaved} 
+                placeholder="Escribe aquí tu lluvia de ideas..."
+                className="glass-textarea" 
+                rows="6"
+              ></textarea>
+            </div>
+
+            <div className="action-footer">
+              <button 
+                className="btn-save" 
+                onClick={saveLluviaIdeas}
+                disabled={isLluviaIdeasSaved || !lluviaIdeas.trim() || loading}
+              >
+                {isLluviaIdeasSaved ? '✓ Lluvia de Ideas Guardada' : (loading ? 'Guardando...' : 'Guardar Evidencia')}
+              </button>
+            </div>
+            {message && activeTab === 'ejemplos' && <p className="status-msg">{message}</p>}
           </div>
         )}
 
-        {/* 2: LLUVIA DE IDEAS */}
-        {activeTab === 'lluvia' && (
-          <div className="foro-section animate-fade">
+        {/* 2: ACTIVIDAD (AHORA TIENE EL VIDEO Y EL LIENZO) */}
+        {activeTab === 'actividad' && (
+          <div className="actividad-section animate-fade">
             <h3 className="mb-3">📽️ Proyección de Introducción</h3>
             <p className="section-desc">
               Ahora, observa este video para comprender cómo el pensamiento sistémico
@@ -237,39 +266,29 @@ export default function Introduccion() {
 
             <hr className="separator" />
 
-            <h3>💡 Lluvia de Ideas</h3>
-            <p className="section-desc">
-              Con base en los ejemplos observados y el video, realiza una lluvia de ideas. Anota al menos 3 interconexiones
-              o elementos que consideres clave para entender el sistema circulatorio como un sistema completo.
+            <h3>🎨 Actividad: Representación del Sistema Circulatorio</h3>
+            <p className="section-desc mb-4">
+              Antes de adentrarnos en las simulaciones de los siguientes laboratorios, queremos conocer
+              tu modelo mental actual. Utiliza el siguiente lienzo para dibujar cómo imaginas que está
+              conectado el sistema circulatorio (corazón, pulmones, vasos sanguíneos).
             </p>
-
-            <div className="input-group">
-              <textarea 
-                value={lluviaIdeas}
-                onChange={(e) => setLluviaIdeas(e.target.value)}
-                disabled={isLluviaIdeasSaved} 
-                placeholder="Escribe aquí tu lluvia de ideas..."
-                className="glass-textarea" 
-                rows="8"
-              ></textarea>
-            </div>
-
-            <div className="action-footer">
-              <button 
-                className="btn-save" 
-                onClick={saveLluviaIdeas}
-                disabled={isLluviaIdeasSaved || !lluviaIdeas.trim() || loading}
-              >
-                {isLluviaIdeasSaved ? '✓ Lluvia de Ideas Guardada' : (loading ? 'Guardando...' : 'Guardar Evidencia')}
-              </button>
-            </div>
-            {message && <p className="status-msg">{message}</p>}
+            <DrawingCanvas />
           </div>
         )}
 
-        {/* 3: SÍNTESIS FINAL */}
+        {/* 3: SÍNTESIS FINAL CON ANIMACIÓN SISTÉMICA */}
         {activeTab === 'sintesis' && (
           <div className="sintesis-section animate-fade">
+            <h3>🧩 Comprendiendo el Enfoque Sistémico</h3>
+            <p className="section-desc">
+              Antes de redactar tu conclusión, interactúa con estos conceptos clave para consolidar 
+              tu entendimiento del pensamiento sistémico.
+            </p>
+
+            <SystemicAnimations />
+
+            <hr className="separator mt-5" />
+
             <h3>📝 Síntesis Final</h3>
             <p className="section-desc">
               A modo de cierre de esta sesión introductoria, redacta una conclusión personal o síntesis final
@@ -296,9 +315,95 @@ export default function Introduccion() {
                 {isConclusionSaved ? '✓ Conclusión Guardada' : (loading ? 'Guardando...' : 'Guardar Evidencia')}
               </button>
             </div>
-            {message && <p className="status-msg">{message}</p>}
+            {message && activeTab === 'sintesis' && <p className="status-msg">{message}</p>}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+// Subcomponente de Animaciones Interactivas del Enfoque Sistémico
+const SystemicAnimations = () => {
+  const [activeConcept, setActiveConcept] = useState(0);
+  
+  const concepts = [
+    {
+      title: "Totalidad e Interconexión",
+      desc: "Un sistema es más que la suma de sus partes. Si aíslas una pieza, pierde su función.",
+      icon: "🧩"
+    },
+    {
+      title: "Causalidad y Retroalimentación",
+      desc: "Las acciones tienen efectos en cadena. La causa A produce B, y B vuelve a regular a A.",
+      icon: "🔄"
+    },
+    {
+      title: "Propósito y Homeostasis",
+      desc: "Todo sistema tiene un objetivo global. En tu cuerpo, el objetivo es mantenerte con vida (equilibrio).",
+      icon: "🎯"
+    }
+  ];
+
+  return (
+    <div className="systemic-animations glass-panel" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.5, pointerEvents: 'none' }}>
+        <Aurora colorStops={["#1e293b", "#2563eb", "#0f172a"]} blend={0.5} amplitude={1.2} speed={0.8} />
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div className="concept-tabs">
+          {concepts.map((c, i) => (
+            <button key={i} className={`concept-btn ${activeConcept === i ? 'active' : ''}`} onClick={() => setActiveConcept(i)}>
+              <span className="concept-icon">{c.icon}</span> 
+              <span className="concept-title">{c.title}</span>
+            </button>
+          ))}
+        </div>
+        
+        <div className="concept-content">
+          <div style={{ marginBottom: '1rem', minHeight: '32px' }}>
+            <BlurText 
+              key={activeConcept} 
+              text={concepts[activeConcept].title} 
+              className="text-neon-blue"
+              style={{ fontSize: '1.25rem', fontWeight: 'bold' }}
+              delay={40} 
+            />
+          </div>
+          <p className="concept-desc">{concepts[activeConcept].desc}</p>
+          
+          <div className="concept-visual">
+            {activeConcept === 0 && (
+              <div className="anim-interconnection">
+                <div className="node node-1">Corazón</div>
+                <div className="node node-2">Cerebro</div>
+                <div className="node node-3">Pulmones</div>
+                <div className="connection line-1"></div>
+                <div className="connection line-2"></div>
+                <div className="connection line-3"></div>
+              </div>
+            )}
+            {activeConcept === 1 && (
+              <div className="anim-causality">
+                <div className="gear gear-1">⚙️</div>
+                <div className="gear gear-2">⚙️</div>
+                <div className="gear gear-3">⚙️</div>
+              </div>
+            )}
+            {activeConcept === 2 && (
+              <div className="anim-homeostasis">
+                <div className="scale">
+                  <div className="scale-base"></div>
+                  <div className="scale-arm">
+                    <div className="weight weight-l">O₂</div>
+                    <div className="weight weight-r">CO₂</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

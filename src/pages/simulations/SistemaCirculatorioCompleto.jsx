@@ -40,40 +40,44 @@ export default function SistemaCirculatorioCompleto() {
 
   const Apropiacion = (
     <>
-      <h2>Aplicación de Lineamientos: Visión de Totalidad</h2>
-      <p>El sistema circulatorio es más que la suma de sus partes. En este laboratorio final aplicamos simultáneamente los <b>Lineamientos 5, 6 y 7</b>, consolidando la visión de totalidad del pensamiento sistémico.</p>
+      <h2>Lineamientos 5, 6 y 7: Visión de Totalidad del Sistema Circulatorio</h2>
+      <p>Este es el laboratorio final. Aquí integramos todo lo aprendido (componentes, causalidad, representación, escalas) y aplicamos la <b>Visión de Totalidad</b> del pensamiento sistémico: los lineamientos 5, 6 y 7.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/JmC9nEvw4T8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p><b>(L5 Conservación):</b> La sangre oxigenada fluye a los tejidos y regresa desoxigenada en un ciclo cerrado donde la materia no se pierde, solo se transforma y transporta.<br/>
-      <b>(L6 Propósito):</b> La estructura de los cuatro subsistemas (corazón, cerebro, pulmones, sangre) existe con un propósito superior: nutrir las células y eliminar sus desechos.<br/>
-      <b>(L7 Estabilidad y Cambio):</b> La representación 3D integrada permite comprender la <i>homeostasis</i>: el equilibrio dinámico que el sistema busca mantener (estabilidad) frente a cualquier alteración o crisis externa (cambio).</p>
+      <h3>♻️ Lineamiento 5 — Conservación</h3>
+      <p>En un sistema cerrado, la materia no se crea ni se destruye, solo se <b>transforma y transporta</b>. La sangre oxigenada sale del corazón → entrega O₂ a los tejidos → se convierte en sangre desoxigenada → vuelve al corazón → pasa por los pulmones → se re-oxigena. El <b>volumen se conserva</b>: lo que sale por las arterias, regresa por las venas.</p>
+      <h3>🎯 Lineamiento 6 — Propósito</h3>
+      <p>Todo sistema existe para cumplir un <b>propósito superior</b>. El propósito del sistema circulatorio es <b>mantener vivas las células del cuerpo</b>, entregándoles oxígeno y nutrientes, y retirando sus desechos (CO₂, toxinas). Cada subsistema contribuye a este propósito: el corazón bombea, los pulmones oxigenan, el cerebro regula, la sangre transporta.</p>
+      <h3>⚖️ Lineamiento 7 — Estabilidad y Cambio (Homeostasis)</h3>
+      <p>El sistema circulatorio busca permanentemente la <b>estabilidad</b> (homeostasis): mantener la presión, la oxigenación y el flujo en rangos seguros. Pero el mundo cambia constantemente (ejercicio, enfermedad, estrés), y el sistema debe <b>adaptarse al cambio</b> sin perder su equilibrio. La capacidad de regresar al equilibrio después de una perturbación se llama <b>resiliencia</b>.</p>
+      <p style={{marginTop:'0.75rem', padding:'0.75rem', background:'rgba(59,130,246,0.1)', borderRadius:'0.5rem', borderLeft:'3px solid #3b82f6'}}>En este laboratorio consolidarás tu <b>visión de totalidad</b>: el todo es mayor que la suma de sus partes. El sistema circulatorio no es solo un corazón + sangre + pulmones + cerebro; es la <b>interacción coordinada</b> entre ellos lo que produce la vida.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: El Sistema en Constante Adaptación</h2>
+      <h2>Actividad: Visión de Totalidad — El Sistema en Acción</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Balance y Conservación (L5)</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. En reposo (Actividad = 0%), revisa cómo el Gasto Cardíaco, la Ventilación y las saturaciones de oxígeno se balancean perfectamente. Registra estos valores base donde la materia se conserva en flujo constante.</p>
+            <h4>Conservación en equilibrio (L5)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. En reposo (Actividad = 0%), registra todas las métricas. Observa cómo el Gasto Cardíaco, la Ventilación y las saturaciones se <b>conservan en flujo constante</b>: lo que el corazón expulsa, regresa; el O₂ que entra por los pulmones, se consume en los tejidos y vuelve como CO₂. <b>La materia se conserva</b> en un ciclo cerrado.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>El Propósito en Acción (L6)</h4>
-            <p>Sube la "Actividad metabólica" al 100%. El <i>propósito</i> del sistema es asegurar que los tejidos no mueran por falta de oxígeno. ¿Cómo actúan coordinadamente el corazón, los pulmones y el cerebro para cumplir este propósito bajo alta demanda?</p>
+            <h4>El Propósito bajo máxima demanda (L6)</h4>
+            <p>Sube la "Actividad metabólica" al <b>100%</b>. Los músculos necesitan urgentemente oxígeno. El <b>propósito</b> del sistema es que <b>ninguna célula muera por falta de O₂</b>. ¿Cómo actúan <b>coordinadamente</b> los 4 subsistemas (corazón, pulmones, sangre, cerebro) para cumplir este propósito? Registra las métricas y describe la respuesta integrada.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
             <h4>Homeostasis: Estabilidad ante el Cambio (L7)</h4>
-            <p>Baja manualmente la "Saturación arterial de O₂" a 75%, simulando un cambio crítico (ej: ambiente sin oxígeno o fallo pulmonar). Observa cómo reacciona el resto del sistema (FC, Ventilación) para intentar recuperar la estabilidad (homeostasis).</p>
+            <p>Baja manualmente la "Saturación arterial de O₂" a <b>75%</b> (simulando un fallo pulmonar grave o un ambiente sin oxígeno). Este es un <b>cambio crítico</b>. Observa cómo el sistema intenta recuperar la <b>estabilidad</b>: ¿qué debería pasar con la FC y la FR para compensar? ¿Logra el sistema regresar a un estado viable? Esta capacidad de adaptarse es la <b>homeostasis</b>.</p>
           </div>
         </div>
       </div>
@@ -86,7 +90,7 @@ export default function SistemaCirculatorioCompleto() {
       title="Sistema Circulatorio Completo"
       description="El cuerpo como un sistema integrado: corazón, sangre, pulmones y cerebro acoplados."
       icon="🔄"
-      info="Mueve la actividad metabólica y observa cómo todo el sistema responde en conjunto: el corazón late más rápido, los pulmones respiran más, la presión sube y la sangre entrega más oxígeno. Es la esencia del pensamiento sistémico."
+      info="Visión de Totalidad (L5, L6, L7): mueve la actividad metabólica y observa cómo todo el sistema responde en conjunto. El corazón (FC), los pulmones (FR), la sangre (saturaciones) y el cerebro (flujo cerebral) se acoplan para cumplir su propósito (L6), conservar la materia en ciclo (L5) y mantener la estabilidad ante los cambios (L7). El todo es mayor que la suma de sus partes."
       apropiacion={Apropiacion}
       actividad={Actividad}
       evaluacionPath="/laboratorio/sistema-circulatorio/evaluacion"
@@ -147,9 +151,11 @@ export default function SistemaCirculatorioCompleto() {
       </div>
 
       <div className="system-panel">
-        <div className="system-panel-title">🌐 El cuerpo como un sistema de subsistemas acoplados</div>
+        <div className="system-panel-title">🌐 Visión de Totalidad: el cuerpo como un sistema integrado (L5, L6, L7)</div>
         <div className="system-loop">
           <span className="system-node">Actividad (demanda O₂)</span>
+          <span className="system-arrow">→</span>
+          <span className="system-node">Cerebro (regula — L6)</span>
           <span className="system-arrow">→</span>
           <span className="system-node">Corazón (FC + fuerza)</span>
           <span className="system-arrow">→</span>
@@ -157,16 +163,15 @@ export default function SistemaCirculatorioCompleto() {
           <span className="system-arrow">→</span>
           <span className="system-node">Pulmones (ventilación)</span>
           <span className="system-arrow">→</span>
-          <span className="system-node">Sangre (O₂ a tejidos)</span>
+          <span className="system-node">Sangre (O₂ → tejidos → CO₂ — L5)</span>
           <span className="system-arrow">→</span>
-          <span className="system-node">Cerebro (regula)</span>
+          <span className="system-node">Homeostasis (L7)</span>
         </div>
         <p className="info-panel-body" style={{ marginTop: '0.75rem', marginBottom: 0 }}>
-          Ningún órgano trabaja solo: al aumentar la actividad, los músculos demandan más oxígeno.
-          El cerebro activa el sistema simpático → el corazón acelera y contrae con más fuerza (sube el gasto
-          cardíaco y la presión) → los pulmones ventilan más para oxigenar la sangre → la sangre extrae más O₂
-          en los tejidos (baja la saturación venosa). Todo ocurre de forma sincronizada: una sola señal,
-          una respuesta integrada.
+          <b>Conservación (L5):</b> el volumen de sangre que sale del corazón regresa por las venas — nada se pierde.
+          <b> Propósito (L6):</b> cada órgano contribuye a un fin común: mantener vivas las células.
+          <b> Estabilidad y Cambio (L7):</b> ante el ejercicio o la enfermedad, el sistema se adapta sin perder su equilibrio.
+          Esta <b>visión de totalidad</b> es la esencia del pensamiento sistémico: el todo es mayor que la suma de las partes.
         </p>
       </div>
     </SimulationWrapper>

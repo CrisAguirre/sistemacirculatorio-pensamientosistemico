@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sessionApi } from '../api/session';
+import { FadeContent } from '../reactbits';
 import './pages.css';
 
 const LINEAMIENTOS = {
@@ -56,29 +57,30 @@ export default function Sesiones() {
       {error && <div className="auth-error">{error}</div>}
 
       <div className="resources-grid">
-        {sessions.map((s) => (
-          <div 
-            className="glass-card" 
-            key={s.number} 
-            style={{ position: 'relative', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}
-            onClick={() => handleCardClick(s.number)}
-          >
-            {s.completed && (
-              <span style={{ position: 'absolute', top: '1rem', right: '1rem', fontSize: '1.4rem' }}>✅</span>
-            )}
-            <div className="sim-card-number">Sesión {s.number}</div>
-            <h3 style={{ fontFamily: 'var(--font-primary)', margin: '0.5rem 0' }}>{s.title}</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>
-              {s.objective}
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
-              {s.lineamientos.map((l) => (
-                <span key={l} className="state-btn-label" style={{ fontSize: '0.68rem', padding: '0.2rem 0.5rem', background: 'rgba(59,130,246,0.12)', borderRadius: 'var(--radius-full)' }}>
-                  {LINEAMIENTOS[l]}
-                </span>
-              ))}
+        {sessions.map((s, index) => (
+          <FadeContent key={s.number} delay={index * 150} duration={600} direction="up">
+            <div 
+              className="glass-card" 
+              style={{ position: 'relative', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}
+              onClick={() => handleCardClick(s.number)}
+            >
+              {s.completed && (
+                <span style={{ position: 'absolute', top: '1rem', right: '1rem', fontSize: '1.4rem' }}>✅</span>
+              )}
+              <div className="sim-card-number">Sesión {s.number}</div>
+              <h3 style={{ fontFamily: 'var(--font-primary)', margin: '0.5rem 0' }}>{s.title}</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.75rem' }}>
+                {s.objective}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
+                {s.lineamientos.map((l) => (
+                  <span key={l} className="state-btn-label" style={{ fontSize: '0.68rem', padding: '0.2rem 0.5rem', background: 'rgba(59,130,246,0.12)', borderRadius: 'var(--radius-full)' }}>
+                    {LINEAMIENTOS[l]}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          </FadeContent>
         ))}
       </div>
     </div>

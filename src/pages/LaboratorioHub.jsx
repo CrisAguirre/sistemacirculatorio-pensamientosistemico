@@ -1,4 +1,5 @@
 import SimCard from '../components/shared/SimCard';
+import { FadeContent } from '../reactbits';
 import './pages.css';
 
 export default function LaboratorioHub() {
@@ -21,13 +22,15 @@ export default function LaboratorioHub() {
         </div>
 
         <div className="sim-grid">
-          <SimCard
-            simNumber={1}
-            title="Laboratorio de Introducción"
-            description="Presentación de la secuencia didáctica y concepto de sistema."
-            icon="🎬"
-            routePath="/laboratorio/introduccion"
-          />
+          <FadeContent delay={100} duration={600}>
+            <SimCard
+              simNumber={1}
+              title="Laboratorio de Introducción"
+              description="Presentación de la secuencia didáctica y concepto de sistema."
+              icon="🎬"
+              routePath="/laboratorio/introduccion"
+            />
+          </FadeContent>
         </div>
       </section>
 
@@ -41,20 +44,24 @@ export default function LaboratorioHub() {
         </div>
 
         <div className="sim-grid">
-          <SimCard
-            simNumber={2}
-            title="La Sangre"
-            description="Componentes celulares y su relación causa-efecto."
-            icon="🩸"
-            routePath="/laboratorio/sangre"
-          />
-          <SimCard
-            simNumber={3}
-            title="El Cerebro"
-            description="Centro de control y la causalidad autonómica."
-            icon="🧠"
-            routePath="/laboratorio/cerebro"
-          />
+          <FadeContent delay={200} duration={600}>
+            <SimCard
+              simNumber={2}
+              title="La Sangre"
+              description="Componentes celulares y su relación causa-efecto."
+              icon="🩸"
+              routePath="/laboratorio/sangre"
+            />
+          </FadeContent>
+          <FadeContent delay={300} duration={600}>
+            <SimCard
+              simNumber={3}
+              title="El Cerebro"
+              description="Centro de control y la causalidad autonómica."
+              icon="🧠"
+              routePath="/laboratorio/cerebro"
+            />
+          </FadeContent>
         </div>
       </section>
 
@@ -68,20 +75,24 @@ export default function LaboratorioHub() {
         </div>
 
         <div className="sim-grid">
-          <SimCard
-            simNumber={4}
-            title="El Corazón"
-            description="Representación de la bomba central y sus volúmenes."
-            icon="🫀"
-            routePath="/laboratorio/corazon"
-          />
-          <SimCard
-            simNumber={5}
-            title="Los Pulmones"
-            description="Escalas e intercambio gaseoso (O2/CO2)."
-            icon="🫁"
-            routePath="/laboratorio/pulmones"
-          />
+          <FadeContent delay={400} duration={600}>
+            <SimCard
+              simNumber={4}
+              title="El Corazón"
+              description="Representación de la bomba central y sus volúmenes."
+              icon="🫀"
+              routePath="/laboratorio/corazon"
+            />
+          </FadeContent>
+          <FadeContent delay={500} duration={600}>
+            <SimCard
+              simNumber={5}
+              title="Los Pulmones"
+              description="Escalas e intercambio gaseoso (O2/CO2)."
+              icon="🫁"
+              routePath="/laboratorio/pulmones"
+            />
+          </FadeContent>
         </div>
       </section>
 
@@ -95,13 +106,15 @@ export default function LaboratorioHub() {
         </div>
 
         <div className="sim-grid">
-          <SimCard
-            simNumber={6}
-            title="Sistema Circulatorio Completo"
-            description="Visión general: Conservación, propósito y estabilidad."
-            icon="🔄"
-            routePath="/laboratorio/sistema-circulatorio"
-          />
+          <FadeContent delay={600} duration={600}>
+            <SimCard
+              simNumber={6}
+              title="Sistema Circulatorio Completo"
+              description="Visión general: Conservación, propósito y estabilidad."
+              icon="🔄"
+              routePath="/laboratorio/sistema-circulatorio"
+            />
+          </FadeContent>
         </div>
       </section>
     </div>

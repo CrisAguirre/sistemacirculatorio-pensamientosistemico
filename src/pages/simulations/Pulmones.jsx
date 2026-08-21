@@ -1,5 +1,6 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import { Aurora } from '../../reactbits';
 import lungsUrl from '../../assets/models/lungs.glb?url';
@@ -13,41 +14,78 @@ export default function Pulmones() {
   const [o2, setO2] = useState(98);
   const [co2, setCo2] = useState(5);
 
+  // --- Historial para gráfica de enfermedades pulmonares ---
+  const [chartData, setChartData] = useState([]);
+  const sampleRef = useRef(0);
+
+  function getLungDiagnosis(satO2, satCo2) {
+    if (satO2 < 85 && satCo2 >= 7) return 'EPOC / Insuf. respiratoria';
+    if (satO2 < 90) return 'Hipoxemia';
+    if (satCo2 >= 8) return 'Hipercapnia';
+    if (satO2 < 95) return 'Oxigenación baja';
+    return 'Normal';
+  }
+
+  function addSample() {
+    sampleRef.current += 1;
+    setChartData((prev) => {
+      const next = [...prev, { t: sampleRef.current, O2: o2, CO2: co2, FR: respRate }];
+      return next.length > 15 ? next.slice(-15) : next;
+    });
+  }
+
+  const currentDiag = getLungDiagnosis(o2, co2);
+  const diagColor = currentDiag === 'Normal' ? '#22c55e' : currentDiag.includes('EPOC') ? '#ef4444' : '#f59e0b';
+
   const Apropiacion = (
     <>
-      <h2>Aplicación de Lineamientos: Representación y Escalas</h2>
-      <p>Los pulmones son fundamentales para el intercambio gaseoso. En este componente aplicamos los <b>Lineamientos 3 y 4</b>: representar el objeto de estudio y cuantificar sus escalas, proporciones y cantidades.</p>
+      <h2>Lineamientos 3 y 4: Representación y Escalas en los Pulmones</h2>
+      <p>Los pulmones son la interfaz entre el aire y la sangre. En este laboratorio aplicamos los <b>Lineamientos 3 y 4</b>: <b>representar</b> el intercambio gaseoso mediante gráficas y modelos, y cuantificar las <b>escalas</b> para evidenciar enfermedades pulmonares.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/uUpdItCbr24" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p><b>(Lineamiento 3)</b> La representación 3D del movimiento rítmico (inhalación y exhalación) nos muestra los pulmones no solo anatómica sino funcionalmente: como la interfaz estructural entre el aire externo y la sangre interna.<br/><br/>
-      <b>(Lineamiento 4)</b> Para comprenderlos, debemos establecer las cantidades en este intercambio: medir la frecuencia respiratoria, los porcentajes (proporciones) de oxígeno que ingresan al sistema, y el CO₂ que se desecha, determinando las escalas de normalidad y peligro.</p>
+      <h3>📊 Lineamiento 3 — Representación del intercambio gaseoso</h3>
+      <p>En este laboratorio construyes <b>múltiples representaciones</b> del mismo fenómeno:</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>Modelo 3D:</b> los pulmones respirando (inhalación/exhalación), con la velocidad que tú controlas.</li>
+        <li><b>Gráfica O₂ vs CO₂ vs FR:</b> una representación que <b>tú construyes</b> al registrar mediciones, mostrando cómo se comportan las cantidades del intercambio gaseoso en cada estado.</li>
+      </ul>
+      <h3>📏 Lineamiento 4 — Escalas y enfermedades pulmonares</h3>
+      <p>Las <b>escalas numéricas</b> del intercambio gaseoso definen la frontera entre salud y enfermedad:</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>O₂ ≥ 95%:</b> <span style={{color:'#22c55e',fontWeight:700}}>Normal</span> — oxigenación adecuada.</li>
+        <li><b>O₂ 90–95%:</b> <span style={{color:'#f59e0b',fontWeight:700}}>Oxigenación baja</span> — posible problema respiratorio leve.</li>
+        <li><b>O₂ &lt; 90%:</b> <span style={{color:'#ef4444',fontWeight:700}}>Hipoxemia</span> — insuficiente oxígeno en la sangre (fatiga, confusión, cianosis).</li>
+        <li><b>CO₂ ≥ 8%:</b> <span style={{color:'#f59e0b',fontWeight:700}}>Hipercapnia</span> — exceso de CO₂ acumulado (somnolencia, dolor de cabeza).</li>
+        <li><b>O₂ &lt; 85% + CO₂ ≥ 7%:</b> <span style={{color:'#ef4444',fontWeight:700}}>EPOC / Insuficiencia respiratoria</span> — la Enfermedad Pulmonar Obstructiva Crónica o el asma grave impiden el intercambio gaseoso eficiente.</li>
+      </ul>
+      <p>Al mover los deslizadores y registrar puntos en la gráfica, <b>representas visualmente</b> (L3) cómo las <b>cantidades</b> (L4) del O₂ y CO₂ determinan si el sistema respiratorio está sano o enfermo.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Cuantificando la Representación Respiratoria</h2>
+      <h2>Actividad: Representación Gráfica de Enfermedades Pulmonares</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Representación y Escala Basal (L3, L4)</h4>
-            <p>Ve a la pestaña <b>Simulador</b> y observa la representación del ritmo respiratorio. Registra las cantidades iniciales: Frecuencia Respiratoria en reposo (resp/min), Saturación de O₂ (%) y CO₂ en sangre (%).</p>
+            <h4>Representación basal (L3)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Observa el ritmo respiratorio del modelo 3D. Con O₂ = 98%, CO₂ = 5% y FR = 14, presiona <b>"Registrar punto"</b> en la gráfica. Este punto estará en la zona de salud normal.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Escalas de saturación (L4)</h4>
-            <p>Desciende la saturación de O₂ a niveles bajos (menor a 90%). Registra el valor exacto y calcula la proporción: ¿qué porcentaje de oxigenación se ha perdido respecto al 98% ideal? ¿A partir de qué cantidad la alerta pasa de verde a rojo?</p>
+            <h4>Escala de enfermedad: Hipoxemia (L4)</h4>
+            <p>Baja la saturación de O₂ a <b>80%</b> y sube el CO₂ a <b>8%</b> (esto simula un paciente con <b>EPOC</b>). Registra el punto en la gráfica y observa cómo las cantidades entran en la zona de peligro. ¿Qué proporción de oxígeno se perdió respecto al estado basal?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Proporciones de compensación (L4)</h4>
-            <p>Aumenta el nivel de CO₂ al máximo (10%). Registra simultáneamente las 3 métricas. Analiza la relación matemática: si la cantidad de CO₂ aumenta drásticamente en la sangre, ¿en qué proporción debe subir el ritmo respiratorio para compensarlo?</p>
+            <h4>Compensación respiratoria (L4)</h4>
+            <p>Ahora sube la FR a <b>30 resp/min</b> (el cuerpo intenta compensar). Registra el punto. ¿Logra el sistema recuperar la escala normal? Analiza en tu gráfica los 3 estados y elabora una tabla con las cantidades, enfermedades detectadas y las proporciones de cambio.</p>
           </div>
         </div>
       </div>
@@ -110,6 +148,51 @@ export default function Pulmones() {
         <div className="metric-card">
           <div className="metric-value">{co2}%</div>
           <div className="metric-label">CO₂ en sangre</div>
+        </div>
+      </div>
+
+      {/* Diagnóstico actual */}
+      <div className="system-panel" style={{ marginBottom: '1rem', textAlign: 'center' }}>
+        <div className="system-panel-title">🩺 Diagnóstico pulmonar actual</div>
+        <div style={{ fontSize: '1.5rem', fontWeight: 700, color: diagColor, margin: '0.5rem 0' }}>{currentDiag}</div>
+        <p className="info-panel-body" style={{ margin: 0, fontSize: '0.85rem' }}>
+          O₂ = {o2}% · CO₂ = {co2}% · FR = {respRate} resp/min
+        </p>
+      </div>
+
+      {/* Gráfica de enfermedades pulmonares (Representación L3 + Escalas L4) */}
+      <div className="system-panel">
+        <div className="system-panel-title">📊 Representación: O₂ y CO₂ vs Medición (Lineamientos 3 y 4)</div>
+        <p className="info-panel-body" style={{ margin: '0.5rem 0', fontSize: '0.85rem' }}>
+          Modifica los sliders y presiona <b>"Registrar punto"</b> para construir tu gráfica. Las zonas de color representan las escalas de enfermedad pulmonar.
+        </p>
+        <div style={{ width: '100%', height: 280 }}>
+          <ResponsiveContainer>
+            <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+              <XAxis dataKey="t" label={{ value: 'Medición', position: 'insideBottom', offset: -2, style: { fill: '#94a3b8', fontSize: 12 } }} tick={{ fill: '#94a3b8', fontSize: 11 }} />
+              <YAxis domain={[0, 100]} label={{ value: '% / resp', angle: -90, position: 'insideLeft', style: { fill: '#94a3b8', fontSize: 12 } }} tick={{ fill: '#94a3b8', fontSize: 11 }} />
+              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, color: '#f1f5f9' }} />
+              <Legend wrapperStyle={{ color: '#94a3b8', fontSize: 12 }} />
+              {/* O2 disease zones */}
+              <ReferenceArea y1={0} y2={85} fill="#ef4444" fillOpacity={0.12} label={{ value: 'Hipoxemia severa', position: 'insideTopLeft', style: { fill: '#ef4444', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceArea y1={85} y2={95} fill="#f59e0b" fillOpacity={0.10} label={{ value: 'O₂ bajo', position: 'insideTopLeft', style: { fill: '#f59e0b', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceArea y1={95} y2={100} fill="#22c55e" fillOpacity={0.10} label={{ value: 'O₂ Normal', position: 'insideTopLeft', style: { fill: '#22c55e', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceLine y={95} stroke="#22c55e" strokeDasharray="4 4" />
+              <ReferenceLine y={85} stroke="#ef4444" strokeDasharray="4 4" />
+              <Line type="monotone" dataKey="O2" name="Saturación O₂ (%)" stroke="#22c55e" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+              <Line type="monotone" dataKey="CO2" name="CO₂ en sangre (%)" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+              <Line type="monotone" dataKey="FR" name="Frec. Respiratoria" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '0.75rem' }}>
+          <button type="button" className="sim-btn active" onClick={addSample} style={{ padding: '0.5rem 1.5rem' }}>
+            📌 Registrar punto
+          </button>
+          <button type="button" className="sim-btn" onClick={() => { setChartData([]); sampleRef.current = 0; }} style={{ padding: '0.5rem 1.5rem' }}>
+            🗑️ Limpiar gráfica
+          </button>
         </div>
       </div>
 

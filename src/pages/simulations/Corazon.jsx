@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import ECGMonitor from '../../components/heart/ECGMonitor';
 import { Aurora } from '../../reactbits';
@@ -60,6 +61,26 @@ export default function Corazon() {
 
   const cardiacOutput = ((bpm * (50 + strength * 60)) / 1000).toFixed(1);
 
+  // --- Historial para la gráfica de enfermedades cardíacas ---
+  const [chartData, setChartData] = useState([]);
+  const sampleRef = useRef(0);
+
+  function getDiagnosis(heartRate) {
+    if (heartRate < 50) return 'Bradicardia severa';
+    if (heartRate < 60) return 'Bradicardia';
+    if (heartRate <= 100) return 'Normal';
+    if (heartRate <= 150) return 'Taquicardia';
+    return 'Taquicardia severa';
+  }
+
+  function addSample() {
+    sampleRef.current += 1;
+    setChartData((prev) => {
+      const next = [...prev, { t: sampleRef.current, FC: bpm, PA: systolic }];
+      return next.length > 15 ? next.slice(-15) : next;
+    });
+  }
+
   function selectState(id) {
     const s = getState(id);
     setSelected(id);
@@ -77,41 +98,58 @@ export default function Corazon() {
     setSys(Number(e.target.value));
   }
 
+  const currentDiag = getDiagnosis(bpm);
+  const diagColor = currentDiag === 'Normal' ? '#22c55e' : currentDiag.includes('severa') ? '#ef4444' : '#f59e0b';
+
   const Apropiacion = (
     <>
-      <h2>Aplicación de Lineamientos: Representación y Escalas</h2>
-      <p>El corazón es el motor del sistema circulatorio, ideal para aplicar los <b>Lineamientos 3 y 4</b> del pensamiento sistémico: representar el objeto de estudio y establecer sus escalas, proporciones y cantidades.</p>
+      <h2>Lineamientos 3 y 4: Representación y Escalas en el Corazón</h2>
+      <p>El corazón es el motor del sistema circulatorio. En este laboratorio aplicamos los <b>Lineamientos 3 y 4</b> del pensamiento sistémico: <b>representar</b> el objeto de estudio mediante gráficas y modelos, y cuantificar sus <b>escalas, proporciones y cantidades</b> para evidenciar enfermedades cardíacas.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/zl-ae3xthVE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p><b>(Lineamiento 3)</b> La representación gráfica del corazón latiendo y su electrocardiograma (ECG) nos permite visualizar su anatomía interconectada (aurículas, ventrículos, vasos mayores) y comprender que no es una máquina aislada, sino un subsistema vivo.<br/><br/>
-      <b>(Lineamiento 4)</b> El ritmo de esta representación visual define las cantidades del sistema: a partir del volumen que expulsa en cada latido y la frecuencia, podemos establecer las proporciones del flujo sanguíneo necesario para mantener la vida.</p>
+      <h3>📊 Lineamiento 3 — Representación del objeto de estudio</h3>
+      <p>Representar no es solo ver un dibujo: es <b>construir un modelo visual</b> que permita analizar el comportamiento del sistema. En este laboratorio tienes:</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>Modelo 3D:</b> el corazón latiendo en tiempo real, cuya velocidad y profundidad cambian según el estado.</li>
+        <li><b>Electrocardiograma (ECG):</b> representación gráfica de la actividad eléctrica del corazón.</li>
+        <li><b>Gráfica de FC vs Tiempo:</b> una representación que <b>tú construyes</b> al registrar mediciones, mostrando cómo evoluciona la frecuencia cardíaca y en qué zonas de enfermedad se encuentra.</li>
+      </ul>
+      <h3>📏 Lineamiento 4 — Escalas y enfermedades cardíacas</h3>
+      <p>Las <b>escalas numéricas</b> definen la frontera entre salud y enfermedad:</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>&lt; 60 lpm:</b> <span style={{color:'#f59e0b',fontWeight:700}}>Bradicardia</span> — el corazón late demasiado lento (riesgo de desmayo, fatiga).</li>
+        <li><b>60–100 lpm:</b> <span style={{color:'#22c55e',fontWeight:700}}>Normal</span> — rango saludable en reposo.</li>
+        <li><b>&gt; 100 lpm:</b> <span style={{color:'#f59e0b',fontWeight:700}}>Taquicardia</span> — el corazón late demasiado rápido (riesgo de arritmia).</li>
+        <li><b>&gt; 150 lpm en reposo:</b> <span style={{color:'#ef4444',fontWeight:700}}>Taquicardia severa</span> — peligro de paro cardíaco.</li>
+      </ul>
+      <p>Al mover los deslizadores y registrar puntos en la gráfica, <b>tú representas visualmente</b> (L3) cómo las <b>cantidades numéricas</b> (L4) cruzan los umbrales de enfermedad.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Cuantificando la Representación Cardíaca</h2>
+      <h2>Actividad: Representación Gráfica de Enfermedades Cardíacas</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Representación basal (L3)</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Selecciona el estado "Latido Normal". Observa la representación visual del latido (el modelo 3D y el ECG). Registra las cantidades iniciales: Frecuencia (lpm) y Presión arterial.</p>
+            <h4>Representación basal — Latido Normal (L3)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Selecciona "Latido Normal" y observa la representación 3D y el ECG. Presiona el botón <b>"Registrar punto"</b> debajo de la gráfica para guardar esta primera medición en la zona verde (Normal). Anota la FC y el Gasto Cardíaco.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Escalas y proporciones (L4)</h4>
-            <p>Cambia al estado "Ejercicio". Compara las nuevas cantidades con las del paso 1: ¿En qué proporción aumentó la FC? Usa el valor del "Gasto Cardíaco" (L/min) para calcular la razón de cambio (Gasto Ejercicio / Gasto Reposo).</p>
+            <h4>Escala de enfermedad: Taquicardia (L4)</h4>
+            <p>Usa el deslizador para subir la FC a <b>160 lpm</b>. Registra el punto en la gráfica. Observa cómo la línea entra en la <b>zona roja</b> (Taquicardia severa). ¿En qué proporción aumentó el Gasto Cardíaco? ¿Qué enfermedades o síntomas se asocian a permanecer en esta escala?</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Manipulando las cantidades (L4)</h4>
-            <p>Usa los deslizadores manuales de la parte inferior para establecer una FC extrema (180 lpm). Observa la representación (L3) del corazón latiendo a esa velocidad y anota los valores resultantes. Elabora una tabla con 3 escalas de intensidad (reposo, media, máxima).</p>
+            <h4>Escala opuesta: Bradicardia (L4)</h4>
+            <p>Baja la FC a <b>45 lpm</b> y registra el punto. La gráfica ahora <b>representa visualmente</b> (L3) el contraste entre ambas escalas extremas. Elabora una tabla con los 3 estados y analiza: ¿cuando la cantidad sale de la escala normal, qué enfermedad aparece y cómo afecta al sistema?</p>
           </div>
         </div>
       </div>
@@ -223,6 +261,52 @@ export default function Corazon() {
             <span>{systolic} mmHg</span>
           </label>
           <input id="sys-slider" type="range" min="70" max="190" value={systolic} onChange={onSysChange} />
+        </div>
+      </div>
+
+      {/* Diagnóstico actual */}
+      <div className="system-panel" style={{ marginBottom: '1rem', textAlign: 'center' }}>
+        <div className="system-panel-title">🩺 Diagnóstico actual</div>
+        <div style={{ fontSize: '1.5rem', fontWeight: 700, color: diagColor, margin: '0.5rem 0' }}>{currentDiag}</div>
+        <p className="info-panel-body" style={{ margin: 0, fontSize: '0.85rem' }}>
+          FC = {bpm} lpm · PA = {systolic}/{diastolic} mmHg · Gasto = {cardiacOutput} L/min
+        </p>
+      </div>
+
+      {/* Gráfica de enfermedades cardíacas (Representación L3 + Escalas L4) */}
+      <div className="system-panel">
+        <div className="system-panel-title">📊 Representación: FC vs Medición (Lineamientos 3 y 4)</div>
+        <p className="info-panel-body" style={{ margin: '0.5rem 0', fontSize: '0.85rem' }}>
+          Modifica los sliders y presiona <b>"Registrar punto"</b> para construir tu gráfica. Las zonas de color representan las escalas de enfermedad.
+        </p>
+        <div style={{ width: '100%', height: 280 }}>
+          <ResponsiveContainer>
+            <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+              <XAxis dataKey="t" label={{ value: 'Medición', position: 'insideBottom', offset: -2, style: { fill: '#94a3b8', fontSize: 12 } }} tick={{ fill: '#94a3b8', fontSize: 11 }} />
+              <YAxis domain={[30, 210]} label={{ value: 'lpm / mmHg', angle: -90, position: 'insideLeft', style: { fill: '#94a3b8', fontSize: 12 } }} tick={{ fill: '#94a3b8', fontSize: 11 }} />
+              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, color: '#f1f5f9' }} />
+              <Legend wrapperStyle={{ color: '#94a3b8', fontSize: 12 }} />
+              {/* Disease zones */}
+              <ReferenceArea y1={30} y2={60} fill="#f59e0b" fillOpacity={0.12} label={{ value: 'Bradicardia', position: 'insideTopLeft', style: { fill: '#f59e0b', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceArea y1={60} y2={100} fill="#22c55e" fillOpacity={0.10} label={{ value: 'Normal', position: 'insideTopLeft', style: { fill: '#22c55e', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceArea y1={100} y2={150} fill="#f59e0b" fillOpacity={0.12} label={{ value: 'Taquicardia', position: 'insideTopLeft', style: { fill: '#f59e0b', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceArea y1={150} y2={210} fill="#ef4444" fillOpacity={0.15} label={{ value: 'Taquicardia severa', position: 'insideTopLeft', style: { fill: '#ef4444', fontSize: 11, fontWeight: 600 } }} />
+              <ReferenceLine y={60} stroke="#f59e0b" strokeDasharray="4 4" />
+              <ReferenceLine y={100} stroke="#f59e0b" strokeDasharray="4 4" />
+              <ReferenceLine y={150} stroke="#ef4444" strokeDasharray="4 4" />
+              <Line type="monotone" dataKey="FC" name="Frecuencia Cardíaca" stroke="#ef4444" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+              <Line type="monotone" dataKey="PA" name="Presión Sistólica" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '0.75rem' }}>
+          <button type="button" className="sim-btn active" onClick={addSample} style={{ padding: '0.5rem 1.5rem' }}>
+            📌 Registrar punto
+          </button>
+          <button type="button" className="sim-btn" onClick={() => { setChartData([]); sampleRef.current = 0; }} style={{ padding: '0.5rem 1.5rem' }}>
+            🗑️ Limpiar gráfica
+          </button>
         </div>
       </div>
 

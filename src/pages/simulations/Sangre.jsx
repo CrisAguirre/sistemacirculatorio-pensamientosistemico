@@ -43,39 +43,48 @@ export default function Sangre() {
 
   const Apropiacion = (
     <>
-      <h2>Aplicación de Lineamientos: Componentes y Causalidad</h2>
-      <p>La sangre es un claro ejemplo para aplicar los <b>Lineamientos 1 y 2</b> del pensamiento sistémico: identificar los componentes del objeto de estudio y establecer mecanismos de causa y efecto.</p>
+      <h2>Lineamientos 1 y 2: Componentes y Causalidad en la Sangre</h2>
+      <p>Desde el <b>pensamiento sistémico</b>, entender un sistema requiere primero <b>identificar sus componentes</b> (Lineamiento 1) y luego <b>establecer las relaciones de causa y efecto</b> entre ellos (Lineamiento 2). La sangre es el vehículo perfecto para explorar ambos lineamientos, ya que conecta todos los subsistemas del cuerpo.</p>
       <div className="video-container">
         <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       </div>
-      <p><b>(Lineamiento 1)</b> La sangre está formada por distintos componentes celulares y fluidos: glóbulos rojos (transporte de O₂), glóbulos blancos (defensa), plaquetas (coagulación) y plasma (transporte de nutrientes).<br/><br/>
-      <b>(Lineamiento 2)</b> A su vez, estos componentes tienen una clara causalidad: si se produce una herida, las plaquetas acuden para coagular (causa-efecto). Si hay una infección, los glóbulos blancos aumentan su actividad.</p>
+      <h3>🔬 Lineamiento 1 — Componentes del sistema</h3>
+      <p>La sangre tiene <b>4 componentes funcionales</b>, cada uno con un rol específico dentro del sistema circulatorio:</p>
+      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
+        <li><b>Glóbulos rojos (eritrocitos):</b> transportan el oxígeno (O₂) desde los pulmones hacia los tejidos gracias a la hemoglobina.</li>
+        <li><b>Glóbulos blancos (leucocitos):</b> defienden el cuerpo detectando y atacando agentes invasores.</li>
+        <li><b>Plaquetas:</b> sellan las heridas formando tapones que detienen el sangrado.</li>
+        <li><b>Plasma:</b> el medio líquido que transporta nutrientes, hormonas y desechos.</li>
+      </ul>
+      <h3>⚡ Lineamiento 2 — Causalidad durante el ejercicio</h3>
+      <p>Cuando haces <b>ejercicio físico</b> (la <i>causa</i>), los músculos demandan más oxígeno. Esto desencadena una <b>cadena causal</b> en el sistema: el cerebro detecta la demanda → envía señales simpáticas al corazón → el corazón late más rápido → la sangre circula a mayor velocidad → los glóbulos rojos entregan más O₂ a los músculos → los músculos producen más CO₂ → la sangre lo recoge y lo lleva a los pulmones para eliminarlo.</p>
+      <p>Esta cadena demuestra que <b>ningún componente actúa solo</b>: el efecto de una causa se propaga por todo el sistema.</p>
     </>
   );
 
   const Actividad = (
     <>
-      <h2>Actividad: Componentes en Acción y sus Efectos</h2>
+      <h2>Actividad: Cadena Causal del Ejercicio en la Sangre</h2>
       <div className="activity-steps">
         <div className="activity-step">
           <div className="step-number">1</div>
           <div className="step-content">
-            <h4>Identifica los componentes (L1)</h4>
-            <p>Ve a la pestaña <b>Simulador</b> y explora los 4 modos: Transporte, Defensa, Coagulación y Nutrientes. Identifica el componente sanguíneo responsable de cada función.</p>
+            <h4>Identifica los componentes en reposo (L1)</h4>
+            <p>Ve a la pestaña <b>Simulador</b>. Explora los 4 modos (Transporte O₂, Defensa, Coagulación, Nutrientes) y anota <b>qué componente de la sangre</b> cumple cada función. Con la FC en 75 lpm, registra el Gasto Cardíaco y la Saturación de O₂. Este es el <b>estado basal</b> del sistema.</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">2</div>
           <div className="step-content">
-            <h4>Analiza la causalidad (L2)</h4>
-            <p>Usando el control de "Frecuencia Cardíaca", súbelo a 150 lpm. Esto simula la causa (ejercicio). ¿Cuál es el efecto directo en el Gasto Cardíaco? Anota cómo la alteración de la bomba cardíaca afecta inmediatamente el volumen de sangre que fluye.</p>
+            <h4>Simula el ejercicio: causa → efecto (L2)</h4>
+            <p>Sube la Frecuencia Cardíaca a <b>150 lpm</b> (esto simula que estás corriendo). Observa el <b>efecto causal</b>: ¿cuánto aumentó el Gasto Cardíaco (L/min) respecto al paso 1? Explica por qué los <b>glóbulos rojos</b> (componente) deben circular más rápido cuando hay ejercicio (causa).</p>
           </div>
         </div>
         <div className="activity-step">
           <div className="step-number">3</div>
           <div className="step-content">
-            <h4>Causalidad en la oxigenación</h4>
-            <p>Disminuye la "Saturación de oxígeno" al 65% (causa). Observa el cambio de color en la interfaz y las alertas (efecto). Explica en tu informe qué componente de la sangre está fallando en su función cuando esto ocurre.</p>
+            <h4>Causalidad inversa: fallo de un componente (L2)</h4>
+            <p>Baja la Saturación de O₂ al <b>65%</b> (esto simula anemia severa: los glóbulos rojos no pueden transportar suficiente O₂). ¿Qué <b>efecto</b> tiene este fallo en el sistema? ¿Por qué el corazón debería <b>aumentar aún más su frecuencia</b> para compensar? Registra cómo el fallo de un solo componente desencadena una cadena de efectos en todo el sistema.</p>
           </div>
         </div>
       </div>
