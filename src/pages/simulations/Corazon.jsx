@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import CustomVideoPlayer from '../../components/shared/CustomVideoPlayer';
@@ -45,13 +45,13 @@ export default function Corazon() {
 
   useEffect(() => () => closeAudio(), []);
 
-  const onLub = () => {
+  const onLub = useCallback(() => {
     if (soundRef.current) heartSound.lub();
-  };
+  }, []);
 
-  const onDub = () => {
+  const onDub = useCallback(() => {
     if (soundRef.current) heartSound.dub();
-  };
+  }, []);
 
   const state = selected ? getState(selected) : null;
 
@@ -187,7 +187,7 @@ export default function Corazon() {
         <div className="heart-stage-bg">
           <Aurora colorStops={['#7f1d1d', '#1d4ed8', '#0e7490']} blend={0.4} amplitude={0.7} speed={0.25} />
         </div>
-        <Suspense fallback={<div className="heart3d-loading">Cargando corazón 3D…</div>}}>
+        <Suspense fallback={<div className="heart3d-loading">Cargando corazón 3D...</div>}>
           <Heart3D bpm={bpm} depth={depth} irregular={irregular} onLub={onLub} onDub={onDub} />
         </Suspense>
       </div>

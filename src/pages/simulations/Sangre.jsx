@@ -105,55 +105,6 @@ export default function Sangre() {
     </div>
   );
 
-  const bpm = state ? state.bpm : fc;
-  const systolic = state ? state.systolic : sys;
-  const diastolic = state ? state.diastolic : Math.round(sys * 0.62);
-  const strength = state ? state.strength : clamp((sys - 70) / 100, 0.2, 1);
-  const depth = state ? state.depth : 0.06 + strength * 0.14;
-  const irregular = state ? state.irregular : false;
-
-  const cardiacOutput = ((bpm * (50 + strength * 60)) / 1000).toFixed(1);
-
-  // --- Historial para la gráfica de enfermedades cardíacas ---
-  const [chartData, setChartData] = useState([]);
-  const sampleRef = useRef(0);
-
-  function getDiagnosis(heartRate) {
-    if (heartRate < 50) return 'Bradicardia severa';
-    if (heartRate < 60) return 'Bradicardia';
-    if (heartRate <= 100) return 'Normal';
-    if (heartRate <= 150) return 'Taquicardia';
-    return 'Taquicardia severa';
-  }
-
-  function addSample() {
-    sampleRef.current += 1;
-    setChartData((prev) => {
-      const next = [...prev, { t: sampleRef.current, FC: bpm, PA: systolic }];
-      return next.length > 15 ? next.slice(-15) : next;
-    });
-  }
-
-  function selectState(id) {
-    const s = getState(id);
-    setSelected(id);
-    setFc(s.bpm);
-    setSys(s.systolic);
-  }
-
-  function onFcChange(e) {
-    setSelected(null);
-    setFc(Number(e.target.value));
-  }
-
-  function onSysChange(e) {
-    setSelected(null);
-    setSys(Number(e.target.value));
-  }
-
-  const currentDiag = getDiagnosis(bpm);
-  const diagColor = currentDiag === 'Normal' ? '#22c55e' : currentDiag.includes('severa') ? '#ef4444' : '#f59e0b';
-
   return (
     <SimulationWrapper
       simNumber={2}
@@ -220,10 +171,6 @@ export default function Sangre() {
         <div className="metric-card">
           <div className="metric-value">{bpm}</div>
           <div className="metric-label">Frecuencia cardíaca (lpm)</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-value">{gasto}</div>
-          <div className="metric-label">Gasto cardíaco (L/min)</div>
         </div>
         <div className="metric-card">
           <div className={`metric-value ${saturacion >= 95 ? 'ok' : 'warn'}`}>{saturacion}%</div>
