@@ -2,7 +2,8 @@ import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
-import { Aurora } from '../../reactbits';
+import SequenceCarousel from '../../components/shared/SequenceCarousel';
+import { Aurora, FadeContent } from '../../reactbits';
 import brainUrl from '../../assets/models/brain.glb?url';
 import '../pages.css';
 import './simulations.css';
@@ -19,63 +20,155 @@ export default function Cerebro() {
   const flujoCerebral = clamp(12 + (demanda / 100) * 8, 12, 20);
 
   const Apropiacion = (
-    <>
-      <h2>Lineamientos 1 y 2: Componentes y Causalidad en el Cerebro</h2>
-      <p>En el laboratorio anterior viste los componentes de la sangre y cómo el ejercicio desencadena una cadena causal. Ahora profundizamos: <b>¿quién da la orden de iniciar esa cadena?</b> El cerebro es el <b>componente director</b> (L1) que interpreta las señales y dispara los efectos causales (L2) en todo el sistema circulatorio.</p>
-      <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-      </div>
-      <div className="deco-container">
-        <div className="deco-icon deco-pulse">🧠</div>
-        <div className="deco-connector"></div>
-        <div className="deco-icon deco-float">⚡</div>
-        <div className="deco-connector"></div>
-        <div className="deco-icon deco-float-delay">💡</div>
-      </div>
-      <h3>🧠 Lineamiento 1 — Componentes de control</h3>
-      <p>El cerebro controla el sistema circulatorio a través del <b>Sistema Nervioso Autónomo (SNA)</b>, que tiene dos ramas (componentes funcionales):</p>
-      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
-        <li><b>Rama Simpática (↑):</b> se activa durante el <b>ejercicio</b> o el estrés. Envía señales que aceleran el corazón, aumentan la presión arterial y priorizan el flujo sanguíneo hacia los músculos.</li>
-        <li><b>Rama Parasimpática (↓):</b> se activa en <b>reposo</b>. Frena el corazón y reduce la presión, permitiendo la recuperación del sistema.</li>
-      </ul>
-      <h3>⚡ Lineamiento 2 — El cerebro como disparador causal</h3>
-      <p>La causalidad es directa y bidireccional:</p>
-      <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.8 }}>
-        <li><b>Ejercicio (causa)</b> → Músculos demandan O₂ → <b>Cerebro detecta</b> la caída de O₂ → Activa simpático → <b>Corazón acelera</b> (efecto).</li>
-        <li><b>Reposo (causa)</b> → Demanda baja → <b>Cerebro detecta</b> equilibrio → Activa parasimpático → <b>Corazón frena</b> (efecto).</li>
-      </ul>
-      <p>El cerebro no solo recibe información: <b>es a la vez consumidor</b> (necesita el 15-20% del flujo sanguíneo total) <b>y regulador</b> del sistema. Esta doble función lo convierte en un nodo crítico de la red causal.</p>
-    </>
+    <div style={{ padding: '1rem 0' }}>
+      <FadeContent blur={true} duration={1} easing="ease-out" initialOpacity={0}>
+        <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', background: 'linear-gradient(to right, #a78bfa, #f472b6)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
+          Lineamientos 1 y 2: Componentes y Causalidad en el Cerebro
+        </h2>
+        <p style={{ fontSize: '1.1rem', color: '#cbd5e1', lineHeight: '1.8', marginBottom: '2rem' }}>
+          En el laboratorio anterior viste los componentes de la sangre y cómo el ejercicio desencadena una cadena causal. Ahora profundizamos: <strong>¿quién da la orden de iniciar esa cadena?</strong> El cerebro es el <strong>componente director</strong> (L1) que interpreta las señales y dispara los efectos causales (L2) en todo el sistema circulatorio.
+        </p>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1.2} delay={0.2} easing="ease-out" initialOpacity={0}>
+        <div className="video-container" style={{ borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <iframe src="https://www.youtube.com/embed/AjkzLXGZqbg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        </div>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1.2} delay={0.4} easing="ease-out" initialOpacity={0}>
+        <div className="deco-container" style={{ margin: '3rem 0', background: 'linear-gradient(135deg, rgba(30,41,59,0.5), rgba(15,23,42,0.8))' }}>
+          <div className="deco-icon deco-pulse">🧠</div>
+          <div className="deco-connector"></div>
+          <div className="deco-icon deco-float">⚡</div>
+          <div className="deco-connector"></div>
+          <div className="deco-icon deco-float-delay">💡</div>
+        </div>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1.2} delay={0.1} easing="ease-out" initialOpacity={0}>
+        <br /><br />
+        <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '3.5rem', borderLeft: '4px solid #a855f7' }}>
+          <h3 style={{ color: '#c084fc', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(192,132,252,0.6))' }}>🧠</span> 
+            Lineamiento 1 — Componentes de control
+          </h3>
+          <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#e2e8f0', marginBottom: '1rem' }}>
+            El cerebro controla el sistema circulatorio a través del <strong>Sistema Nervioso Autónomo (SNA)</strong>, que tiene dos ramas (componentes funcionales):
+          </p>
+          <ul style={{ paddingLeft: '1.5rem', lineHeight: '2', color: '#cbd5e1', fontSize: '1.05rem' }}>
+            <li><strong style={{ color: '#ef4444' }}>Rama Simpática (↑):</strong> se activa durante el <strong>ejercicio</strong> o el estrés. Envía señales que aceleran el corazón, aumentan la presión arterial y priorizan el flujo sanguíneo hacia los músculos.</li>
+            <li><strong style={{ color: '#3b82f6' }}>Rama Parasimpática (↓):</strong> se activa en <strong>reposo</strong>. Frena el corazón y reduce la presión, permitiendo la recuperación del sistema.</li>
+          </ul>
+        </div>
+      </FadeContent>
+
+      <FadeContent blur={true} duration={1.2} delay={0.1} easing="ease-out" initialOpacity={0}>
+        <br /><br />
+        <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2rem', borderLeft: '4px solid #f59e0b' }}>
+          <h3 style={{ color: '#fbbf24', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.6))' }}>⚡</span> 
+            Lineamiento 2 — El cerebro como disparador causal
+          </h3>
+          <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#e2e8f0', marginBottom: '1rem' }}>
+            La causalidad es directa y bidireccional:
+          </p>
+          
+          <div style={{ display: 'flex', gap: '1.5rem', margin: '1.5rem 0', flexWrap: 'wrap' }}>
+            <div style={{ flex: '1 1 300px' }}>
+              <SequenceCarousel 
+                title="Durante el Ejercicio"
+                color="#ef4444"
+                steps={[
+                  { text: "1. Ejercicio (causa)", icon: "🏃" },
+                  { text: "2. Músculos demandan O₂", icon: "💪" },
+                  { text: "3. Cerebro detecta la caída", icon: "🧠" },
+                  { text: "4. Activa el sistema simpático", icon: "⚡" },
+                  { text: "5. Corazón acelera (efecto)", icon: "❤️‍🔥" }
+                ]}
+              />
+            </div>
+            
+            <div style={{ flex: '1 1 300px' }}>
+              <SequenceCarousel 
+                title="Durante el Reposo"
+                color="#3b82f6"
+                steps={[
+                  { text: "1. Reposo (causa)", icon: "🧘" },
+                  { text: "2. Demanda de O₂ baja", icon: "📉" },
+                  { text: "3. Cerebro detecta equilibrio", icon: "🧠" },
+                  { text: "4. Activa el sistema parasimpático", icon: "🛡️" },
+                  { text: "5. Corazón frena (efecto)", icon: "💙" }
+                ]}
+              />
+            </div>
+          </div>
+
+          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#f8fafc', margin: 0, textAlign: 'center', fontWeight: '500' }}>
+            El cerebro no solo recibe información: <strong>es a la vez consumidor</strong> (necesita el 15-20% del flujo sanguíneo total) <strong>y regulador</strong> del sistema. Esta doble función lo convierte en un nodo crítico de la red causal.
+          </p>
+        </div>
+      </FadeContent>
+    </div>
   );
 
   const Actividad = (
-    <>
-      <h2>Actividad: El Cerebro como Centro de Control Causal</h2>
-      <div className="activity-steps">
-        <div className="activity-step">
-          <div className="step-number">1</div>
-          <div className="step-content">
-            <h4>Componentes en reposo (L1)</h4>
-            <p>Ve a la pestaña <b>Simulador</b>. Con la demanda al <b>50%</b> (equilibrio), observa el componente activo del SNA en la métrica "Dominio del SNA". Registra la FC y el Flujo sanguíneo cerebral (%). Estos son los valores base donde <b>ningún componente</b> domina sobre otro.</p>
+    <div className="actividad-immersive-container">
+      <h2 className="text-neon-blue mb-3">Actividad Práctica: El Cerebro como Centro de Control Causal</h2>
+      <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+        Interactúa con el simulador variando la demanda y observa cómo el cerebro responde. 
+        <strong style={{ color: '#60a5fa' }}> Por favor, agregue descripciones escritas, datos cuantitativos o palabras clave relacionadas con la temática de cada pregunta en su respectivo cajón de texto.</strong>
+      </p>
+
+      <div className="activity-steps-immersive" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+        
+        <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="step-number" style={{ background: '#a855f7', boxShadow: '0 0 15px rgba(168,85,247,0.5)' }}>1</div>
+            <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#c084fc' }}>Componentes en reposo (L1)</h4>
           </div>
+          <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+            Ve a la pestaña <strong>Simulador</strong>. Con la demanda al <strong>50%</strong> (equilibrio), observa el componente activo del SNA en la métrica "Dominio del SNA". Registra la Frecuencia Cardíaca y el Flujo sanguíneo cerebral (%). Estos son los valores base donde <strong>ningún componente</strong> domina sobre otro.
+          </p>
+          <EvidenciaTextarea 
+            titulo="Cerebro - Actividad 1: Reposo" 
+            placeholder="Agregue aquí los valores basales registrados..."
+          />
         </div>
-        <div className="activity-step">
-          <div className="step-number">2</div>
-          <div className="step-content">
-            <h4>Simula el ejercicio: cadena causal simpática (L2)</h4>
-            <p>Sube la demanda al <b>100%</b> (simula ejercicio intenso). ¿Qué <b>componente del SNA</b> toma el control? Registra la nueva FC y el flujo cerebral. La <b>causa</b> (ejercicio) hizo que el cerebro ordene al corazón latir más rápido (efecto). Además, observa que el cerebro se auto-asigna más sangre, porque él también necesita más O₂ para procesar tanta información.</p>
+
+        <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(239,68,68,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="step-number" style={{ background: '#ef4444', boxShadow: '0 0 15px rgba(239,68,68,0.5)' }}>2</div>
+            <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#f87171' }}>Simula el ejercicio: cadena causal simpática (L2)</h4>
           </div>
+          <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+            Sube la demanda al <strong>100%</strong> (simula ejercicio intenso). ¿Qué <strong>componente del SNA</strong> toma el control? Registra la nueva FC y el flujo cerebral. Explica cómo la <strong>causa</strong> (ejercicio) hizo que el cerebro ordene al corazón latir más rápido (efecto).
+          </p>
+          <EvidenciaTextarea 
+            titulo="Cerebro - Actividad 2: Ejercicio Intenso" 
+            placeholder="Describa el dominio del SNA y los valores registrados..."
+          />
         </div>
-        <div className="activity-step">
-          <div className="step-number">3</div>
-          <div className="step-content">
-            <h4>Causalidad parasimpática: el freno vital (L2)</h4>
-            <p>Baja la demanda al <b>0%</b> (reposo total). ¿Qué componente entra a dominar? Explica por qué este mecanismo causal de "frenado" es <b>vital para la supervivencia</b>: sin él, el corazón se desgastaría latiendo constantemente a máxima velocidad. Registra cómo el sistema busca recuperarse después del ejercicio.</p>
+
+        <div className="glass-panel" style={{ padding: '2rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="step-number" style={{ background: '#3b82f6', boxShadow: '0 0 15px rgba(59,130,246,0.5)' }}>3</div>
+            <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#60a5fa' }}>Causalidad parasimpática: el freno vital (L2)</h4>
           </div>
+          <p style={{ lineHeight: '1.7', marginBottom: '1.5rem', color: '#e2e8f0' }}>
+            Baja la demanda al <strong>0%</strong> (reposo total). ¿Qué componente entra a dominar? Explica por qué este mecanismo causal de "frenado" es <strong>vital para la supervivencia</strong> y qué pasaría sistémicamente si no existiera.
+          </p>
+          <EvidenciaTextarea 
+            titulo="Cerebro - Actividad 3: Freno Vital" 
+            placeholder="Describa el efecto del freno parasimpático en el sistema..."
+          />
         </div>
+
       </div>
-      <EvidenciaTextarea titulo="Evidencia: Laboratorio del Cerebro" />
-    </>
+    </div>
   );
 
   return (

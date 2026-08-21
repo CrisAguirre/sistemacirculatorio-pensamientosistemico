@@ -2,6 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
+import SequenceCarousel from '../../components/shared/SequenceCarousel';
 import { Aurora, FadeContent } from '../../reactbits';
 import circulatoryUrl from '../../assets/models/circulatory_system.glb?url';
 import '../pages.css';
@@ -44,7 +45,7 @@ export default function Sangre() {
 
   const Apropiacion = (
     <div style={{ padding: '1rem 0' }}>
-      <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+      <FadeContent blur={true} duration={1} easing="ease-out" initialOpacity={0}>
         <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', background: 'linear-gradient(to right, #60a5fa, #c084fc)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
           Lineamientos 1 y 2: Componentes y Causalidad en la Sangre
         </h2>
@@ -53,13 +54,13 @@ export default function Sangre() {
         </p>
       </FadeContent>
 
-      <FadeContent blur={true} duration={1200} easing="ease-out" initialOpacity={0}>
+      <FadeContent blur={true} duration={1.2} delay={0.2} easing="ease-out" initialOpacity={0}>
         <div className="video-container" style={{ borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
           <iframe src="https://www.youtube.com/embed/TmOHclF31ww" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </div>
       </FadeContent>
 
-      <FadeContent blur={true} duration={1400} easing="ease-out" initialOpacity={0}>
+      <FadeContent blur={true} duration={1.2} delay={0.4} easing="ease-out" initialOpacity={0}>
         <div className="deco-container" style={{ margin: '3rem 0', background: 'linear-gradient(135deg, rgba(30,41,59,0.5), rgba(15,23,42,0.8))' }}>
           <div className="deco-icon deco-float">🩸</div>
           <div className="deco-connector"></div>
@@ -69,7 +70,8 @@ export default function Sangre() {
         </div>
       </FadeContent>
 
-      <FadeContent blur={true} duration={1600} easing="ease-out" initialOpacity={0}>
+      <FadeContent blur={true} duration={1.2} delay={0.1} easing="ease-out" initialOpacity={0}>
+        <br /><br />
         <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '3.5rem', borderLeft: '4px solid #3b82f6' }}>
           <h3 style={{ color: '#60a5fa', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(96,165,250,0.6))' }}>🔬</span> 
@@ -87,7 +89,8 @@ export default function Sangre() {
         </div>
       </FadeContent>
 
-      <FadeContent blur={true} duration={1800} easing="ease-out" initialOpacity={0}>
+      <FadeContent blur={true} duration={1.2} delay={0.1} easing="ease-out" initialOpacity={0}>
+        <br /><br />
         <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2rem', borderLeft: '4px solid #f59e0b' }}>
           <h3 style={{ color: '#fbbf24', fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.6))' }}>⚡</span> 
@@ -97,22 +100,20 @@ export default function Sangre() {
             Cuando haces <strong>ejercicio físico</strong> (la <em>causa</em>), los músculos demandan más oxígeno. Esto desencadena una <strong>cadena causal</strong> en el sistema:
           </p>
           
-          <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', margin: '1.5rem 0', border: '1px solid rgba(255,255,255,0.05)', color: '#94a3b8' }}>
-            <p style={{ margin: 0, lineHeight: '1.8', textAlign: 'center', fontSize: '1.1rem' }}>
-              El cerebro detecta la demanda <br/>
-              <span style={{ color: '#f59e0b' }}>↓</span><br/>
-              envía señales simpáticas al corazón <br/>
-              <span style={{ color: '#f59e0b' }}>↓</span><br/>
-              el corazón late más rápido <br/>
-              <span style={{ color: '#f59e0b' }}>↓</span><br/>
-              la sangre circula a mayor velocidad <br/>
-              <span style={{ color: '#f59e0b' }}>↓</span><br/>
-              los glóbulos rojos entregan más O₂ a los músculos <br/>
-              <span style={{ color: '#f59e0b' }}>↓</span><br/>
-              los músculos producen más CO₂ <br/>
-              <span style={{ color: '#f59e0b' }}>↓</span><br/>
-              la sangre lo recoge y lo lleva a los pulmones para eliminarlo.
-            </p>
+          <div style={{ margin: '1.5rem 0' }}>
+            <SequenceCarousel 
+              title="Cadena Causal del Ejercicio"
+              color="#f59e0b"
+              steps={[
+                { text: "1. El cerebro detecta la demanda de los músculos", icon: "🧠" },
+                { text: "2. Envía señales simpáticas al corazón", icon: "⚡" },
+                { text: "3. El corazón late más rápido", icon: "❤️" },
+                { text: "4. La sangre circula a mayor velocidad", icon: "🩸" },
+                { text: "5. Los glóbulos rojos entregan más O₂ a los músculos", icon: "💪" },
+                { text: "6. Los músculos producen más CO₂", icon: "💨" },
+                { text: "7. La sangre lo recoge y lo lleva a los pulmones", icon: "🫁" }
+              ]}
+            />
           </div>
 
           <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#f8fafc', margin: 0, textAlign: 'center', fontWeight: '500' }}>
