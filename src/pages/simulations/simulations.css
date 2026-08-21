@@ -1,4 +1,4 @@
-/* ===== Estilos genéricos para simulaciones (Sangre, Pulmones, Cerebro, Sistema) ===== */
+﻿/* ===== Estilos genéricos para simulaciones (Sangre, Pulmones, Cerebro, Sistema) ===== */
 
 .sim-canvas {
   position: relative;
@@ -440,7 +440,7 @@
 }
 
 
-/* ===== DECORACIONES ANIMADAS (Apropiaci�n) ===== */
+/* ===== DECORACIONES ANIMADAS (Apropiación) ===== */
 .deco-container {
   display: flex;
   justify-content: center;

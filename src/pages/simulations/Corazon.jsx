@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EvidenciaTextarea from '../../components/shared/EvidenciaTextarea';
+import CustomVideoPlayer from '../../components/shared/CustomVideoPlayer';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer, Legend } from 'recharts';
 import SimulationWrapper from '../../components/shared/SimulationWrapper';
 import ECGMonitor from '../../components/heart/ECGMonitor';
@@ -106,9 +107,7 @@ export default function Corazon() {
     <>
       <h2>Lineamientos 3 y 4: Representación y Escalas en el Corazón</h2>
       <p>El corazón es el motor del sistema circulatorio. En este laboratorio aplicamos los <b>Lineamientos 3 y 4</b> del pensamiento sistémico: <b>representar</b> el objeto de estudio mediante gráficas y modelos, y cuantificar sus <b>escalas, proporciones y cantidades</b> para evidenciar enfermedades cardíacas.</p>
-      <div className="video-container">
-        <iframe src="https://www.youtube.com/embed/zl-ae3xthVE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-      </div>
+      <CustomVideoPlayer src="/assets/videos/corazon-anatomia.mp4" />
       <div className="deco-container">
         <div className="deco-icon deco-pulse">🫀</div>
         <div className="deco-connector" style={{ background: 'linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.5), transparent)' }}></div>
