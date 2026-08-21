@@ -13,6 +13,33 @@ export default function LaboratorioHub() {
 
       <section className="sim-block">
         <div className="block-header">
+          <span className="block-icon">📚</span>
+          <div>
+            <h2 className="block-title">Módulo Introductorio</h2>
+            <p className="block-desc">Simulaciones introductorias — 0</p>
+          </div>
+        </div>
+
+        <div className="sim-grid">
+          <SimCard
+            simNumber={0}
+            title="Laboratorio de Introducción"
+            description="Presentación de la secuencia didáctica y pensamiento sistémico."
+            icon="🎬"
+            routePath="/laboratorio/introduccion"
+          />
+          <SimCard
+            simNumber={0.5}
+            title="Apropiación"
+            description="Espacio de construcción y reflexión grupal."
+            icon="🛠️"
+            routePath="/laboratorio/apropiacion"
+          />
+        </div>
+      </section>
+
+      <section className="sim-block">
+        <div className="block-header">
           <span className="block-icon">🧩</span>
           <div>
             <h2 className="block-title">Componentes del Sistema</h2>
