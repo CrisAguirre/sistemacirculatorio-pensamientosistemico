@@ -25,7 +25,8 @@ const VIDEOS_SIMULACIONES = [
     id: 'corazon',
     title: 'El Corazón',
     desc: 'Estructura y funcionamiento de la bomba central del sistema.',
-    url: 'https://www.youtube.com/embed/zl-ae3xthVE'
+    url: '/assets/videos/corazon-anatomia.mp4',
+    local: true
   },
   {
     id: 'pulmones',
@@ -87,13 +88,24 @@ export default function Recursos() {
               <FadeContent key={v.id} delay={i * 0.15} duration={0.6} direction="up">
                 <div className="glass-card video-card" style={{ padding: '0', overflow: 'hidden' }}>
                   <div className="video-wrapper" style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
-                    <iframe 
-                      src={v.url} 
-                      title={v.title}
-                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                      allowFullScreen
-                    ></iframe>
+                    {v.local ? (
+                      <video
+                        src={v.url}
+                        title={v.title}
+                        controls
+                        preload="metadata"
+                        playsInline
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0, background: '#000' }}
+                      />
+                    ) : (
+                      <iframe
+                        src={v.url}
+                        title={v.title}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    )}
                   </div>
                   <div style={{ padding: '1.5rem' }}>
                     <h3 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-primary)' }}>{v.title}</h3>
